@@ -1,16 +1,13 @@
-/* 全局设定：暖调小清新 */
+/* 全局设定：暖调呼吸背景 */
 body {
     margin: 0;
     padding: 0;
-    /* 使用更精致的无衬线体，Mac上会非常漂亮 */
     font-family: "Optima", "Candara", "Noto Sans SC", sans-serif;
-    /* 调色盘：奶油白、淡蜜桃、暖米、浅粉 */
     background: linear-gradient(-45deg, #fffaf2, #fff5e6, #fdf2f4, #fafaf0);
     background-size: 400% 400%;
-    animation: gradientBG 18s ease infinite; /* 极慢的速度，更有呼吸感 */
-    color: #4a4a4a; /* 柔和的深灰 */
-    height: 100vh;
-    overflow: hidden;
+    animation: gradientBG 18s ease infinite;
+    color: #4a4a4a;
+    min-height: 100vh;
 }
 
 @keyframes gradientBG {
@@ -19,36 +16,79 @@ body {
     100% { background-position: 0% 50%; }
 }
 
-/* 首页容器 */
+/* 通用顶部导航栏 */
+.global-nav {
+    position: fixed;
+    top: 0; left: 0; width: 100%;
+    padding: 25px 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(15px);
+    z-index: 9999; /* 确保在最上层 */
+    box-sizing: border-box;
+    border-bottom: 0.5px solid rgba(188, 170, 164, 0.1);
+}
+
+.nav-logo a {
+    text-decoration: none;
+    color: #333;
+    font-size: 1.1rem;
+    letter-spacing: 0.3em;
+    font-weight: 200;
+}
+
+.nav-links {
+    display: flex;
+    gap: 40px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #666;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    transition: 0.3s;
+}
+
+.nav-links a:hover { color: #e5989b; }
+
+/* 首页特有布局 */
 .hero-wrapper {
     height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center; /* 居中 */
     align-items: center;
-    padding: 10vh 0;
-    box-sizing: border-box;
+    padding-top: 80px; /* 给导航留空 */
 }
 
 .main-logo {
-    font-size: 4.5rem;
-    font-weight: 200;
-    letter-spacing: 0.35em; /* 极宽的间距更有设计感 */
+    font-size: 5rem;
+    font-weight: 100;
+    letter-spacing: 0.4em;
     text-transform: uppercase;
     margin: 0;
-    color: #333;
 }
 
 .center-statement {
-    letter-spacing: 0.6em;
+    margin-top: 1rem;
+    letter-spacing: 0.7em;
     font-size: 0.75rem;
-    color: #bcaaa4; /* 温暖的浅咖色 */
+    color: #bcaaa4;
 }
 
-/* 底部组团导航优化 */
+/* 首页底部大导航 */
 .footer-nav {
+    position: absolute;
+    bottom: 5vh;
     width: 85%;
-    max-width: 1000px;
+    max-width: 1100px;
 }
 
 .nav-groups {
@@ -56,7 +96,7 @@ body {
     justify-content: space-between;
     list-style: none;
     padding: 30px 0;
-    border-top: 0.5px solid rgba(188, 170, 164, 0.3); /* 浅色分割线 */
+    border-top: 0.5px solid rgba(188, 170, 164, 0.4);
 }
 
 .group-label {
@@ -64,7 +104,7 @@ body {
     font-size: 0.6rem;
     color: #bcaaa4;
     margin-bottom: 15px;
-    letter-spacing: 0.2em;
+    letter-spacing: 0.25em;
     text-transform: uppercase;
 }
 
@@ -75,92 +115,16 @@ body {
     font-size: 0.85rem;
     font-weight: 300;
     margin-bottom: 8px;
-    transition: all 0.4s ease;
 }
 
-.sub-menu a:hover {
-    color: #e5989b; /* 悬停变为柔和粉 */
-    transform: translateX(3px); /* 轻轻右移 */
-}
-
-/* 弹窗升级：毛玻璃与柔和阴影 */
+/* 弹窗样式 */
 .overlay {
     display: none;
     position: fixed;
     top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(255, 255, 255, 0.6);
-    backdrop-filter: blur(15px);
-    z-index: 999;
+    background: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(20px);
+    z-index: 10000;
 }
-
 .overlay.active { display: flex; justify-content: center; align-items: center; }
-
-.overlay-content {
-    background: white;
-    padding: 3.5rem;
-    width: 80%;
-    max-width: 450px;
-    box-shadow: 0 15px 40px rgba(188, 170, 164, 0.1);
-    border-radius: 2px;
-}
-
-.about-text h2 { font-weight: 300; letter-spacing: 0.1em; }
-.about-text p { line-height: 1.8; color: #666; font-size: 0.9rem; }
-
-/* 全局顶部导航栏 */
-.global-nav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    padding: 20px 50px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: rgba(255, 255, 255, 0.3); /* 半透明 */
-    backdrop-filter: blur(10px); /* 毛玻璃效果 */
-    z-index: 1000;
-    box-sizing: border-box;
-    border-bottom: 0.5px solid rgba(188, 170, 164, 0.1);
-}
-
-.nav-logo a {
-    text-decoration: none;
-    color: #333;
-    font-size: 1.2rem;
-    letter-spacing: 0.2em;
-    font-weight: 200;
-}
-
-.nav-links {
-    display: flex;
-    gap: 30px;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-.nav-links a {
-    text-decoration: none;
-    color: #666;
-    font-size: 0.75rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    transition: color 0.3s;
-}
-
-.nav-links a:hover {
-    color: #e5989b;
-}
-
-/* 适配移动端 */
-@media (max-width: 600px) {
-    .global-nav { padding: 15px 20px; }
-    .nav-links { gap: 15px; }
-    .nav-links a { font-size: 0.65rem; }
-}
-
-/* 给内容区域留出顶部空间，防止被导航遮挡 */
-.sub-page-content {
-    padding-top: 120px !important;
-}
+.overlay-content { background: white; padding: 4rem; max-width: 450px; }
