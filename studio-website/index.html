@@ -1,169 +1,267 @@
-/* 1. 变量定义 */
-:root {
-    --periwinkle: #53589A;   
-    --fluo-yellow: #E5EB15;  
-    --white: #FFFFFF;
-    --black: #000000;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EASIS | ARCHIVE</title>
+    <style>
+        :root {
+            --periwinkle: #53589A;   
+            --fluo-yellow: #E5EB15;  
+            --white: #FFFFFF;
+            --black: #000000;
+        }
 
-/* 2. 全局呼吸：文字与背景同步 8s 呼吸，防止 JS 强制变色导致的闪烁 */
-body {
-    background-color: var(--white);
-    color: var(--black);
-    margin: 0;
-    font-family: "Space Grotesque", "Inter", "Helvetica Neue", sans-serif;
-    /* 核心：只让 background 和 color 参与 8s 呼吸 */
-    transition: background-color 8s ease-in-out, color 8s ease-in-out;
-    -webkit-font-smoothing: antialiased;
-    overflow: hidden;
-}
+        /* 全局平滑呼吸，防止 JS 导致的跳闪 */
+        body {
+            background-color: var(--white);
+            color: var(--black);
+            margin: 0;
+            font-family: "Space Grotesque", "Inter", sans-serif;
+            /* 核心：文字颜色与背景同步 8s 呼吸 */
+            transition: background-color 8s ease-in-out, color 8s ease-in-out;
+            -webkit-font-smoothing: antialiased;
+            overflow: hidden;
+        }
 
-/* 紫色模式下的文字呼吸状态 */
-body.is-purple {
-    color: var(--white);
-}
+        /* 紫色呼吸状态 */
+        body.is-purple {
+            background-color: var(--periwinkle);
+            color: var(--white);
+        }
 
-.lang-zh.hidden, .lang-en.hidden { display: none !important; }
+        .lang-zh.hidden, .lang-en.hidden { display: none !important; }
 
-/* --- 3. 顶部导航与 Logo --- */
-.global-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 40px 80px;
-    position: fixed;
-    width: 100%;
-    top: 0;
-    z-index: 1001;
-    box-sizing: border-box;
-    border-bottom: 2px solid currentColor;
-    transition: border-color 8s ease-in-out;
-}
+        /* --- 导航区 --- */
+        .global-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 40px 80px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1001;
+            box-sizing: border-box;
+            border-bottom: 2px solid currentColor;
+            transition: border-color 8s ease-in-out;
+        }
 
-.nav-logo a {
-    font-size: 2.2rem;
-    font-weight: 900;
-    text-decoration: none;
-    color: inherit;
-    transition: color 0.3s ease, text-shadow 0.3s ease;
-    display: inline-block;
-}
+        .nav-logo a {
+            font-size: 2.2rem;
+            font-weight: 900;
+            text-decoration: none;
+            color: inherit;
+            transition: color 0.3s ease, text-shadow 0.3s ease;
+            display: inline-block;
+        }
+        .nav-logo a:hover {
+            color: var(--fluo-yellow) !important;
+            text-shadow: 3px 3px 0 var(--black);
+        }
 
-.nav-logo a:hover {
-    color: var(--fluo-yellow) !important;
-    text-shadow: 3px 3px 0 var(--black);
-}
+        .nav-links { display: flex; list-style: none; gap: 40px; margin: 0; padding: 0; }
+        .nav-links > li > a { 
+            text-decoration: none; color: inherit; font-size: 1.25rem; font-weight: 800; 
+            text-transform: uppercase; padding: 8px 18px; border: 2px solid currentColor;
+            display: inline-block; transition: 0.3s;
+        }
+        .nav-links > li > a:hover { 
+            background: var(--fluo-yellow); color: var(--black) !important; border-color: var(--black); 
+        }
 
-.nav-links { display: flex; list-style: none; gap: 40px; margin: 0; padding: 0; }
-.nav-links > li > a { 
-    text-decoration: none; color: inherit; font-size: 1.25rem; font-weight: 800; 
-    text-transform: uppercase; padding: 8px 18px; border: 2px solid currentColor;
-    display: inline-block; transition: 0.3s;
-}
+        .dropdown-menu {
+            position: absolute; top: 100%; left: 0; background: var(--black); min-width: 220px;
+            list-style: none; padding: 10px 0; margin-top: 10px; opacity: 0; visibility: hidden;
+            border: 1px solid var(--fluo-yellow); transition: 0.3s;
+        }
+        .dropdown:hover .dropdown-menu { opacity: 1; visibility: visible; }
+        .dropdown-menu li a { color: var(--white) !important; padding: 12px 20px; display: block; text-decoration: none; }
 
-.nav-links > li > a:hover { 
-    background: var(--fluo-yellow); 
-    color: var(--black) !important; 
-    border-color: var(--black); 
-}
+        /* --- 中间大 EASIS --- */
+        .hero-wrapper {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 100px;
+        }
 
-/* 下拉菜单 */
-.dropdown-menu {
-    position: absolute; top: 100%; left: 0; background: var(--black); min-width: 220px;
-    list-style: none; padding: 10px 0; margin-top: 10px; opacity: 0; visibility: hidden;
-    border: 1px solid var(--fluo-yellow); transition: 0.3s;
-}
-.dropdown:hover .dropdown-menu { opacity: 1; visibility: visible; }
-.dropdown-menu li a { color: var(--white) !important; padding: 12px 20px; display: block; text-decoration: none; }
+        .main-logo {
+            font-size: 16vw;
+            font-weight: 900;
+            margin: 0;
+            letter-spacing: -0.06em;
+            line-height: 0.8;
+            color: inherit; 
+            /* 颜色随呼吸(8s)，镂空秒开(0.3s) */
+            transition: color 8s ease-in-out, -webkit-text-stroke 0.3s ease;
+            cursor: default;
+        }
+        .main-logo:hover {
+            color: transparent !important;
+            -webkit-text-stroke: 4px var(--black);
+        }
 
-/* --- 4. 中间大 EASIS (防闪烁+厚镂空) --- */
-.hero-wrapper {
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 0 100px;
-}
+        /* --- 系统 / 媒介 / 档案 专项显影 --- */
+        .center-statement {
+            margin-top: 40px;
+            padding: 18px 45px;
+            background-color: currentColor; /* 方块颜色随 body 文字同步呼吸 */
+            display: inline-block;
+            align-self: flex-start;
+            transition: background-color 8s ease-in-out;
+        }
 
-.main-logo {
-    font-size: 16vw;
-    font-weight: 900;
-    margin: 0;
-    letter-spacing: -0.06em;
-    line-height: 0.8;
-    color: inherit; 
-    /* 颜色呼吸 8s，镂空描边瞬间变 0.3s */
-    transition: color 8s ease-in-out, -webkit-text-stroke 0.3s ease;
-    cursor: default;
-}
+        .center-statement span {
+            font-weight: 900 !important; 
+            letter-spacing: 0.5em; 
+            font-size: 1.6rem; 
+            color: var(--white); /* 黑方块配白字 */
+            transition: color 8s ease-in-out;
+            display: inline-block;
+        }
 
-.main-logo:hover {
-    color: transparent !important;
-    -webkit-text-stroke: 4px var(--black); /* 黑色实体镂空 */
-}
+        /* 核心修复：背景紫->方块变白->文字变紫，防止看不见 */
+        body.is-purple .center-statement span {
+            color: var(--periwinkle) !important;
+        }
 
-/* --- 5. 系统/媒介/档案 (反向显色修正) --- */
-.center-statement {
-    margin-top: 40px;
-    padding: 18px 45px;
-    /* 背景色随 body 文字色变：白底时黑方块，紫底时白方块 */
-    background-color: currentColor; 
-    display: inline-block;
-    align-self: flex-start;
-    transition: background-color 8s ease-in-out;
-}
+        /* --- 底部导航 --- */
+        .footer-nav {
+            position: absolute; bottom: 60px; left: 100px; right: 100px;
+        }
+        .nav-groups {
+            display: grid; grid-template-columns: repeat(4, 1fr);
+            border-top: 4px solid currentColor; padding-top: 30px; list-style: none; margin: 0;
+            transition: border-color 8s ease-in-out;
+        }
 
-.center-statement span {
-    font-weight: 900 !important; 
-    letter-spacing: 0.5em; 
-    font-size: 1.6rem; 
-    margin: 0;
-    text-transform: uppercase;
-    color: var(--white); /* 初始黑方块配白字 */
-    transition: color 8s ease-in-out;
-    display: inline-block;
-}
+        .group-label {
+            font-size: 1.1rem; font-weight: 900; background: var(--fluo-yellow); 
+            color: var(--black) !important; padding: 6px 14px; display: inline-block;
+            margin-bottom: 25px; border: 2.5px solid var(--black);
+        }
 
-/* 核心修复：当 body 变紫，方块变白，强制让字变紫色防止消失 */
-body.is-purple .center-statement span {
-    color: var(--periwinkle) !important;
-}
+        .sub-menu a {
+            display: block; text-decoration: none; color: inherit; margin-bottom: 15px;
+            font-size: 1.15rem; font-weight: 700; position: relative; width: fit-content;
+            transition: color 8s ease-in-out;
+        }
+        .sub-menu a:hover { color: inherit !important; }
+        .sub-menu a::after {
+            content: ''; position: absolute; width: 0; height: 5px; 
+            bottom: -6px; left: 0; background-color: var(--fluo-yellow); transition: width 0.3s ease;
+        }
+        .sub-menu a:hover::after { width: 100%; }
 
-/* --- 6. 底部导航 --- */
-.footer-nav {
-    position: absolute; bottom: 60px; left: 100px; right: 100px;
-}
+        .lang-switch { margin-left: 50px; border: 2px solid currentColor; padding: 2px; transition: border-color 8s; }
+        .lang-switch span { padding: 5px 15px; cursor: pointer; font-weight: 900; }
+        .lang-switch .active { background: var(--fluo-yellow); color: var(--black); }
+    </style>
+</head>
+<body id="dynamic-body">
 
-.nav-groups {
-    display: grid; grid-template-columns: repeat(4, 1fr);
-    border-top: 4px solid currentColor; padding-top: 30px; list-style: none; margin: 0;
-    transition: border-color 8s ease-in-out;
-}
+    <nav class="global-nav">
+        <div class="nav-logo"><a href="index.html">EASIS</a></div>
+        <div style="display: flex; align-items: center;">
+            <ul class="nav-links">
+                <li class="dropdown">
+                    <a href="javascript:void(0)"><span class="lang-en">Researcher</span><span class="lang-zh hidden">研究者</span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#"><span class="lang-en">Economics</span><span class="lang-zh hidden">经济学研究</span></a></li>
+                        <li><a href="#"><span class="lang-en">Innovation</span><span class="lang-zh hidden">创新研究</span></a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="javascript:void(0)"><span class="lang-en">Observer</span><span class="lang-zh hidden">观察者</span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#"><span class="lang-en">Visual Archive</span><span class="lang-zh hidden">摄影辑录</span></a></li>
+                        <li><a href="#"><span class="lang-en">Curation Walk</span><span class="lang-zh hidden">看展日记</span></a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="javascript:void(0)"><span class="lang-en">Recorder</span><span class="lang-zh hidden">记录者</span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#"><span class="lang-en">Theatre & Scene</span><span class="lang-zh hidden">观演日记</span></a></li>
+                        <li><a href="#"><span class="lang-en">Readings & Dialectics</span><span class="lang-zh hidden">研读思辨</span></a></li>
+                    </ul>
+                </li>
+                <li><a href="about.html" style="border: 2px solid currentColor; padding: 8px 15px;"><span class="lang-en">Me</span><span class="lang-zh hidden">个人</span></a></li>
+            </ul>
+            <div class="lang-switch">
+                <span id="btn-en" onclick="setLanguage('en')" class="active">EN</span>
+                <span id="btn-zh" onclick="setLanguage('zh')">ZH</span>
+            </div>
+        </div>
+    </nav>
 
-.group-label {
-    font-size: 1.1rem; font-weight: 900; background: var(--fluo-yellow); 
-    color: var(--black) !important; padding: 6px 14px; display: inline-block;
-    margin-bottom: 25px; border: 2.5px solid var(--black);
-}
+    <main class="hero-wrapper">
+        <h1 class="main-logo">EASIS</h1>
+        <div class="center-statement">
+            <p>
+                <span class="lang-en">SYSTEMS / MEDIUM / ARCHIVE</span>
+                <span class="lang-zh hidden">系统 / 媒介 / 档案</span>
+            </p>
+        </div>
 
-.sub-menu a {
-    display: block; text-decoration: none; color: inherit; margin-bottom: 15px;
-    font-size: 1.15rem; font-weight: 700; position: relative; width: fit-content;
-    transition: color 8s ease-in-out;
-}
+        <nav class="footer-nav">
+            <ul class="nav-groups">
+                <li>
+                    <span class="group-label"><span class="lang-en">Personal</span><span class="lang-zh hidden">个人</span></span>
+                    <div class="sub-menu">
+                        <a href="#"><span class="lang-en">Profile</span><span class="lang-zh hidden">关于我</span></a>
+                        <a href="#"><span class="lang-en">Contact</span><span class="lang-zh hidden">联系方式</span></a>
+                    </div>
+                </li>
+                <li>
+                    <span class="group-label"><span class="lang-en">Researcher</span><span class="lang-zh hidden">研究者</span></span>
+                    <div class="sub-menu">
+                        <a href="#"><span class="lang-en">Economics</span><span class="lang-zh hidden">经济学研究</span></a>
+                        <a href="#"><span class="lang-en">Innovation</span><span class="lang-zh hidden">创新研究</span></a>
+                    </div>
+                </li>
+                <li>
+                    <span class="group-label"><span class="lang-en">Observer</span><span class="lang-zh hidden">观察者</span></span>
+                    <div class="sub-menu">
+                        <a href="#"><span class="lang-en">Visual Archive</span><span class="lang-zh hidden">摄影辑录</span></a>
+                        <a href="#"><span class="lang-en">Curation Walk</span><span class="lang-zh hidden">看展日记</span></a>
+                    </div>
+                </li>
+                <li>
+                    <span class="group-label"><span class="lang-en">Recorder</span><span class="lang-zh hidden">记录者</span></span>
+                    <div class="sub-menu">
+                        <a href="#"><span class="lang-en">Theatre & Scene</span><span class="lang-zh hidden">观演日记</span></a>
+                        <a href="#"><span class="lang-en">Readings & Dialectics</span><span class="lang-zh hidden">研读思辨</span></a>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </main>
 
-.sub-menu a:hover { color: inherit !important; }
-.sub-menu a::after {
-    content: ''; position: absolute; width: 0; height: 5px; 
-    bottom: -6px; left: 0; background-color: var(--fluo-yellow); 
-    transition: width 0.3s ease;
-}
-.sub-menu a:hover::after { width: 100%; }
+    <script>
+        let isPeriwinkle = false;
+        const body = document.getElementById('dynamic-body');
 
-/* 语言切换 */
-.lang-switch { 
-    margin-left: 50px; border: 2px solid currentColor; padding: 2px; 
-    transition: border-color 8s ease-in-out;
-}
-.lang-switch span { padding: 5px 15px; cursor: pointer; font-weight: 900; }
-.lang-switch .active { background: var(--fluo-yellow); color: var(--black); }
+        function breatheColor() {
+            if (!isPeriwinkle) {
+                body.style.backgroundColor = "#53589A";
+                body.classList.add('is-purple'); 
+            } else {
+                body.style.backgroundColor = "#FFFFFF";
+                body.classList.remove('is-purple');
+            }
+            isPeriwinkle = !isPeriwinkle;
+        }
+        
+        setInterval(breatheColor, 8000);
+
+        function setLanguage(lang) {
+            document.querySelectorAll('.lang-en').forEach(el => lang === 'zh' ? el.classList.add('hidden') : el.classList.remove('hidden'));
+            document.querySelectorAll('.lang-zh').forEach(el => lang === 'zh' ? el.classList.remove('hidden') : el.classList.add('hidden'));
+            document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+            document.getElementById('btn-zh').classList.toggle('active', lang === 'zh');
+        }
+    </script>
+</body>
+</html>
