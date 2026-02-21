@@ -1,123 +1,151 @@
-/* 全局设定：暖调呼吸背景 */
-body {
-    margin: 0;
-    padding: 0;
-    font-family: "Optima", "Candara", "Noto Sans SC", sans-serif;
-    background: linear-gradient(-45deg, #fffaf2, #fff5e6, #fdf2f4, #fafaf0);
-    background-size: 400% 400%;
-    animation: gradientBG 18s ease infinite;
-    color: #4a4a4a;
-    min-height: 100vh;
-}
+<style>
+    :root {
+        --periwinkle: #53589A;   
+        --fluo-yellow: #E5EB15;  
+        --white: #FFFFFF;
+        --black: #000000;
+    }
 
-@keyframes gradientBG {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
+    /* 1. 基础呼吸逻辑：文字颜色 color 必须和 background 一样是 8s，且不能有 all */
+    body {
+        background-color: var(--white);
+        color: var(--black);
+        margin: 0;
+        font-family: "Space Grotesque", sans-serif;
+        transition: background-color 8s ease-in-out, color 8s ease-in-out;
+        -webkit-font-smoothing: antialiased;
+        overflow: hidden;
+    }
 
-/* 全局顶部导航 */
-.global-nav {
-    position: fixed;
-    top: 0; left: 0; width: 100%;
-    padding: 25px 50px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(15px);
-    z-index: 9999;
-    box-sizing: border-box;
-    border-bottom: 0.5px solid rgba(188, 170, 164, 0.1);
-}
+    .lang-zh.hidden, .lang-en.hidden { display: none !important; }
 
-.nav-logo a {
-    text-decoration: none;
-    color: #333;
-    font-size: 1.1rem;
-    letter-spacing: 0.3em;
-    font-weight: 200;
-}
+    /* --- 2. 顶部导航与左上角 Logo --- */
+    .global-nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 40px 80px;
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 1001;
+        box-sizing: border-box;
+        border-bottom: 2px solid currentColor;
+    }
 
-.nav-links {
-    display: flex;
-    gap: 40px;
-    list-style: none;
-    margin: 0; padding: 0;
-}
+    .nav-logo a {
+        font-size: 2.2rem;
+        font-weight: 900;
+        text-decoration: none;
+        color: inherit;
+        /* 这里的过渡只要 0.3s，因为 Logo 是瞬间交互 */
+        transition: color 0.3s ease, text-shadow 0.3s ease, transform 0.3s ease;
+        display: inline-block;
+    }
 
-.nav-links a {
-    text-decoration: none;
-    color: #666;
-    font-size: 0.7rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    transition: 0.3s;
-}
+    /* 左上角 Logo 悬浮：荧光黄填充 + 黑色厚重投影 */
+    .nav-logo a:hover {
+        color: var(--fluo-yellow) !important;
+        text-shadow: 3px 3px 0 var(--black);
+        transform: translateY(-2px);
+    }
 
-.nav-links a:hover { color: #e5989b; }
+    .nav-links { display: flex; list-style: none; gap: 40px; margin: 0; padding: 0; }
+    .nav-links > li > a { 
+        text-decoration: none; color: inherit; font-size: 1.25rem; font-weight: 800; 
+        text-transform: uppercase; padding: 8px 18px; border: 2px solid currentColor;
+        display: inline-block; transition: 0.3s;
+    }
+    .nav-links > li > a:hover { 
+        background: var(--fluo-yellow); 
+        color: var(--black) !important; 
+        border-color: var(--black); 
+    }
 
-/* 首页特有布局 */
-.hero-wrapper {
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-}
+    /* --- 3. 中间大 EASIS：防闪烁 + 实体镂空 --- */
+    .hero-wrapper {
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 0 100px;
+    }
 
-.main-logo {
-    font-size: 5rem;
-    font-weight: 100;
-    letter-spacing: 0.4em;
-    text-transform: uppercase;
-    margin: 0;
-}
+    .main-logo {
+        font-size: 16vw;
+        font-weight: 900;
+        margin: 0;
+        letter-spacing: -0.06em;
+        line-height: 0.8;
+        color: inherit; 
+        /* 核心防闪烁：color 过渡保持 8s，镂空描边过渡 0.3s */
+        transition: color 8s ease-in-out, -webkit-text-stroke 0.3s ease;
+        cursor: default;
+    }
 
-.center-statement {
-    margin-top: 1.2rem;
-    letter-spacing: 0.7em;
-    font-size: 0.75rem;
-    color: #bcaaa4;
-}
+    /* 黑色实体镂空：直接写死黑色 3px，不随呼吸变白，最稳定 */
+    .main-logo:hover {
+        color: transparent !important;
+        -webkit-text-stroke: 3px var(--black);
+    }
 
-/* 底部大导航 */
-.footer-nav {
-    position: absolute;
-    bottom: 8vh;
-    width: 85%;
-    max-width: 1100px;
-}
+    /* 系统 / 媒介 / 档案：加粗、加大、加宽 */
+    .center-statement {
+        margin-top: 40px;
+        padding: 18px 45px;
+        background: currentColor; /* 随呼吸变黑/白 */
+        color: var(--white);      /* 初始白字 */
+        display: inline-block;
+        transition: background-color 8s ease-in-out, color 8s ease-in-out;
+    }
 
-.nav-groups {
-    display: flex;
-    justify-content: space-between;
-    list-style: none;
-    padding: 35px 0;
-    border-top: 0.5px solid rgba(188, 170, 164, 0.4);
-}
+    .center-statement p {
+        font-weight: 900; 
+        letter-spacing: 0.4em; /* 增加间距感 */
+        font-size: 1.6rem; 
+        margin: 0;
+        text-transform: uppercase;
+    }
 
-.group-label {
-    display: block;
-    font-size: 0.65rem;
-    color: #bcaaa4;
-    margin-bottom: 20px;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-}
+    /* --- 4. 底部导航 --- */
+    .footer-nav {
+        position: absolute; bottom: 60px; left: 100px; right: 100px;
+    }
 
-.sub-menu a {
-    display: block;
-    text-decoration: none;
-    color: #5d5d5d;
-    font-size: 0.95rem; /* 增强易读性 */
-    font-weight: 300;
-    margin-bottom: 12px; /* 增加行距，更疏朗 */
-    transition: all 0.4s ease;
-}
+    .nav-groups {
+        display: grid; grid-template-columns: repeat(4, 1fr);
+        border-top: 4px solid currentColor; padding-top: 30px; list-style: none; margin: 0;
+        transition: border-color 8s ease-in-out;
+    }
 
-.sub-menu a:hover {
-    color: #e5989b;
-    transform: translateX(3px);
-}
+    /* 标签黄色块 */
+    .group-label {
+        font-size: 1.1rem; font-weight: 900; background: var(--fluo-yellow); 
+        color: var(--black) !important; padding: 6px 14px; display: inline-block;
+        margin-bottom: 25px; border: 2.5px solid var(--black);
+    }
+
+    .sub-menu a {
+        display: block; text-decoration: none; color: inherit; margin-bottom: 15px;
+        font-size: 1.15rem; font-weight: 700; position: relative; width: fit-content;
+        transition: color 8s ease-in-out;
+    }
+
+    /* 底部子项悬浮：加荧光黄粗线 */
+    .sub-menu a:hover { color: inherit !important; }
+    .sub-menu a::after {
+        content: ''; position: absolute; width: 0; height: 5px; 
+        bottom: -6px; left: 0; background-color: var(--fluo-yellow); 
+        transition: width 0.3s ease;
+    }
+    .sub-menu a:hover::after { width: 100%; }
+
+    /* 语言切换器 */
+    .lang-switch { 
+        margin-left: 50px; border: 2px solid currentColor; padding: 2px; 
+        transition: border-color 8s ease-in-out;
+    }
+    .lang-switch span { padding: 5px 15px; cursor: pointer; font-weight: 900; transition: 0.3s; }
+    .lang-switch .active { background: var(--fluo-yellow); color: var(--black); }
+
+</style>
