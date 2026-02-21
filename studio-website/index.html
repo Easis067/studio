@@ -3,13 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Easis | Systems & Archive</title>
+    <title>Easis | Personal & Archive</title>
     <link rel="stylesheet" href="css/style.css">
     <style>
         /* 语言切换专用样式 */
         .lang-zh.hidden, .lang-en.hidden {
             display: none !important;
         }
+        
+        /* 专门针对中文字体进行放大和加重 */
+        .lang-zh {
+            font-size: 1.1em; /* 比默认字体大 10% */
+            font-weight: 400; /* 略微加粗，增加辨识度 */
+            letter-spacing: 0.05em;
+        }
+
         .lang-switch .active {
             font-weight: bold;
             color: #4a4a4a;
@@ -17,9 +25,6 @@
         .lang-switch span {
             cursor: pointer;
             transition: 0.3s;
-        }
-        .lang-switch span:hover {
-            color: #e5989b;
         }
     </style>
 </head>
@@ -41,11 +46,11 @@
                     <span class="lang-en">Library</span><span class="lang-zh hidden">档案</span>
                 </a></li>
                 <li><a href="about.html">
-                    <span class="lang-en">About</span><span class="lang-zh hidden">关于</span>
+                    <span class="lang-en">Me</span><span class="lang-zh hidden">个人</span>
                 </a></li>
             </ul>
             
-            <div class="lang-switch" style="margin-left: 30px; font-size: 0.7rem; color: #bcaaa4; letter-spacing: 0.1em;">
+            <div class="lang-switch" style="margin-left: 30px; font-size: 0.75rem; color: #bcaaa4; letter-spacing: 0.1em;">
                 <span id="btn-en" onclick="setLanguage('en')" class="active">EN</span>
                 <span style="margin: 0 5px; opacity: 0.3;">/</span>
                 <span id="btn-zh" onclick="setLanguage('zh')">中文</span>
@@ -58,7 +63,7 @@
             <h1 class="main-logo">Easis</h1>
             <div class="center-statement">
                 <p>SYSTEMS · MEDIUM · ARCHIVE</p>
-                <p class="lang-zh hidden" style="font-size: 0.6rem; letter-spacing: 0.5em; margin-top: 5px;">系统 · 媒介 · 档案</p>
+                <p class="lang-zh hidden" style="font-size: 0.7rem; letter-spacing: 0.5em; margin-top: 5px; font-weight: 300;">系统 · 媒介 · 档案</p>
             </div>
         </div>
 
@@ -66,11 +71,11 @@
             <ul class="nav-groups">
                 <li>
                     <span class="group-label">
-                        <span class="lang-en">Identity</span><span class="lang-zh hidden">身份</span>
+                        <span class="lang-en">Personal</span><span class="lang-zh hidden">个人</span>
                     </span>
                     <div class="sub-menu">
                         <a href="about.html">
-                            <span class="lang-en">About</span><span class="lang-zh hidden">关于</span>
+                            <span class="lang-en">Profile</span><span class="lang-zh hidden">关于我</span>
                         </a>
                         <a href="mailto:你的邮箱@gmail.com">
                             <span class="lang-en">Contact</span><span class="lang-zh hidden">联系</span>
@@ -111,10 +116,6 @@
         </nav>
     </main>
 
-    <div class="site-metadata" style="position: absolute; bottom: 20px; left: 50px; font-family: monospace; font-size: 0.55rem; color: #bcaaa4; letter-spacing: 0.1em;">
-        LONDON, UK / BASED
-    </div>
-
     <script>
         function setLanguage(lang) {
             const enElements = document.querySelectorAll('.lang-en');
@@ -133,11 +134,9 @@
                 btnEn.classList.add('active');
                 btnZh.classList.remove('active');
             }
-            // 记住选择
             localStorage.setItem('site-lang', lang);
         }
 
-        // 页面加载时自动应用之前的语言选择
         window.addEventListener('DOMContentLoaded', () => {
             const savedLang = localStorage.getItem('site-lang') || 'en';
             setLanguage(savedLang);
