@@ -5,100 +5,94 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EASIS | SYSTEMS & ARCHIVE</title>
     <style>
-        /* 1. 全局样式：引入更硬朗的字体感知 */
+        /* 1. 核心配色定义 */
         :root {
-            --bg-base: #F7F7F2; 
-            --accent-red: #C0392B; 
-            --text-main: #000000;
+            --periwinkle: #53589A;   /* 长春花蓝 */
+            --fluo-yellow: #E5EB15;  /* 荧光黄 */
+            --white: #FFFFFF;        /* 纯白 */
+            --black: #000000;        /* 黑色 */
+            --red: #D90429;          /* 正红 */
         }
 
         body {
-            background-color: var(--bg-base);
-            color: var(--text-main);
+            background-color: var(--white);
+            color: var(--black);
             margin: 0;
-            /* 使用更厚重的系统字体族 */
-            font-family: "Inter", "Helvetica Neue", "Arial", sans-serif;
-            transition: background-color 2.5s ease-in-out;
+            font-family: "Inter", "Helvetica Neue", sans-serif;
+            transition: background-color 3s ease-in-out; /* 缓慢的色彩流动 */
             -webkit-font-smoothing: antialiased;
             overflow: hidden;
         }
 
-        /* 2. 语言切换 */
+        /* 2. 语言切换：硬核块状风格 */
         .lang-zh.hidden, .lang-en.hidden { display: none !important; }
-        .lang-zh { 
-            font-size: 1.1rem; 
-            letter-spacing: 0.05em; 
-            font-weight: 700; /* 中文也加粗，匹配硬朗感 */
-        }
+        .lang-zh { font-size: 1.1rem; font-weight: 800; letter-spacing: 0.1em; }
 
-        /* 3. 顶部导航栏 - 强化力量感 */
+        /* 3. 顶部导航栏：强对比线条 */
         .global-nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 40px 80px;
+            padding: 40px 60px;
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1001;
             box-sizing: border-box;
-            border-bottom: 1.5px solid #000; /* 变粗的底线 */
+            border-bottom: 3px solid var(--black);
         }
 
         .nav-logo a {
-            font-family: "Inter", sans-serif;
             font-size: 2rem;
-            font-weight: 900; /* 极粗 */
-            letter-spacing: -0.02em; /* 紧凑字间距更显硬朗 */
+            font-weight: 900;
+            letter-spacing: -0.05em;
             text-decoration: none;
-            color: #000;
+            color: var(--black);
         }
 
         .nav-links { display: flex; list-style: none; gap: 50px; margin: 0; padding: 0; }
         
-        /* 一级菜单：加粗、加大、收紧间距 */
+        /* 导航英文：厚重感 */
         .nav-links > li > a { 
             text-decoration: none; 
-            color: #000; 
-            font-size: 1.2rem; 
-            font-weight: 800; /* 极粗级别 */
-            letter-spacing: -0.01em; 
+            color: var(--black); 
+            font-size: 1.25rem; 
+            font-weight: 900; 
+            letter-spacing: -0.02em;
             text-transform: uppercase;
-            display: block;
-            padding-bottom: 5px;
         }
 
-        /* 4. 下拉菜单：改为硬边块状感 */
+        /* 4. 下拉菜单：荧光黄背景 + 黑色粗体 */
         .dropdown-menu {
             position: absolute;
             top: 100%;
             left: 0;
-            background: #000; /* 翻转配色：黑块白字，视觉冲击力最强 */
-            min-width: 240px;
+            background: var(--fluo-yellow); /* 下拉变荧光黄 */
+            min-width: 260px;
             list-style: none;
-            padding: 10px 0;
-            margin: 0; /* 紧贴导航栏 */
+            padding: 0;
+            margin: 0;
             opacity: 0;
             visibility: hidden;
-            transform: translateY(0);
-            transition: 0.2s ease-in-out;
-            border: none;
+            border: 3px solid var(--black);
+            border-top: none;
+            transition: 0.1s;
         }
         .dropdown:hover .dropdown-menu { opacity: 1; visibility: visible; }
         
-        /* 下拉项：白字、厚重、无衬线 */
         .dropdown-menu li a { 
-            color: #FFF !important; 
+            color: var(--black) !important; 
             padding: 15px 25px; 
             display: block; 
-            font-size: 0.9rem !important; 
-            font-weight: 700 !important;
-            letter-spacing: 0.05em;
+            font-size: 1rem !important; 
+            font-weight: 800 !important;
             text-transform: uppercase;
-            border-bottom: 0.5px solid rgba(255,255,255,0.1);
+            border-bottom: 2px solid var(--black);
         }
+        .dropdown-menu li:last-child a { border-bottom: none; }
         .dropdown-menu li a:hover {
-            background-color: var(--accent-red);
+            background-color: var(--periwinkle); /* 悬停变蓝 */
+            color: var(--white) !important;
         }
 
         /* 5. 核心 Logo 区 */
@@ -107,75 +101,87 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
-            padding: 0 100px;
+            padding: 0 80px;
         }
 
         .main-logo {
-            font-size: 15vw;
+            font-size: 16vw;
             font-weight: 900;
             margin: 0;
-            letter-spacing: -0.05em;
-            color: #000;
-            line-height: 0.85;
+            letter-spacing: -0.08em;
+            color: var(--black);
+            line-height: 0.8;
+            cursor: pointer;
+            transition: color 0.5s;
         }
+        .main-logo:hover { color: var(--red); } /* 鼠标移上去文字变红 */
 
         .center-statement {
-            margin-top: 30px;
-            border-left: 10px solid #000; /* 极粗的黑条 */
-            padding-left: 30px;
+            margin-top: 40px;
+            padding: 15px 30px;
+            background: var(--black);
+            color: var(--white);
+            display: inline-block;
+            align-self: flex-start;
         }
 
         .center-statement p {
-            font-weight: 800;
+            font-weight: 900;
             letter-spacing: 0.1em;
-            font-size: 1.4rem;
-            color: #000;
-            text-transform: uppercase;
-            margin: 5px 0;
+            font-size: 1.5rem;
+            margin: 0;
         }
 
-        /* 6. 底部网格 */
+        /* 6. 底部网格：长春花蓝标注 */
         .footer-nav {
             position: absolute;
             bottom: 60px;
-            left: 100px;
-            right: 100px;
+            left: 60px;
+            right: 60px;
         }
 
         .nav-groups {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            border-top: 4px solid #000; /* 极粗顶线 */
+            border-top: 8px solid var(--black);
             padding-top: 30px;
             list-style: none;
         }
 
         .group-label {
-            font-size: 0.8rem;
+            font-size: 0.9rem;
             font-weight: 900;
             text-transform: uppercase;
             display: block;
             margin-bottom: 25px;
-            color: var(--accent-red);
+            color: var(--red); /* 红色作为强调标注 */
         }
 
         .sub-menu a {
             display: block;
             text-decoration: none;
-            color: #000;
-            margin-bottom: 10px;
-            font-size: 1.1rem;
-            font-weight: 700;
+            color: var(--black);
+            margin-bottom: 12px;
+            font-size: 1.2rem;
+            font-weight: 800;
+        }
+        .sub-menu a:hover {
+            background: var(--fluo-yellow); /* 底部链接悬停变黄 */
         }
 
         /* 7. 语言切换器 */
-        .lang-switch { margin-left: 50px; font-weight: 900; }
+        .lang-switch { 
+            margin-left: 50px; 
+            background: var(--black); 
+            color: var(--white); 
+            padding: 5px;
+        }
         .lang-switch span { 
             padding: 5px 15px; 
             cursor: pointer;
-            border: 2px solid transparent; 
+            font-weight: 900;
         }
-        .lang-switch .active { border: 2px solid #000; }
+        .lang-switch .active { background: var(--fluo-yellow); color: var(--black); }
     </style>
 </head>
 <body id="dynamic-body">
@@ -264,13 +270,19 @@
     </main>
 
     <script>
-        const colors = ['#F7F7F2', '#F0F0F0', '#EBEBEB', '#F5F5F5']; 
-        let colorIndex = 0;
-        function changeBg() {
-            document.getElementById('dynamic-body').style.backgroundColor = colors[colorIndex];
-            colorIndex = (colorIndex + 1) % colors.length;
+        // 呼吸背景逻辑：在纯白和长春花蓝之间缓慢变换
+        const body = document.getElementById('dynamic-body');
+        let isPeriwinkle = false;
+        
+        function breatheColor() {
+            body.style.backgroundColor = isPeriwinkle ? "#FFFFFF" : "#53589A";
+            // 当背景变蓝时，文字变白；当背景变白时，文字变黑
+            body.style.color = isPeriwinkle ? "#000000" : "#FFFFFF";
+            isPeriwinkle = !isPeriwinkle;
         }
-        setInterval(changeBg, 5000); 
+        
+        // 每 8 秒呼吸一次，营造出深邃感
+        setInterval(breatheColor, 8000);
 
         function setLanguage(lang) {
             document.querySelectorAll('.lang-en').forEach(el => lang === 'zh' ? el.classList.add('hidden') : el.classList.remove('hidden'));
