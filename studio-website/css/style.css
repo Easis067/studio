@@ -16,7 +16,7 @@ body {
     100% { background-position: 0% 50%; }
 }
 
-/* 通用顶部导航栏 */
+/* 全局顶部导航 */
 .global-nav {
     position: fixed;
     top: 0; left: 0; width: 100%;
@@ -24,9 +24,9 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(15px);
-    z-index: 9999; /* 确保在最上层 */
+    z-index: 9999;
     box-sizing: border-box;
     border-bottom: 0.5px solid rgba(188, 170, 164, 0.1);
 }
@@ -43,8 +43,7 @@ body {
     display: flex;
     gap: 40px;
     list-style: none;
-    margin: 0;
-    padding: 0;
+    margin: 0; padding: 0;
 }
 
 .nav-links a {
@@ -63,9 +62,9 @@ body {
     height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: center; /* 居中 */
+    justify-content: center;
     align-items: center;
-    padding-top: 80px; /* 给导航留空 */
+    position: relative;
 }
 
 .main-logo {
@@ -77,16 +76,16 @@ body {
 }
 
 .center-statement {
-    margin-top: 1rem;
+    margin-top: 1.2rem;
     letter-spacing: 0.7em;
     font-size: 0.75rem;
     color: #bcaaa4;
 }
 
-/* 首页底部大导航 */
+/* 底部大导航 */
 .footer-nav {
     position: absolute;
-    bottom: 5vh;
+    bottom: 8vh;
     width: 85%;
     max-width: 1100px;
 }
@@ -95,15 +94,15 @@ body {
     display: flex;
     justify-content: space-between;
     list-style: none;
-    padding: 30px 0;
+    padding: 35px 0;
     border-top: 0.5px solid rgba(188, 170, 164, 0.4);
 }
 
 .group-label {
     display: block;
-    font-size: 0.6rem;
+    font-size: 0.65rem;
     color: #bcaaa4;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
     letter-spacing: 0.25em;
     text-transform: uppercase;
 }
@@ -112,19 +111,13 @@ body {
     display: block;
     text-decoration: none;
     color: #5d5d5d;
-    font-size: 0.85rem;
+    font-size: 0.95rem; /* 增强易读性 */
     font-weight: 300;
-    margin-bottom: 8px;
+    margin-bottom: 12px; /* 增加行距，更疏朗 */
+    transition: all 0.4s ease;
 }
 
-/* 弹窗样式 */
-.overlay {
-    display: none;
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(255, 255, 255, 0.5);
-    backdrop-filter: blur(20px);
-    z-index: 10000;
+.sub-menu a:hover {
+    color: #e5989b;
+    transform: translateX(3px);
 }
-.overlay.active { display: flex; justify-content: center; align-items: center; }
-.overlay-content { background: white; padding: 4rem; max-width: 450px; }
