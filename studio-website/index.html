@@ -12,23 +12,21 @@
             --black: #000000;
         }
 
-        /* 1. 全局样式：呼吸背景调慢 */
+        /* 1. 全局样式：平稳过渡 */
         body {
             background-color: var(--white);
             color: var(--black);
             margin: 0;
-            /* 保持你喜欢的最初英文字体质感 */
             font-family: "Space Grotesque", "Inter", "Helvetica Neue", sans-serif;
-            /* 呼吸频率减慢到 6s 切换，总周期 12s */
-            transition: background-color 6s ease-in-out, color 6s ease-in-out;
+            /* 极慢呼吸：8秒过程 */
+            transition: background-color 8s ease-in-out, color 8s ease-in-out;
             -webkit-font-smoothing: antialiased;
             overflow: hidden;
         }
 
         .lang-zh.hidden, .lang-en.hidden { display: none !important; }
-        .lang-zh { font-size: 1rem; font-weight: 700; letter-spacing: 0.1em; }
 
-        /* 2. 顶部导航：主项加框 */
+        /* 2. 顶部导航：左上角悬停变荧光色 */
         .global-nav {
             display: flex;
             justify-content: space-between;
@@ -48,73 +46,62 @@
             letter-spacing: -0.04em;
             text-decoration: none;
             color: inherit;
-            transition: 0.3s;
+            transition: color 0.3s ease;
+        }
+        /* 左上角悬停变荧光黄 */
+        .nav-logo a:hover {
+            color: var(--fluo-yellow) !important;
+            text-shadow: 2px 2px var(--black);
         }
 
         .nav-links { display: flex; list-style: none; gap: 40px; margin: 0; padding: 0; }
-        
         .dropdown { position: relative; }
 
-        /* 观察者/记录者：主项加框，字号加大 */
+        /* 菜单主项方框 */
         .nav-links > li > a { 
             text-decoration: none; 
             color: inherit; 
-            font-size: 1.25rem; /* 明显大一点 */
+            font-size: 1.25rem; 
             font-weight: 800; 
-            letter-spacing: 0.05em;
             text-transform: uppercase;
-            padding: 8px 15px;
-            border: 2px solid currentColor; /* 核心加框设计 */
+            padding: 8px 18px;
+            border: 2px solid currentColor;
             display: inline-block;
-            transition: 0.3s;
+            transition: 0.3s ease;
         }
-        
         .nav-links > li > a:hover {
             background: var(--fluo-yellow);
             color: var(--black) !important;
             border-color: var(--fluo-yellow);
         }
 
-        /* 3. 下拉菜单：精准对齐在方框正下方 */
+        /* 下拉菜单 */
         .dropdown-menu {
             position: absolute;
             top: 100%;
             left: 0;
-            background: var(--black); /* 始终黑底 */
+            background: var(--black);
             min-width: 220px;
             list-style: none;
             padding: 10px 0;
-            margin: 10px 0 0 0;
+            margin-top: 10px;
             opacity: 0;
             visibility: hidden;
-            transition: 0.3s;
             border: 1px solid var(--fluo-yellow);
+            transition: 0.3s ease;
         }
-        
-        .dropdown:hover .dropdown-menu { 
-            opacity: 1; 
-            visibility: visible; 
-            transform: translateY(0); 
-        }
-        
+        .dropdown:hover .dropdown-menu { opacity: 1; visibility: visible; }
         .dropdown-menu li a { 
             color: var(--white) !important; 
             padding: 12px 20px; 
             display: block; 
-            font-size: 0.9rem !important; /* 子项比主项小 */
+            font-size: 0.9rem !important;
             font-weight: 600 !important;
-            text-transform: uppercase;
             text-decoration: none;
-            transition: 0.2s;
         }
-        
-        /* 下拉子项悬停：文字变荧光黄 */
-        .dropdown-menu li a:hover {
-            color: var(--fluo-yellow) !important;
-            padding-left: 25px;
-        }
+        .dropdown-menu li a:hover { color: var(--fluo-yellow) !important; }
 
-        /* 4. 核心展示区：EASIS 镂空效果 */
+        /* 3. 首页大文字：稳定不闪烁，悬停镂空 */
         .hero-wrapper {
             height: 100vh;
             display: flex;
@@ -129,35 +116,28 @@
             margin: 0;
             letter-spacing: -0.06em;
             line-height: 0.8;
-            color: inherit; /* 随背景变黑或白 */
-            transition: color 0.4s, -webkit-text-stroke 0.4s;
+            color: inherit; 
+            /* 关键：transition 必须包含文字颜色和描边，且时间与背景一致 */
+            transition: color 0.4s ease, -webkit-text-stroke 0.4s ease;
             cursor: default;
         }
-        
-        /* 鼠标悬停变镂空：颜色随背景色走（currentColor） */
         .main-logo:hover {
             color: transparent !important;
-            -webkit-text-stroke: 2px currentColor; 
+            -webkit-text-stroke: 2px currentColor;
         }
 
         .center-statement {
             margin-top: 40px;
             padding: 15px 30px;
-            background: currentColor; /* 随呼吸色反转 */
+            background: currentColor; 
             color: var(--white);
             display: inline-block;
             align-self: flex-start;
-            border-right: 8px solid var(--fluo-yellow); /* 荧光黄装饰 */
+            border-right: 8px solid var(--fluo-yellow);
+            transition: background-color 8s ease, color 8s ease;
         }
 
-        .center-statement p {
-            font-weight: 800;
-            letter-spacing: 0.2em;
-            font-size: 1.2rem;
-            margin: 0;
-        }
-
-        /* 5. 底部网格：颜色适配 */
+        /* 4. 底部标签：加粗加大+色块框 */
         .footer-nav {
             position: absolute;
             bottom: 60px;
@@ -168,18 +148,21 @@
         .nav-groups {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            border-top: 5px solid currentColor;
+            border-top: 4px solid currentColor;
             padding-top: 30px;
             list-style: none;
         }
 
         .group-label {
-            font-size: 0.8rem;
-            font-weight: 900;
+            font-size: 1.1rem; /* 变大 */
+            font-weight: 900;  /* 加粗 */
             text-transform: uppercase;
-            display: block;
+            display: inline-block;
             margin-bottom: 25px;
-            color: var(--fluo-yellow); /* 标签统一用荧光黄，在紫底白底都好看 */
+            padding: 5px 12px;
+            background: var(--fluo-yellow); /* 荧光黄色块框 */
+            color: var(--black) !important;  /* 标签文字始终黑色，保证在黄底上清晰 */
+            letter-spacing: 0.05em;
         }
 
         .sub-menu a {
@@ -188,23 +171,18 @@
             color: inherit;
             margin-bottom: 12px;
             font-size: 1.1rem;
-            font-weight: 700;
-            transition: 0.2s;
+            font-weight: 600;
+            transition: color 0.3s ease;
         }
         .sub-menu a:hover { color: var(--fluo-yellow); }
 
-        /* 6. 语言切换器 */
+        /* 语言切换器 */
         .lang-switch { 
             margin-left: 50px; 
             border: 2px solid currentColor;
             padding: 2px;
         }
-        .lang-switch span { 
-            padding: 5px 15px; 
-            cursor: pointer;
-            font-weight: 900;
-            display: inline-block;
-        }
+        .lang-switch span { padding: 5px 15px; cursor: pointer; font-weight: 900; display: inline-block; }
         .lang-switch .active { background: var(--fluo-yellow); color: var(--black); }
     </style>
 </head>
@@ -235,7 +213,7 @@
                         <li><a href="lib-readings.html">READINGS</a></li>
                     </ul>
                 </li>
-                <li><a href="about.html" style="border: 2px solid currentColor; padding: 8px 15px;"><span class="lang-en">Me</span><span class="lang-zh hidden">个人</span></a></li>
+                <li><a href="about.html"><span class="lang-en">Me</span><span class="lang-zh hidden">个人</span></a></li>
             </ul>
             <div class="lang-switch">
                 <span id="btn-en" onclick="setLanguage('en')" class="active">EN</span>
@@ -248,7 +226,6 @@
         <h1 class="main-logo">EASIS</h1>
         <div class="center-statement">
             <p>SYSTEMS / MEDIUM / ARCHIVE</p>
-            <p class="lang-zh hidden">系统 / 媒介 / 档案</p>
         </div>
 
         <nav class="footer-nav">
@@ -292,13 +269,11 @@
         
         function breatheColor() {
             if (!isPeriwinkle) {
-                // 变为紫色背景时，文字和线框变白
                 body.style.backgroundColor = "#53589A";
                 body.style.color = "#FFFFFF";
                 statement.style.backgroundColor = "#FFFFFF";
                 statement.style.color = "#53589A";
             } else {
-                // 变为白色背景时，文字和线框变黑
                 body.style.backgroundColor = "#FFFFFF";
                 body.style.color = "#000000";
                 statement.style.backgroundColor = "#000000";
@@ -307,17 +282,15 @@
             isPeriwinkle = !isPeriwinkle;
         }
         
-        // 频率调慢到 8 秒切换一次
-        setInterval(breatheColor, 8000);
+        // 背景呼吸设为 10 秒切换一次，非常舒缓
+        setInterval(breatheColor, 10000);
 
         function setLanguage(lang) {
             document.querySelectorAll('.lang-en').forEach(el => lang === 'zh' ? el.classList.add('hidden') : el.classList.remove('hidden'));
             document.querySelectorAll('.lang-zh').forEach(el => lang === 'zh' ? el.classList.remove('hidden') : el.classList.add('hidden'));
             document.getElementById('btn-en').classList.toggle('active', lang === 'en');
             document.getElementById('btn-zh').classList.toggle('active', lang === 'zh');
-            localStorage.setItem('site-lang', lang);
         }
-        window.addEventListener('DOMContentLoaded', () => setLanguage(localStorage.getItem('site-lang') || 'en'));
     </script>
 </body>
 </html>
