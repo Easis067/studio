@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,34 +7,32 @@
     <title>EASIS | ARCHIVE</title>
     <style>
         :root {
-            /* 调整为你喜欢的颜色：这里用了亮色调 */
+            /* 建议背景色不要太深，否则黑色字会看不清。当前色值已优化 */
             --periwinkle: #d6f74c;   
             --fluo-yellow: #F06038;  
             --white: #f9d7bc;
             --black: #1c1c1c;
         }
 
-        /* 1. 基础样式与平滑过渡 */
+        /* 1. 只有背景有过渡动画 */
         body {
             background-color: var(--white);
-            color: var(--black);
+            color: var(--black); /* 文字始终固定为黑色 */
             margin: 0;
             font-family: "Space Grotesque", "Inter", sans-serif;
-            /* 2秒完成变色，这个时间决定了“变”的过程快慢 */
-            transition: background-color 2s ease-in-out, color 2s ease-in-out;
+            transition: background-color 2s ease-in-out; 
             -webkit-font-smoothing: antialiased;
             overflow: hidden;
         }
 
-        /* 目标颜色状态 */
+        /* 目标颜色状态：只改背景 */
         body.is-active {
             background-color: var(--periwinkle);
-            color: var(--white);
         }
 
         .lang-zh.hidden, .lang-en.hidden { display: none !important; }
 
-        /* --- 2. 顶部导航栏 --- */
+        /* --- 2. 顶部导航栏 (颜色固定) --- */
         .global-nav {
             display: flex;
             justify-content: space-between;
@@ -44,26 +43,24 @@
             top: 0;
             z-index: 1001;
             box-sizing: border-box;
-            /* 边框颜色跟随文字呼吸 */
-            border-bottom: 2px solid currentColor;
-            transition: border-color 2s ease-in-out;
+            border-bottom: 2px solid var(--black); /* 固定黑色边框 */
         }
 
         .nav-logo a {
             font-size: 2.2rem;
             font-weight: 900;
             text-decoration: none;
-            color: inherit;
+            color: var(--black);
         }
 
         .nav-links { display: flex; list-style: none; gap: 40px; margin: 0; padding: 0; }
         .nav-links > li > a { 
-            text-decoration: none; color: inherit; font-size: 1.25rem; font-weight: 800; 
-            text-transform: uppercase; padding: 8px 18px; border: 2px solid currentColor;
+            text-decoration: none; color: var(--black); font-size: 1.25rem; font-weight: 800; 
+            text-transform: uppercase; padding: 8px 18px; border: 2px solid var(--black);
             display: inline-block; transition: 0.3s;
         }
         .nav-links > li > a:hover { 
-            background: var(--fluo-yellow); color: var(--black) !important; border-color: var(--black); 
+            background: var(--fluo-yellow); color: var(--black); border-color: var(--black); 
         }
 
         /* 下拉菜单 */
@@ -78,7 +75,7 @@
             text-decoration: none; font-weight: 700;
         }
 
-        /* --- 3. 中间大 EASIS --- */
+        /* --- 3. 中间大 EASIS (颜色固定) --- */
         .hero-wrapper {
             height: 100vh;
             display: flex;
@@ -93,8 +90,7 @@
             margin: 0;
             letter-spacing: -0.06em;
             line-height: 0.8;
-            color: inherit; 
-            transition: color 2s ease-in-out;
+            color: var(--black); 
             cursor: default;
         }
         
@@ -106,16 +102,13 @@
         .center-statement {
             margin-top: 30px;
             padding: 12px 30px;
-            background-color: currentColor; 
+            background-color: var(--black); /* 始终黑底 */
             display: inline-block;
-            transition: background-color 2s ease-in-out;
         }
         .center-statement span {
             font-weight: 900; letter-spacing: 0.3em; font-size: 1.1rem;
-            color: var(--white); transition: color 2s;
+            color: var(--white); /* 标签内文字始终白色 */
         }
-        /* 当背景变色时，让方块里的字反转颜色 */
-        body.is-active .center-statement span { color: var(--periwinkle) !important; }
 
         /* --- 4. 底部导航 --- */
         .footer-nav {
@@ -123,26 +116,25 @@
         }
         .nav-groups {
             display: grid; grid-template-columns: repeat(4, 1fr);
-            border-top: 4px solid currentColor; padding-top: 30px; list-style: none; margin: 0;
-            transition: border-color 2s ease-in-out;
+            border-top: 4px solid var(--black); padding-top: 30px; list-style: none; margin: 0;
         }
 
         .group-label {
             font-size: 1.1rem; font-weight: 900; background: var(--fluo-yellow); 
-            color: var(--black) !important; padding: 6px 14px; display: inline-block;
+            color: var(--black); padding: 6px 14px; display: inline-block;
             margin-bottom: 25px; border: 2.5px solid var(--black);
         }
 
         .sub-menu a {
             display: block; text-decoration: none; 
-            color: inherit !important;
+            color: var(--black);
             margin-bottom: 15px; font-size: 1.15rem; font-weight: 700; 
-            position: relative; width: fit-content; transition: color 2s;
+            position: relative; width: fit-content;
         }
-        .sub-menu a:hover { color: var(--fluo-yellow) !important; }
+        .sub-menu a:hover { color: var(--fluo-yellow); }
 
-        .lang-switch { margin-left: 50px; border: 2px solid currentColor; padding: 2px; transition: 2s; }
-        .lang-switch span { padding: 5px 15px; cursor: pointer; font-weight: 900; }
+        .lang-switch { margin-left: 50px; border: 2px solid var(--black); padding: 2px; }
+        .lang-switch span { padding: 5px 15px; cursor: pointer; font-weight: 900; color: var(--black); }
         .lang-switch .active { background: var(--fluo-yellow); color: var(--black); }
     </style>
 </head>
@@ -224,19 +216,18 @@
     <script>
         const body = document.getElementById('dynamic-body');
         
-        // 核心节奏控制函数
         function runAnimation() {
-            // 步骤1：切换到目标色 (并定格)
+            // 保持白色定格 5秒，然后变色
             setTimeout(() => {
                 body.classList.add('is-active');
-            }, 5000); // 5秒白底定格后开始变色
+            }, 5000); 
 
-            // 步骤2：切换回白色 (并定格)
+            // 在目标色停留 5秒，然后变回
             setTimeout(() => {
                 body.classList.remove('is-active');
-            }, 12000); // 在目标色停留约5秒后变回
+            }, 12000); 
 
-            // 步骤3：循环
+            // 循环整个周期 (5+2+5+2 = 14秒)
             setTimeout(runAnimation, 14000); 
         }
 
