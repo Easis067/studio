@@ -16,7 +16,8 @@
             <li><a href="projects-economics.html">Projects</a></li>
             <li><a href="obs-photo-arch.html">Observation</a></li>
             <li><a href="lib-screening.html">Library</a></li>
-            <li><a href="about.html">About</a></li> </ul>
+            <li><a href="about.html">About</a></li>
+        </ul>
     </nav>
 
     <main class="hero-wrapper">
@@ -32,8 +33,7 @@
                 <li>
                     <span class="group-label">Identity</span>
                     <div class="sub-menu">
-                        <a href="#" onclick="toggleAbout()">Quick Intro</a>
-                        <a href="about.html">Full Profile</a>
+                        <a href="about.html">About</a>
                         <a href="mailto:你的邮箱@gmail.com">Contact</a>
                     </div>
                 </li>
@@ -66,22 +66,5 @@
         </nav>
     </main>
 
-    <div id="about-overlay" class="overlay" onclick="toggleAbout()">
-        <div class="overlay-content" onclick="event.stopPropagation()">
-            <div class="about-text">
-                <h2>Easis</h2>
-                <p style="font-style: italic; color: #bcaaa4; margin-bottom: 20px;">Researcher & Artist</p>
-                <p>基于英国的跨学科研究者。探索作为结构的经济系统，以及作为媒介的创新逻辑。</p>
-                <p>在这里记录从伦敦西区的舞台微光到复杂的经济系统模型。点击导航栏的 "About" 查看详细介绍。</p>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        function toggleAbout() {
-            const overlay = document.getElementById('about-overlay');
-            overlay.classList.toggle('active');
-        }
-    </script>
 </body>
 </html>
