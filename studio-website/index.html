@@ -14,10 +14,9 @@
 
         body {
             background-color: var(--white);
-            color: var(--black);
+            color: var(--black); /* 始终保持黑色，不闪烁 */
             margin: 0;
             font-family: "Space Grotesque", "Inter", "Helvetica Neue", sans-serif;
-            /* 只有背景在变，文字不再随 body 变色，防止闪烁 */
             transition: background-color 8s ease-in-out;
             -webkit-font-smoothing: antialiased;
             overflow: hidden;
@@ -25,7 +24,7 @@
 
         .lang-zh.hidden, .lang-en.hidden { display: none !important; }
 
-        /* 2. 顶部导航 */
+        /* 顶部导航固定 */
         .global-nav {
             display: flex;
             justify-content: space-between;
@@ -36,14 +35,14 @@
             top: 0;
             z-index: 1001;
             box-sizing: border-box;
-            border-bottom: 2px solid var(--black); /* 固定黑色线 */
+            border-bottom: 2px solid var(--black);
         }
 
         .nav-logo a {
             font-size: 2.2rem;
             font-weight: 900;
             text-decoration: none;
-            color: var(--black); /* 固定黑色 */
+            color: var(--black);
             transition: 0.3s;
         }
         .nav-logo a:hover { color: var(--fluo-yellow) !important; }
@@ -51,37 +50,37 @@
         .nav-links { display: flex; list-style: none; gap: 40px; margin: 0; padding: 0; }
         .dropdown { position: relative; }
 
+        /* 顶部主项方框 */
         .nav-links > li > a { 
             text-decoration: none; 
-            color: var(--black); /* 固定黑色 */
+            color: var(--black); 
             font-size: 1.25rem; 
             font-weight: 800; 
             text-transform: uppercase;
             padding: 8px 18px;
-            border: 2px solid var(--black);
+            border: 2px solid var(--black); /* 明确的黑色框 */
             display: inline-block;
         }
-        .nav-links > li > a:hover { background: var(--fluo-yellow); border-color: var(--fluo-yellow); }
+        .nav-links > li > a:hover { background: var(--fluo-yellow); }
 
         .dropdown-menu {
             position: absolute;
             top: 100%;
-            left: 50%;
-            transform: translateX(-50%) translateY(10px);
+            left: 0;
             background: var(--black);
             min-width: 200px;
             list-style: none;
             padding: 10px 0;
+            margin-top: 10px;
             opacity: 0;
             visibility: hidden;
             border: 1px solid var(--fluo-yellow);
             transition: 0.3s;
         }
-        .dropdown:hover .dropdown-menu { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
+        .dropdown:hover .dropdown-menu { opacity: 1; visibility: visible; }
         .dropdown-menu li a { color: var(--white) !important; padding: 10px 20px; display: block; text-decoration: none; font-size: 0.9rem; }
-        .dropdown-menu li a:hover { color: var(--fluo-yellow) !important; }
 
-        /* 3. 首页展示区 */
+        /* 首页核心区：不闪烁 */
         .hero-wrapper {
             height: 100vh;
             display: flex;
@@ -96,7 +95,7 @@
             margin: 0;
             letter-spacing: -0.06em;
             line-height: 0.8;
-            color: var(--black); /* 彻底固定颜色，不闪烁 */
+            color: var(--black); 
             transition: 0.4s;
             cursor: default;
         }
@@ -108,14 +107,14 @@
         .center-statement {
             margin-top: 40px;
             padding: 15px 30px;
-            background: var(--black); /* 固定黑色背景 */
+            background: var(--black); 
             color: var(--white);
             display: inline-block;
             align-self: flex-start;
         }
         .center-statement p { font-weight: 800; letter-spacing: 0.2em; font-size: 1.2rem; margin: 0; }
 
-        /* 4. 底部网格：色块标签 */
+        /* 底部导航重塑：解决截屏中的问题 */
         .footer-nav {
             position: absolute;
             bottom: 60px;
@@ -128,27 +127,39 @@
             border-top: 4px solid var(--black);
             padding-top: 30px;
             list-style: none;
+            margin: 0;
         }
+
+        /* 标签加框、加粗、加大 */
         .group-label {
             font-size: 1.1rem;
             font-weight: 900;
-            background: var(--fluo-yellow); /* 荧光黄色块 */
+            text-transform: uppercase;
+            background: var(--fluo-yellow); 
             color: var(--black);
-            padding: 5px 12px;
+            padding: 6px 15px;
             display: inline-block;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            border: 2px solid var(--black); /* 截屏补全：增加黑色边框 */
         }
+
         .sub-menu a {
             display: block;
             text-decoration: none;
             color: var(--black);
             margin-bottom: 12px;
-            font-size: 1.1rem;
+            font-size: 1.15rem; /* 比标签稍大，且不加粗以区分 */
             font-weight: 700;
+            transition: 0.2s;
         }
-        .sub-menu a:hover { color: var(--periwinkle); }
+        .sub-menu a:hover { 
+            text-decoration: underline; 
+            text-decoration-color: var(--fluo-yellow);
+            text-underline-offset: 8px;
+            text-decoration-thickness: 4px;
+        }
 
-        .lang-switch { margin-left: 50px; border: 2px solid var(--black); padding: 2px; }
+        .lang-switch { margin-left: 50px; border: 2px solid var(--black); padding: 2px; height: fit-content; }
         .lang-switch span { padding: 5px 15px; cursor: pointer; font-weight: 900; }
         .lang-switch .active { background: var(--fluo-yellow); color: var(--black); }
     </style>
@@ -160,27 +171,34 @@
         <div style="display: flex; align-items: center;">
             <ul class="nav-links">
                 <li class="dropdown">
-                    <a href="javascript:void(0)"><span class="lang-en">Researcher</span><span class="lang-zh hidden">研究者</span></a>
+                    <a href="javascript:void(0)">
+                        <span class="lang-en">Researcher</span><span class="lang-zh hidden">研究者</span>
+                    </a>
                     <ul class="dropdown-menu">
-                        <li><a href="projects-economics.html"><span class="lang-en">Economics</span><span class="lang-zh hidden">经济学研究</span></a></li>
-                        <li><a href="projects-innovation.html"><span class="lang-en">Innovation</span><span class="lang-zh hidden">创新研究</span></a></li>
+                        <li><a href="#"><span class="lang-en">Economics</span><span class="lang-zh hidden">经济学研究</span></a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
-                    <a href="javascript:void(0)"><span class="lang-en">Observer</span><span class="lang-zh hidden">观察者</span></a>
+                    <a href="javascript:void(0)">
+                        <span class="lang-en">Observer</span><span class="lang-zh hidden">观察者</span>
+                    </a>
                     <ul class="dropdown-menu">
-                        <li><a href="obs-photo-arch.html"><span class="lang-en">Visual Archive</span><span class="lang-zh hidden">摄影辑录</span></a></li>
-                        <li><a href="obs-exhibition.html"><span class="lang-en">Curation Walk</span><span class="lang-zh hidden">看展日记</span></a></li>
+                        <li><a href="#"><span class="lang-en">Visual Archive</span><span class="lang-zh hidden">摄影辑录</span></a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
-                    <a href="javascript:void(0)"><span class="lang-en">Recorder</span><span class="lang-zh hidden">记录者</span></a>
+                    <a href="javascript:void(0)">
+                        <span class="lang-en">Recorder</span><span class="lang-zh hidden">记录者</span>
+                    </a>
                     <ul class="dropdown-menu">
-                        <li><a href="lib-screening.html"><span class="lang-en">Theatre & Scene</span><span class="lang-zh hidden">观演日记</span></a></li>
-                        <li><a href="lib-readings.html"><span class="lang-en">Readings</span><span class="lang-zh hidden">研读思辨</span></a></li>
+                        <li><a href="#"><span class="lang-en">Readings</span><span class="lang-zh hidden">研读思辨</span></a></li>
                     </ul>
                 </li>
-                <li><a href="about.html" style="border: 2px solid black; padding: 8px 15px;"><span class="lang-en">Me</span><span class="lang-zh hidden">个人</span></a></li>
+                <li>
+                    <a href="about.html" style="border: 2px solid black; padding: 8px 15px;">
+                        <span class="lang-en">Me</span><span class="lang-zh hidden">个人</span>
+                    </a>
+                </li>
             </ul>
             <div class="lang-switch">
                 <span id="btn-en" onclick="setLanguage('en')" class="active">EN</span>
@@ -192,31 +210,42 @@
     <main class="hero-wrapper">
         <h1 class="main-logo">EASIS</h1>
         <div class="center-statement">
-            <p><span class="lang-en">SYSTEMS / MEDIUM / ARCHIVE</span><span class="lang-zh hidden">系统 / 媒介 / 档案</span></p>
+            <p>
+                <span class="lang-en">SYSTEMS / MEDIUM / ARCHIVE</span>
+                <span class="lang-zh hidden">系统 / 媒介 / 档案</span>
+            </p>
         </div>
 
         <nav class="footer-nav">
             <ul class="nav-groups">
                 <li>
-                    <span class="group-label"><span class="lang-en">Personal</span><span class="lang-zh hidden">个人</span></span>
+                    <span class="group-label">
+                        <span class="lang-en">Personal</span><span class="lang-zh hidden">个人</span>
+                    </span>
                     <div class="sub-menu">
-                        <a href="about.html"><span class="lang-en">Profile</span><span class="lang-zh hidden">关于我</span></a>
+                        <a href="#"><span class="lang-en">Profile</span><span class="lang-zh hidden">关于我</span></a>
                     </div>
                 </li>
                 <li>
-                    <span class="group-label"><span class="lang-en">Researcher</span><span class="lang-zh hidden">研究者</span></span>
+                    <span class="group-label">
+                        <span class="lang-en">Researcher</span><span class="lang-zh hidden">研究者</span>
+                    </span>
                     <div class="sub-menu">
                         <a href="#"><span class="lang-en">Economics</span><span class="lang-zh hidden">经济学研究</span></a>
                     </div>
                 </li>
                 <li>
-                    <span class="group-label"><span class="lang-en">Observer</span><span class="lang-zh hidden">观察者</span></span>
+                    <span class="group-label">
+                        <span class="lang-en">Observer</span><span class="lang-zh hidden">观察者</span>
+                    </span>
                     <div class="sub-menu">
                         <a href="#"><span class="lang-en">Visual Archive</span><span class="lang-zh hidden">摄影辑录</span></a>
                     </div>
                 </li>
                 <li>
-                    <span class="group-label"><span class="lang-en">Recorder</span><span class="lang-zh hidden">记录者</span></span>
+                    <span class="group-label">
+                        <span class="lang-en">Recorder</span><span class="lang-zh hidden">记录者</span>
+                    </span>
                     <div class="sub-menu">
                         <a href="#"><span class="lang-en">Readings</span><span class="lang-zh hidden">研读思辨</span></a>
                     </div>
