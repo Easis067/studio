@@ -106,3 +106,61 @@ body {
 
 .about-text h2 { font-weight: 300; letter-spacing: 0.1em; }
 .about-text p { line-height: 1.8; color: #666; font-size: 0.9rem; }
+
+/* 全局顶部导航栏 */
+.global-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.3); /* 半透明 */
+    backdrop-filter: blur(10px); /* 毛玻璃效果 */
+    z-index: 1000;
+    box-sizing: border-box;
+    border-bottom: 0.5px solid rgba(188, 170, 164, 0.1);
+}
+
+.nav-logo a {
+    text-decoration: none;
+    color: #333;
+    font-size: 1.2rem;
+    letter-spacing: 0.2em;
+    font-weight: 200;
+}
+
+.nav-links {
+    display: flex;
+    gap: 30px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #666;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: color 0.3s;
+}
+
+.nav-links a:hover {
+    color: #e5989b;
+}
+
+/* 适配移动端 */
+@media (max-width: 600px) {
+    .global-nav { padding: 15px 20px; }
+    .nav-links { gap: 15px; }
+    .nav-links a { font-size: 0.65rem; }
+}
+
+/* 给内容区域留出顶部空间，防止被导航遮挡 */
+.sub-page-content {
+    padding-top: 120px !important;
+}
