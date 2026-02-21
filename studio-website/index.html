@@ -3,175 +3,230 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Easis | Personal & Archive</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>EASIS | SYSTEMS & DESIGN</title>
     <style>
-        /* --- 语言切换逻辑 --- */
-        .lang-zh.hidden, .lang-en.hidden { display: none !important; }
-        .lang-zh { font-size: 1.15em; font-weight: 400; letter-spacing: 0.03em; }
-        .lang-switch .active { font-weight: bold; color: #4a4a4a; }
-        .lang-switch span { cursor: pointer; transition: 0.3s; padding: 0 2px; }
+        /* 1. 国际主义风格基础设置 */
+        body {
+            background-color: #F2F2F2; /* 工业冷灰色背景 */
+            color: #000000;
+            margin: 0;
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; /* 经典瑞士字体族 */
+            -webkit-font-smoothing: antialiased;
+        }
 
-        /* --- 下拉菜单样式 --- */
-        .nav-links { display: flex; list-style: none; gap: 30px; align-items: center; }
-        .nav-links li { position: relative; }
+        /* 2. 语言切换逻辑 */
+        .lang-zh.hidden, .lang-en.hidden { display: none !important; }
+        .lang-zh { 
+            font-size: 1rem; 
+            font-weight: 600; /* 中文需要更有力量感 */
+            letter-spacing: 0.05em; 
+        }
+
+        /* 3. 导航栏：极简线框感 */
+        .global-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 40px 60px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1001;
+            box-sizing: border-box;
+            border-bottom: 1px solid #000; /* 极细黑线贯穿 */
+            background: #F2F2F2;
+        }
+
+        .nav-logo a {
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: -0.02em; /* 国际主义风格喜欢紧凑的字间距 */
+            text-decoration: none;
+            color: #000;
+        }
+
+        .nav-links { display: flex; list-style: none; gap: 40px; margin: 0; padding: 0; }
+        .nav-links a { 
+            text-decoration: none; 
+            color: #000; 
+            font-size: 0.8rem; 
+            font-weight: 700; 
+            text-transform: uppercase; 
+        }
+
+        /* 4. 下拉菜单：硬朗块状感 */
         .dropdown-menu {
             position: absolute;
             top: 100%;
             left: 0;
-            background: rgba(255, 250, 242, 0.98); /* 暖白背景 */
-            min-width: 180px;
+            background: #000; /* 翻转色：黑底白字 */
+            min-width: 200px;
             list-style: none;
-            padding: 15px 0;
-            margin: 10px 0 0 0;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.05);
-            border-radius: 2px;
+            padding: 20px 0;
+            margin: 0;
             opacity: 0;
             visibility: hidden;
-            transform: translateY(10px);
-            transition: all 0.3s ease;
-            z-index: 1000;
+            transition: 0.2s;
         }
-        .dropdown:hover .dropdown-menu {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
+        .dropdown:hover .dropdown-menu { opacity: 1; visibility: visible; }
+        .dropdown-menu li a { 
+            color: #FFF !important; 
+            padding: 10px 30px; 
+            display: block; 
+            font-size: 0.7rem !important; 
         }
-        .dropdown-menu li a {
-            padding: 10px 20px;
+        .dropdown-menu li a:hover { background: #E63946; } /* 经典的瑞士红强调 */
+
+        /* 5. 核心 Logo 区 */
+        .hero-wrapper {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 60px;
+        }
+
+        .main-logo {
+            font-size: 12vw; /* 巨型字体，占据视觉焦点 */
+            font-weight: 900;
+            line-height: 0.8;
+            margin: 0;
+            letter-spacing: -0.05em;
+        }
+
+        .center-statement {
+            margin-top: 20px;
+            border-left: 5px solid #E63946; /* 红色装饰条 */
+            padding-left: 20px;
+        }
+
+        .center-statement p {
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 1.2rem;
+            margin: 0;
+        }
+
+        /* 6. 底部网格导航 */
+        .footer-nav {
+            position: absolute;
+            bottom: 60px;
+            left: 60px;
+            right: 60px;
+        }
+
+        .nav-groups {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); /* 严格的四列网格 */
+            border-top: 2px solid #000;
+            padding-top: 20px;
+            list-style: none;
+        }
+
+        .group-label {
+            font-size: 0.7rem;
+            font-weight: 900;
+            text-transform: uppercase;
             display: block;
-            font-size: 0.75rem !important;
-            letter-spacing: 0.1em;
-            color: #666;
+            margin-bottom: 20px;
+            color: #E63946; /* 标注使用红色 */
+        }
+
+        .sub-menu a {
+            display: block;
             text-decoration: none;
+            color: #000;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
         }
-        .dropdown-menu li a:hover {
-            color: #e5989b !important;
-            background: rgba(229, 152, 155, 0.05);
+
+        /* 7. 语言切换按钮 */
+        .lang-switch span {
+            cursor: pointer;
+            font-weight: 800;
+            font-size: 0.75rem;
+            padding: 2px 5px;
         }
-        .nav-links a { text-decoration: none; color: inherit; }
+        .lang-switch .active {
+            background-color: #000;
+            color: #FFF;
+        }
     </style>
 </head>
-<body class="home-page">
+<body>
 
-    <nav class="global-nav" style="display: flex; justify-content: space-between; align-items: center; padding: 30px 50px; position: fixed; width: 100%; top: 0; z-index: 1001; box-sizing: border-box;">
-        <div class="nav-logo">
-            <a href="index.html" style="font-size: 1.2rem; letter-spacing: 0.2em; font-weight: 200; text-decoration: none; color: inherit;">EASIS</a>
-        </div>
-        
+    <nav class="global-nav">
+        <div class="nav-logo"><a href="index.html">EASIS</a></div>
         <div style="display: flex; align-items: center;">
             <ul class="nav-links">
                 <li class="dropdown">
-                    <a href="javascript:void(0)">
-                        <span class="lang-en">Researcher</span><span class="lang-zh hidden">研究者</span>
-                    </a>
+                    <a href="javascript:void(0)"><span class="lang-en">Researcher</span><span class="lang-zh hidden">研究者</span></a>
                     <ul class="dropdown-menu">
                         <li><a href="projects-economics.html"><span class="lang-en">Economics</span><span class="lang-zh hidden">经济学研究</span></a></li>
                         <li><a href="projects-innovation.html"><span class="lang-en">Innovation</span><span class="lang-zh hidden">创新研究</span></a></li>
                     </ul>
                 </li>
-
                 <li class="dropdown">
-                    <a href="javascript:void(0)">
-                        <span class="lang-en">Observer</span><span class="lang-zh hidden">观察者</span>
-                    </a>
+                    <a href="javascript:void(0)"><span class="lang-en">Observer</span><span class="lang-zh hidden">观察者</span></a>
                     <ul class="dropdown-menu">
                         <li><a href="obs-photo-arch.html"><span class="lang-en">Visual Archive</span><span class="lang-zh hidden">摄影辑录</span></a></li>
                         <li><a href="obs-exhibition.html"><span class="lang-en">Curation Walk</span><span class="lang-zh hidden">看展日记</span></a></li>
                     </ul>
                 </li>
-
                 <li class="dropdown">
-                    <a href="javascript:void(0)">
-                        <span class="lang-en">Recorder</span><span class="lang-zh hidden">记录者</span>
-                    </a>
+                    <a href="javascript:void(0)"><span class="lang-en">Recorder</span><span class="lang-zh hidden">记录者</span></a>
                     <ul class="dropdown-menu">
                         <li><a href="lib-screening.html"><span class="lang-en">Theatre & Scene</span><span class="lang-zh hidden">观演日记</span></a></li>
                         <li><a href="lib-readings.html"><span class="lang-en">Readings & Dialectics</span><span class="lang-zh hidden">研读思辨</span></a></li>
                     </ul>
                 </li>
-
-                <li><a href="about.html">
-                    <span class="lang-en">Me</span><span class="lang-zh hidden">个人</span>
-                </a></li>
+                <li><a href="about.html"><span class="lang-en">Me</span><span class="lang-zh hidden">个人</span></a></li>
             </ul>
-            
-            <div class="lang-switch" style="margin-left: 40px; font-size: 0.75rem; color: #bcaaa4; letter-spacing: 0.1em;">
+            <div class="lang-switch" style="margin-left: 40px;">
                 <span id="btn-en" onclick="setLanguage('en')" class="active">EN</span>
-                <span style="margin: 0 5px; opacity: 0.3;">/</span>
-                <span id="btn-zh" onclick="setLanguage('zh')">中文</span>
+                <span id="btn-zh" onclick="setLanguage('zh')">ZH</span>
             </div>
         </div>
     </nav>
 
-    <main class="hero-wrapper" style="height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center;">
-        <div class="logo-area" style="text-align: center;">
-            <h1 class="main-logo" style="font-size: 4rem; font-weight: 100; letter-spacing: 0.4em; margin-bottom: 20px;">Easis</h1>
-            <div class="center-statement">
-                <p style="letter-spacing: 0.5em; font-size: 0.8rem; color: #666;">SYSTEMS · MEDIUM · ARCHIVE</p>
-                <p class="lang-zh hidden" style="font-size: 0.75rem; letter-spacing: 0.6em; margin-top: 15px; font-weight: 300; color: #bcaaa4;">系统 · 媒介 · 档案</p>
-            </div>
+    <main class="hero-wrapper">
+        <h1 class="main-logo">EASIS.</h1>
+        <div class="center-statement">
+            <p>SYSTEMS / MEDIUM / ARCHIVE</p>
+            <p class="lang-zh hidden">系统 / 媒介 / 档案</p>
         </div>
 
-        <nav class="footer-nav" style="position: absolute; bottom: 80px; width: 80%; max-width: 1200px;">
-            <ul class="nav-groups" style="display: flex; justify-content: space-between; list-style: none; border-top: 0.5px solid rgba(188,170,164,0.3); padding-top: 40px;">
-                
+        <nav class="footer-nav">
+            <ul class="nav-groups">
                 <li>
-                    <span class="group-label" style="font-size: 0.7rem; color: #bcaaa4; letter-spacing: 0.2em; display: block; margin-bottom: 20px;">
-                        <span class="lang-en">Personal</span><span class="lang-zh hidden">个人</span>
-                    </span>
+                    <span class="group-label"><span class="lang-en">Personal</span><span class="lang-zh hidden">个人</span></span>
                     <div class="sub-menu">
-                        <a href="about.html" style="display: block; text-decoration: none; color: #444; margin-bottom: 10px;">
-                            <span class="lang-en">Profile</span><span class="lang-zh hidden">关于我</span>
-                        </a>
-                        <a href="mailto:your@email.com" style="display: block; text-decoration: none; color: #444;">
-                            <span class="lang-en">Contact</span><span class="lang-zh hidden">联系</span>
-                        </a>
+                        <a href="about.html"><span class="lang-en">Profile</span><span class="lang-zh hidden">关于我</span></a>
+                        <a href="mailto:email@example.com"><span class="lang-en">Contact</span><span class="lang-zh hidden">联系</span></a>
                     </div>
                 </li>
-
                 <li>
-                    <span class="group-label" style="font-size: 0.7rem; color: #bcaaa4; letter-spacing: 0.2em; display: block; margin-bottom: 20px;">
-                        <span class="lang-en">Researcher</span><span class="lang-zh hidden">研究者</span>
-                    </span>
+                    <span class="group-label"><span class="lang-en">Researcher</span><span class="lang-zh hidden">研究者</span></span>
                     <div class="sub-menu">
-                        <a href="projects-economics.html" style="display: block; text-decoration: none; color: #444; margin-bottom: 10px;">
-                            <span class="lang-en">Economics</span><span class="lang-zh hidden">经济学研究</span>
-                        </a>
-                        <a href="projects-innovation.html" style="display: block; text-decoration: none; color: #444;">
-                            <span class="lang-en">Innovation</span><span class="lang-zh hidden">创新研究</span>
-                        </a>
+                        <a href="projects-economics.html"><span class="lang-en">Economics</span><span class="lang-zh hidden">经济学研究</span></a>
+                        <a href="projects-innovation.html"><span class="lang-en">Innovation</span><span class="lang-zh hidden">创新研究</span></a>
                     </div>
                 </li>
-
                 <li>
-                    <span class="group-label" style="font-size: 0.7rem; color: #bcaaa4; letter-spacing: 0.2em; display: block; margin-bottom: 20px;">
-                        <span class="lang-en">Observer</span><span class="lang-zh hidden">观察者</span>
-                    </span>
+                    <span class="group-label"><span class="lang-en">Observer</span><span class="lang-zh hidden">观察者</span></span>
                     <div class="sub-menu">
-                        <a href="obs-photo-arch.html" style="display: block; text-decoration: none; color: #444; margin-bottom: 10px;">
-                            <span class="lang-en">Visual Archive</span><span class="lang-zh hidden">摄影辑录</span>
-                        </a>
-                        <a href="obs-exhibition.html" style="display: block; text-decoration: none; color: #444;">
-                            <span class="lang-en">Curation Walk</span><span class="lang-zh hidden">看展日记</span>
-                        </a>
+                        <a href="obs-photo-arch.html"><span class="lang-en">Visual Archive</span><span class="lang-zh hidden">摄影辑录</span></a>
+                        <a href="obs-exhibition.html"><span class="lang-en">Curation Walk</span><span class="lang-zh hidden">看展日记</span></a>
                     </div>
                 </li>
-
                 <li>
-                    <span class="group-label" style="font-size: 0.7rem; color: #bcaaa4; letter-spacing: 0.2em; display: block; margin-bottom: 20px;">
-                        <span class="lang-en">Recorder</span><span class="lang-zh hidden">记录者</span>
-                    </span>
+                    <span class="group-label"><span class="lang-en">Recorder</span><span class="lang-zh hidden">记录者</span></span>
                     <div class="sub-menu">
-                        <a href="lib-screening.html" style="display: block; text-decoration: none; color: #444; margin-bottom: 10px;">
-                            <span class="lang-en">Theatre & Scene</span><span class="lang-zh hidden">观演日记</span>
-                        </a>
-                        <a href="lib-readings.html" style="display: block; text-decoration: none; color: #444;">
-                            <span class="lang-en">Readings & Dialectics</span><span class="lang-zh hidden">研读思辨</span>
-                        </a>
+                        <a href="lib-screening.html"><span class="lang-en">Theatre & Scene</span><span class="lang-zh hidden">观演日记</span></a>
+                        <a href="lib-readings.html"><span class="lang-en">Readings & Dialectics</span><span class="lang-zh hidden">研读思辨</span></a>
                     </div>
                 </li>
-
             </ul>
         </nav>
     </main>
@@ -196,11 +251,7 @@
             }
             localStorage.setItem('site-lang', lang);
         }
-
-        window.addEventListener('DOMContentLoaded', () => {
-            const savedLang = localStorage.getItem('site-lang') || 'en';
-            setLanguage(savedLang);
-        });
+        window.addEventListener('DOMContentLoaded', () => setLanguage(localStorage.getItem('site-lang') || 'en'));
     </script>
 </body>
 </html>
