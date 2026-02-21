@@ -12,23 +12,48 @@
             --black: #1c1c1c;
         }
 
-        /* 1. 全局呼吸控制 */
-        body {
-            background-color: var(--white);
-            color: var(--black);
-            margin: 0;
-            font-family: "Space Grotesque", "Inter", sans-serif;
-            transition: background-color 10s ease-in-out, color 10s ease-in-out;
-            -webkit-font-smoothing: antialiased;
-            overflow: hidden;
-        }
+       /* 1. 全局动画控制 */
+body {
+    margin: 0;
+    font-family: "Space Grotesque", "Inter", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    overflow: hidden;
+    /* 应用动画：20秒一个循环，无限重复 */
+    animation: breatheLife 20s ease-in-out infinite;
+}
 
-        body.is-purple {
-            background-color: var(--periwinkle);
-            color: var(--white);
-        }
+@keyframes breatheLife {
+    0%, 30%, 100% { 
+        background-color: var(--white); 
+        color: var(--black); 
+    }
+    45%, 85% { 
+        background-color: var(--periwinkle); 
+        color: var(--white); 
+    }
+}
 
-        .lang-zh.hidden, .lang-en.hidden { display: none !important; }
+/* 确保中间的 statement 标签块也同步变色 */
+.center-statement {
+    margin-top: 30px;
+    padding: 12px 30px;
+    background-color: currentColor; 
+    display: inline-block;
+}
+
+.center-statement span {
+    font-weight: 900; letter-spacing: 0.3em; font-size: 1.1rem;
+    /* 这里的颜色逻辑稍微反转一下，确保在背景变色时它依然可见 */
+    animation: labelText 20s ease-in-out infinite;
+}
+
+@keyframes labelText {
+    0%, 30%, 100% { color: var(--white); }
+    45%, 85% { color: var(--periwinkle); }
+}
+
+/* 移除之前 JS 控制的类名，因为现在由动画托管了 */
+body.is-purple { background-color: transparent; color: inherit; }
 
         /* --- 2. 顶部导航栏 --- */
         .global-nav {
@@ -229,15 +254,16 @@
         </nav>
     </main>
 
-    <script>
-        let isPeriwinkle = false;
-        const body = document.getElementById('dynamic-body');
-        function breatheColor() {
-            body.classList.toggle('is-purple');
-            isPeriwinkle = !isPeriwinkle;
-        }
-        setInterval(breatheColor, 8000);
-
+  <script>
+    // 删除了 breatheColor 定时器，颜色逻辑已移至 CSS keyframes
+    function setLanguage(lang) {
+        document.querySelectorAll('.lang-en').forEach(el => lang === 'zh' ? el.classList.add('hidden') : el.classList.remove('hidden'));
+        document.querySelectorAll('.lang-zh').forEach(el => lang === 'zh' ? el.classList.remove('hidden') : el.classList.add('hidden'));
+        document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+        document.getElementById('btn-zh').classList.toggle('active', lang === 'zh');
+    }
+</script>
+    
         function setLanguage(lang) {
             document.querySelectorAll('.lang-en').forEach(el => lang === 'zh' ? el.classList.add('hidden') : el.classList.remove('hidden'));
             document.querySelectorAll('.lang-zh').forEach(el => lang === 'zh' ? el.classList.remove('hidden') : el.classList.add('hidden'));
