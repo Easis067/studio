@@ -3,30 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Easis – Conceptual Works</title>
+    <title>Easis</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body class="home-page">
 
-<header class="hero">
-    <h1>Easis</h1>
-    <p class="statement">Research as Structure · Systems as Medium</p>
-</header>
+    <main class="hero-wrapper">
+        <div class="logo-area">
+            <h1 class="main-logo">Easis</h1>
+        </div>
 
-<nav>
-    <ul>
-        <li><a href="works.html">Works</a></li>
-        <li><a href="notebook.html">Notebook</a></li>
-        <li><a href="#">Contact</a></li>
-    </ul>
-</nav>
+        <div class="center-statement">
+            <p style="letter-spacing: 0.5em; color: #888;">SYSTEMS · MEDIUM · ARCHIVE</p>
+        </div>
 
-<main>
-    <section class="intro">
-        <p>Exploring economic and innovation systems as conceptual compositions.</p>
-    </section>
-</main>
+        <nav class="footer-nav">
+            <ul class="nav-groups">
+                <li>
+                    <span class="group-label">Identity</span>
+                    <div class="sub-menu">
+                        <a href="#" onclick="toggleAbout()">About</a>
+                        <a href="mailto:你的邮箱@gmail.com">Contact</a>
+                    </div>
+                </li>
 
-<script src="js/main.js"></script>
+                <li>
+                    <span class="group-label">Projects</span>
+                    <div class="sub-menu">
+                        <a href="projects-economics.html">Economics</a>
+                        <a href="projects-innovation.html">Innovation</a>
+                    </div>
+                </li>
+
+                <li>
+                    <span class="group-label">Observation</span>
+                    <div class="sub-menu">
+                        <a href="obs-photo-arch.html">Photo & Arch</a>
+                        <a href="obs-exhibition.html">Exhibition Logs</a>
+                    </div>
+                </li>
+
+                <li>
+                    <span class="group-label">Library</span>
+                    <div class="sub-menu">
+                        <a href="lib-screening.html">Screening Repo</a>
+                        <a href="lib-readings.html">Readings</a>
+                        <a href="lib-essays.html">Essays</a>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </main>
+
+    <div id="about-overlay" class="overlay" onclick="toggleAbout()">
+        <div class="overlay-content" onclick="event.stopPropagation()">
+            <span class="close-btn" onclick="toggleAbout()">&times;</span>
+            <div class="about-text">
+                <h2>Easis</h2>
+                <p style="font-style: italic; color: #888;">Researcher & Artist</p>
+                <hr style="border:0; border-top:1px solid #eee; margin:20px 0;">
+                <p>探索作为结构的经济系统，以及作为媒介的创新逻辑。</p>
+                <p>这里是一个跨学科的数字档案室：记录城市建筑的肌理，复盘银幕上的视觉叙事，并尝试在严谨的系统研究中寻找艺术的生命力。</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleAbout() {
+            document.getElementById('about-overlay').classList.toggle('active');
+        }
+    </script>
 </body>
 </html>
