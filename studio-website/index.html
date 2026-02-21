@@ -7,23 +7,24 @@
     <style>
         :root {
             --periwinkle: #53589A;   
-            --fluo-yellow: #E5EB15;  
+            --fluo-yellow: #E5EB15;  /* 荧光绿/黄 */
             --white: #FFFFFF;
             --black: #000000;
         }
 
-        /* 全局平滑呼吸：确保所有继承 color 的文字都同步 8s 过渡 */
+        /* 1. 全局呼吸控制 */
         body {
             background-color: var(--white);
             color: var(--black);
             margin: 0;
             font-family: "Space Grotesque", "Inter", sans-serif;
+            /* 背景和文字颜色全部 8s 同步呼吸 */
             transition: background-color 8s ease-in-out, color 8s ease-in-out;
             -webkit-font-smoothing: antialiased;
             overflow: hidden;
         }
 
-        /* 紫色呼吸状态：文字自动转白 */
+        /* 当 body 带有 .is-purple 类时，全局文字自动变白 */
         body.is-purple {
             background-color: var(--periwinkle);
             color: var(--white);
@@ -31,7 +32,7 @@
 
         .lang-zh.hidden, .lang-en.hidden { display: none !important; }
 
-        /* --- 1. 顶部导航与下拉菜单 --- */
+        /* --- 导航栏 --- */
         .global-nav {
             display: flex;
             justify-content: space-between;
@@ -51,12 +52,7 @@
             font-weight: 900;
             text-decoration: none;
             color: inherit;
-            transition: color 0.3s ease, text-shadow 0.3s ease;
-            display: inline-block;
-        }
-        .nav-logo a:hover {
-            color: var(--fluo-yellow) !important;
-            text-shadow: 3px 3px 0 var(--black);
+            transition: color 0.3s ease;
         }
 
         .nav-links { display: flex; list-style: none; gap: 40px; margin: 0; padding: 0; }
@@ -66,19 +62,17 @@
             text-transform: uppercase; padding: 8px 18px; border: 2px solid currentColor;
             display: inline-block; transition: 0.3s;
         }
-        .nav-links > li > a:hover { 
-            background: var(--fluo-yellow); color: var(--black) !important; border-color: var(--black); 
-        }
 
+        /* 下拉菜单 */
         .dropdown-menu {
             position: absolute; top: 100%; left: 0; background: var(--black); min-width: 200px;
             list-style: none; padding: 10px 0; margin: 0; opacity: 0; visibility: hidden;
-            border: 2px solid var(--fluo-yellow); transition: 0.3s ease; z-index: 1002;
+            border: 2px solid var(--fluo-yellow); transition: 0.3s ease;
         }
         .nav-links > li:hover .dropdown-menu { opacity: 1; visibility: visible; margin-top: 10px; }
         .dropdown-menu li a { color: var(--white) !important; padding: 12px 20px; display: block; text-decoration: none; font-weight: 700; }
 
-        /* --- 2. 中间部分 --- */
+        /* --- 2. 中间大 EASIS (修改镂空颜色) --- */
         .hero-wrapper {
             height: 100vh;
             display: flex;
@@ -94,21 +88,23 @@
             letter-spacing: -0.06em;
             line-height: 0.8;
             color: inherit; 
-            /* EASIS 错位呼吸：延迟 2s 开始，持续 6s */
+            /* 延迟 2s 呼吸 */
             transition: color 6s ease-in-out 2s, -webkit-text-stroke 0.3s ease;
             cursor: default;
         }
+        
+        /* 鼠标悬浮：文字变透明，描边变【荧光绿】 */
         .main-logo:hover {
             color: transparent !important;
-            -webkit-text-stroke: 4px var(--black);
+            -webkit-text-stroke: 4px var(--fluo-yellow); 
         }
 
+        /* SYSTEM 标签 */
         .center-statement {
             margin-top: 30px;
             padding: 12px 30px;
             background-color: currentColor; 
             display: inline-block;
-            align-self: flex-start;
             transition: background-color 8s ease-in-out;
         }
         .center-statement span {
@@ -117,13 +113,12 @@
             font-size: 1.1rem;
             color: var(--white); 
             transition: color 8s ease-in-out;
-            display: inline-block;
         }
         body.is-purple .center-statement span {
             color: var(--periwinkle) !important;
         }
 
-        /* --- 3. 底部导航 (重点修复部分) --- */
+        /* --- 3. 底部导航 (修复变色逻辑) --- */
         .footer-nav {
             position: absolute; bottom: 60px; left: 100px; right: 100px;
         }
@@ -139,21 +134,23 @@
             margin-bottom: 25px; border: 2.5px solid var(--black);
         }
 
+        /* 这里是你的截图部分：Profile, Contact 等 */
         .sub-menu a {
             display: block; 
             text-decoration: none; 
-            /* 关键：强制继承 body 颜色并设置 8s 过渡 */
+            /* 重点：color 设为 inherit 确保跟随 body 的文字颜色呼吸 */
             color: inherit !important; 
             margin-bottom: 15px;
             font-size: 1.15rem; 
             font-weight: 700; 
             position: relative; 
             width: fit-content;
+            /* 必须有 8s 过渡，否则变色会突变闪烁 */
             transition: color 8s ease-in-out; 
         }
         
         .sub-menu a:hover {
-            color: var(--fluo-yellow) !important; /* 悬浮时变亮 */
+            color: var(--fluo-yellow) !important;
         }
         
         .sub-menu a::after {
@@ -194,7 +191,7 @@
                         <li><a href="#"><span class="lang-en">Readings & Dialectics</span><span class="lang-zh hidden">研读思辨</span></a></li>
                     </ul>
                 </li>
-                <li><a href="about.html" style="border: 2px solid currentColor; padding: 8px 15px;"><span class="lang-en">Me</span><span class="lang-zh hidden">个人</span></a></li>
+                <li><a href="about.html"><span class="lang-en">Me</span><span class="lang-zh hidden">个人</span></a></li>
             </ul>
             <div class="lang-switch">
                 <span id="btn-en" onclick="setLanguage('en')" class="active">EN</span>
@@ -252,10 +249,9 @@
 
         function breatheColor() {
             if (!isPeriwinkle) {
-                body.style.backgroundColor = "#53589A";
+                // 只管改 body 背景，剩下的交给 CSS 的 8s 过渡
                 body.classList.add('is-purple'); 
             } else {
-                body.style.backgroundColor = "#FFFFFF";
                 body.classList.remove('is-purple');
             }
             isPeriwinkle = !isPeriwinkle;
