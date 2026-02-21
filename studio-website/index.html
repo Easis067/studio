@@ -12,7 +12,7 @@
             --black: #000000;
         }
 
-        /* 全局平滑呼吸 */
+        /* 全局平滑呼吸：确保所有继承 color 的文字都同步 8s 过渡 */
         body {
             background-color: var(--white);
             color: var(--black);
@@ -23,6 +23,7 @@
             overflow: hidden;
         }
 
+        /* 紫色呼吸状态：文字自动转白 */
         body.is-purple {
             background-color: var(--periwinkle);
             color: var(--white);
@@ -30,7 +31,7 @@
 
         .lang-zh.hidden, .lang-en.hidden { display: none !important; }
 
-        /* --- 1. 顶部导航与下拉菜单 (修复消失问题) --- */
+        /* --- 1. 顶部导航与下拉菜单 --- */
         .global-nav {
             display: flex;
             justify-content: space-between;
@@ -59,8 +60,7 @@
         }
 
         .nav-links { display: flex; list-style: none; gap: 40px; margin: 0; padding: 0; }
-        .nav-links > li { position: relative; } /* 为下拉菜单定位 */
-        
+        .nav-links > li { position: relative; }
         .nav-links > li > a { 
             text-decoration: none; color: inherit; font-size: 1.25rem; font-weight: 800; 
             text-transform: uppercase; padding: 8px 18px; border: 2px solid currentColor;
@@ -70,41 +70,15 @@
             background: var(--fluo-yellow); color: var(--black) !important; border-color: var(--black); 
         }
 
-        /* 下拉选项样式修复 */
         .dropdown-menu {
-            position: absolute; 
-            top: 100%; 
-            left: 0; 
-            background: var(--black); 
-            min-width: 200px;
-            list-style: none; 
-            padding: 10px 0; 
-            margin: 0;
-            opacity: 0; 
-            visibility: hidden;
-            border: 2px solid var(--fluo-yellow); 
-            transition: 0.3s ease;
-            z-index: 1002;
+            position: absolute; top: 100%; left: 0; background: var(--black); min-width: 200px;
+            list-style: none; padding: 10px 0; margin: 0; opacity: 0; visibility: hidden;
+            border: 2px solid var(--fluo-yellow); transition: 0.3s ease; z-index: 1002;
         }
-        .nav-links > li:hover .dropdown-menu { 
-            opacity: 1; 
-            visibility: visible; 
-            margin-top: 10px;
-        }
-        .dropdown-menu li a { 
-            color: var(--white) !important; 
-            padding: 12px 20px; 
-            display: block; 
-            text-decoration: none; 
-            font-weight: 700;
-            font-size: 1rem;
-        }
-        .dropdown-menu li a:hover {
-            background: var(--fluo-yellow);
-            color: var(--black) !important;
-        }
+        .nav-links > li:hover .dropdown-menu { opacity: 1; visibility: visible; margin-top: 10px; }
+        .dropdown-menu li a { color: var(--white) !important; padding: 12px 20px; display: block; text-decoration: none; font-weight: 700; }
 
-        /* --- 2. 中间大 EASIS (错位呼吸逻辑) --- */
+        /* --- 2. 中间部分 --- */
         .hero-wrapper {
             height: 100vh;
             display: flex;
@@ -120,17 +94,15 @@
             letter-spacing: -0.06em;
             line-height: 0.8;
             color: inherit; 
-            /* 延迟 2s 呼吸，且变色时间缩短至 6s，从而与 8s 的背景错开 */
+            /* EASIS 错位呼吸：延迟 2s 开始，持续 6s */
             transition: color 6s ease-in-out 2s, -webkit-text-stroke 0.3s ease;
             cursor: default;
         }
         .main-logo:hover {
             color: transparent !important;
             -webkit-text-stroke: 4px var(--black);
-            transition: -webkit-text-stroke 0.3s ease; /* 悬停响应不受延迟影响 */
         }
 
-        /* 系统 / 媒介 / 档案 */
         .center-statement {
             margin-top: 30px;
             padding: 12px 30px;
@@ -151,7 +123,7 @@
             color: var(--periwinkle) !important;
         }
 
-        /* --- 3. 底部导航 --- */
+        /* --- 3. 底部导航 (重点修复部分) --- */
         .footer-nav {
             position: absolute; bottom: 60px; left: 100px; right: 100px;
         }
@@ -168,11 +140,22 @@
         }
 
         .sub-menu a {
-            display: block; text-decoration: none; color: inherit; margin-bottom: 15px;
-            font-size: 1.15rem; font-weight: 700; position: relative; width: fit-content;
-            transition: color 8s ease-in-out;
+            display: block; 
+            text-decoration: none; 
+            /* 关键：强制继承 body 颜色并设置 8s 过渡 */
+            color: inherit !important; 
+            margin-bottom: 15px;
+            font-size: 1.15rem; 
+            font-weight: 700; 
+            position: relative; 
+            width: fit-content;
+            transition: color 8s ease-in-out; 
         }
-        .sub-menu a:hover { color: inherit !important; }
+        
+        .sub-menu a:hover {
+            color: var(--fluo-yellow) !important; /* 悬浮时变亮 */
+        }
+        
         .sub-menu a::after {
             content: ''; position: absolute; width: 0; height: 5px; 
             bottom: -6px; left: 0; background-color: var(--fluo-yellow); transition: width 0.3s ease;
@@ -211,7 +194,7 @@
                         <li><a href="#"><span class="lang-en">Readings & Dialectics</span><span class="lang-zh hidden">研读思辨</span></a></li>
                     </ul>
                 </li>
-                <li><a href="about.html"><span class="lang-en">Me</span><span class="lang-zh hidden">个人</span></a></li>
+                <li><a href="about.html" style="border: 2px solid currentColor; padding: 8px 15px;"><span class="lang-en">Me</span><span class="lang-zh hidden">个人</span></a></li>
             </ul>
             <div class="lang-switch">
                 <span id="btn-en" onclick="setLanguage('en')" class="active">EN</span>
