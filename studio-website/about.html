@@ -3,64 +3,162 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About | Easis</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>About | EASIS</title>
     <style>
+        :root {
+            --periwinkle: #BADD7F;   /* 呼吸目标色：抹茶绿 */
+            --fluo-yellow: #EFACA5;  /* 悬停强调色：柔粉 */
+            --white: #F7EFDA;        /* 基础奶白色 */
+            --black: #1c1c1c;
+        }
+
+        body {
+            background-color: var(--white);
+            color: var(--black);
+            margin: 0;
+            font-family: "Space Grotesque", "Inter", sans-serif;
+            transition: background-color 2s ease-in-out;
+            -webkit-font-smoothing: antialiased;
+            min-height: 100vh;
+        }
+
+        body.is-active { background-color: var(--periwinkle); }
+        .lang-zh.hidden, .lang-en.hidden { display: none !important; }
+
+        /* --- 导航栏 (同主页) --- */
+        .global-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 40px 80px;
+            position: fixed;
+            width: 100%; top: 0; z-index: 1001;
+            box-sizing: border-box;
+            border-bottom: 2px solid var(--black);
+        }
+        .nav-logo a { font-size: 2.2rem; font-weight: 900; text-decoration: none; color: var(--black); }
+        .lang-switch { border: 2px solid var(--black); padding: 2px; }
+        .lang-switch span { padding: 5px 15px; cursor: pointer; font-weight: 900; }
+        .lang-switch .active { background: var(--fluo-yellow); }
+
+        /* --- About 主排版 --- */
         .about-container {
-            padding: 160px 10vw 100px;
-            max-width: 1000px;
             display: grid;
-            grid-template-columns: 1fr 1.5fr;
-            gap: 8vw;
+            grid-template-columns: 1fr 1fr; /* 左右分栏 */
+            padding: 200px 100px 100px;
+            gap: 50px;
+            max-width: 1400px;
+            margin: 0 auto;
         }
-        .about-title h1 {
-            font-size: 3.5rem;
-            font-weight: 100;
-            letter-spacing: 0.3em;
-            position: sticky;
-            top: 160px;
+
+        /* 左侧：巨大的标题 */
+        .about-title {
+            font-size: 10vw;
+            font-weight: 200; /* 轻盈细体，呼应图片风格 */
+            letter-spacing: -0.02em;
+            margin: 0;
+            align-self: center;
         }
-        .about-content { line-height: 2; color: #444; }
-        .about-content section { margin-bottom: 5rem; }
-        .section-label {
-            display: block;
-            font-size: 0.7rem;
-            color: #bcaaa4;
-            letter-spacing: 0.25em;
-            margin-bottom: 2rem;
+
+        /* 右侧：内容区 */
+        .content-section {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 80px;
         }
-        @media (max-width: 800px) {
-            .about-container { grid-template-columns: 1fr; }
-            .about-title h1 { position: static; margin-bottom: 3rem; }
+
+        .content-block h2 {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: rgba(0,0,0,0.4); /* 浅色标注 */
+            margin-bottom: 20px;
+            font-weight: 900;
+        }
+
+        .content-block p {
+            font-size: 1.4rem;
+            line-height: 1.6;
+            font-weight: 500;
+            max-width: 500px;
+        }
+
+        .contact-link {
+            font-size: 1.8rem;
+            color: var(--black);
+            text-decoration: none;
+            font-weight: 700;
+            border-bottom: 3px solid var(--black);
+            transition: 0.3s;
+        }
+        .contact-link:hover {
+            color: var(--fluo-yellow);
+            border-color: var(--fluo-yellow);
+        }
+
+        /* 移动端适配 */
+        @media (max-width: 900px) {
+            .about-container { grid-template-columns: 1fr; padding: 150px 40px; }
+            .about-title { font-size: 20vw; margin-bottom: 40px; }
         }
     </style>
 </head>
-<body>
+<body id="dynamic-body">
 
     <nav class="global-nav">
         <div class="nav-logo"><a href="index.html">EASIS</a></div>
-        <ul class="nav-links">
-            <li><a href="projects-economics.html">Projects</a></li>
-            <li><a href="obs-photo-arch.html">Observation</a></li>
-            <li><a href="lib-screening.html">Library</a></li>
-            <li><a href="about.html" style="color:#e5989b;">About</a></li>
-        </ul>
+        <div class="lang-switch">
+            <span id="btn-en" onclick="setLanguage('en')" class="active">EN</span>
+            <span id="btn-zh" onclick="setLanguage('zh')">中文</span>
+        </div>
     </nav>
 
     <main class="about-container">
-        <div class="about-title"><h1>About</h1></div>
-        <div class="about-content">
-            <section>
-                <span class="section-label">Practice</span>
-                <p>Easis 是一位跨学科研究者。通过观察经济系统的结构性逻辑与城市空间的流动媒介，试图在严谨的理性叙事中捕捉具有生命力的艺术瞬间。</p>
+        <h1 class="about-title">About</h1>
+
+        <div class="content-section">
+            
+            <section class="content-block">
+                <h2 class="label">Practice</h2>
+                <p class="lang-en">
+                    Easis is a transdisciplinary researcher. By observing the structural logic of economic systems and the fluid media of urban spaces, seeking to capture artistic moments with vitality within a rigorous rational narrative.
+                </p>
+                <p class="lang-zh hidden">
+                    Easis 是一位跨学科研究者。通过观察经济系统的结构性逻辑与城市空间的流动媒介，试图在严谨的理性叙事中捕捉具有生命力的艺术瞬间。
+                </p>
             </section>
-            <section>
-                <span class="section-label">Contact</span>
-                <p>Collaborations / Inquiries:</p>
-                <a href="mailto:你的邮箱@gmail.com" style="color: #e5989b; text-decoration: none;">你的邮箱@gmail.com</a>
+
+            <section class="content-block">
+                <h2 class="label">Contact</h2>
+                <div style="margin-top: 10px;">
+                    <span class="lang-en" style="display:block; margin-bottom:10px; opacity:0.6;">Collaborations / Inquiries:</span>
+                    <span class="lang-zh hidden" style="display:block; margin-bottom:10px; opacity:0.6;">合作 / 咨询：</span>
+                    <a href="mailto:your-email@gmail.com" class="contact-link">your-email@gmail.com</a>
+                </div>
             </section>
+
         </div>
     </main>
 
+    <script>
+        const body = document.getElementById('dynamic-body');
+        
+        // 呼吸逻辑 (与主页保持同步)
+        function runAnimation() {
+            setTimeout(() => { body.classList.add('is-active'); }, 5000); 
+            setTimeout(() => { body.classList.remove('is-active'); }, 12000); 
+            setTimeout(runAnimation, 14000); 
+        }
+        runAnimation();
+
+        // 语言切换逻辑
+        function setLanguage(lang) {
+            document.querySelectorAll('.lang-en').forEach(el => lang === 'zh' ? el.classList.add('hidden') : el.classList.remove('hidden'));
+            document.querySelectorAll('.lang-zh').forEach(el => lang === 'zh' ? el.classList.remove('hidden') : el.classList.add('hidden'));
+            document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+            document.getElementById('btn-zh').classList.toggle('active', lang === 'zh');
+        }
+    </script>
 </body>
 </html>
