@@ -3,138 +3,157 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EASIS | Personal Archive</title>
+    <title>EASIS | SYSTEMS & ARCHIVE</title>
     <style>
-        /* 1. 动态背景与基础设定 */
+        /* 1. 全局样式：引入更硬朗的字体感知 */
         :root {
-            --bg-base: #F7F7F2; /* 纸张白 */
-            --accent-red: #C0392B; /* 更有质感的深红 */
+            --bg-base: #F7F7F2; 
+            --accent-red: #C0392B; 
+            --text-main: #000000;
         }
 
         body {
             background-color: var(--bg-base);
-            color: #1A1A1A;
+            color: var(--text-main);
             margin: 0;
-            /* 字体组合：标题用带衬线的，正文用平滑的无衬线 */
-            font-family: "Optima", "Candara", "Segoe UI", sans-serif;
-            transition: background-color 1.5s ease; /* 颜色变换的平滑度 */
+            /* 使用更厚重的系统字体族 */
+            font-family: "Inter", "Helvetica Neue", "Arial", sans-serif;
+            transition: background-color 2.5s ease-in-out;
             -webkit-font-smoothing: antialiased;
-            overflow: hidden; /* 保持首页简洁 */
+            overflow: hidden;
         }
 
-        /* 2. 语言切换与隐藏逻辑 */
+        /* 2. 语言切换 */
         .lang-zh.hidden, .lang-en.hidden { display: none !important; }
-        .lang-zh { font-size: 1.1rem; letter-spacing: 0.1em; font-weight: 300; }
+        .lang-zh { 
+            font-size: 1.1rem; 
+            letter-spacing: 0.05em; 
+            font-weight: 700; /* 中文也加粗，匹配硬朗感 */
+        }
 
-        /* 3. 线条导航栏 */
+        /* 3. 顶部导航栏 - 强化力量感 */
         .global-nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 40px 60px;
+            padding: 40px 80px;
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1001;
             box-sizing: border-box;
-            border-bottom: 0.5px solid rgba(0,0,0,0.1);
+            border-bottom: 1.5px solid #000; /* 变粗的底线 */
         }
 
         .nav-logo a {
-            font-family: "Cinzel", "Optima", serif; /* 更有艺术感的字体 */
-            font-size: 1.6rem;
-            font-weight: 400;
-            letter-spacing: 0.2em;
+            font-family: "Inter", sans-serif;
+            font-size: 2rem;
+            font-weight: 900; /* 极粗 */
+            letter-spacing: -0.02em; /* 紧凑字间距更显硬朗 */
             text-decoration: none;
             color: #000;
         }
 
-        .nav-links { display: flex; list-style: none; gap: 45px; margin: 0; padding: 0; }
-        .nav-links a { 
+        .nav-links { display: flex; list-style: none; gap: 50px; margin: 0; padding: 0; }
+        
+        /* 一级菜单：加粗、加大、收紧间距 */
+        .nav-links > li > a { 
             text-decoration: none; 
-            color: rgba(0,0,0,0.6); 
-            font-size: 0.8rem; 
-            letter-spacing: 0.15em;
-            transition: 0.3s;
+            color: #000; 
+            font-size: 1.2rem; 
+            font-weight: 800; /* 极粗级别 */
+            letter-spacing: -0.01em; 
+            text-transform: uppercase;
+            display: block;
+            padding-bottom: 5px;
         }
-        .nav-links a:hover { color: var(--accent-red); }
 
-        /* 4. 下拉菜单（保持线条感，增加透明度） */
+        /* 4. 下拉菜单：改为硬边块状感 */
         .dropdown-menu {
             position: absolute;
             top: 100%;
-            left: -10px;
-            background: rgba(255, 255, 255, 0.95);
-            min-width: 180px;
+            left: 0;
+            background: #000; /* 翻转配色：黑块白字，视觉冲击力最强 */
+            min-width: 240px;
             list-style: none;
-            padding: 15px 0;
-            margin: 10px 0 0 0;
-            border: 0.5px solid rgba(0,0,0,0.1);
+            padding: 10px 0;
+            margin: 0; /* 紧贴导航栏 */
             opacity: 0;
             visibility: hidden;
-            transform: translateY(5px);
-            transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            transform: translateY(0);
+            transition: 0.2s ease-in-out;
+            border: none;
         }
-        .dropdown:hover .dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0); }
+        .dropdown:hover .dropdown-menu { opacity: 1; visibility: visible; }
+        
+        /* 下拉项：白字、厚重、无衬线 */
         .dropdown-menu li a { 
-            color: #444 !important; 
-            padding: 10px 25px; 
+            color: #FFF !important; 
+            padding: 15px 25px; 
             display: block; 
-            font-size: 0.75rem !important; 
+            font-size: 0.9rem !important; 
+            font-weight: 700 !important;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            border-bottom: 0.5px solid rgba(255,255,255,0.1);
+        }
+        .dropdown-menu li a:hover {
+            background-color: var(--accent-red);
         }
 
-        /* 5. 核心展示区 */
+        /* 5. 核心 Logo 区 */
         .hero-wrapper {
             height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            padding: 0 80px;
+            padding: 0 100px;
         }
 
         .main-logo {
-            font-family: "Cinzel", serif;
-            font-size: 10vw;
-            font-weight: 400;
+            font-size: 15vw;
+            font-weight: 900;
             margin: 0;
-            letter-spacing: 0.1em;
+            letter-spacing: -0.05em;
             color: #000;
+            line-height: 0.85;
         }
 
         .center-statement {
-            margin-top: 10px;
-            border-left: 1px solid var(--accent-red);
-            padding-left: 25px;
-            max-width: 600px;
+            margin-top: 30px;
+            border-left: 10px solid #000; /* 极粗的黑条 */
+            padding-left: 30px;
         }
 
         .center-statement p {
-            font-weight: 300;
-            letter-spacing: 0.3em;
-            font-size: 0.9rem;
-            color: #555;
+            font-weight: 800;
+            letter-spacing: 0.1em;
+            font-size: 1.4rem;
+            color: #000;
+            text-transform: uppercase;
             margin: 5px 0;
         }
 
-        /* 6. 底部网格（线条增强） */
+        /* 6. 底部网格 */
         .footer-nav {
             position: absolute;
             bottom: 60px;
-            left: 80px;
-            right: 80px;
+            left: 100px;
+            right: 100px;
         }
 
         .nav-groups {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            border-top: 0.5px solid rgba(0,0,0,1);
+            border-top: 4px solid #000; /* 极粗顶线 */
             padding-top: 30px;
             list-style: none;
         }
 
         .group-label {
-            font-size: 0.65rem;
-            letter-spacing: 0.2em;
+            font-size: 0.8rem;
+            font-weight: 900;
+            text-transform: uppercase;
             display: block;
             margin-bottom: 25px;
             color: var(--accent-red);
@@ -143,18 +162,20 @@
         .sub-menu a {
             display: block;
             text-decoration: none;
-            color: #333;
-            margin-bottom: 12px;
-            font-size: 0.85rem;
-            font-weight: 300;
-            transition: 0.3s;
+            color: #000;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+            font-weight: 700;
         }
-        .sub-menu a:hover { padding-left: 5px; color: #000; }
 
-        /* 7. 语言切换 */
-        .lang-switch { margin-left: 40px; font-size: 0.7rem; letter-spacing: 0.1em; cursor: pointer; }
-        .lang-switch span { padding: 2px 8px; transition: 0.3s; }
-        .lang-switch .active { border: 0.5px solid #000; border-radius: 20px; }
+        /* 7. 语言切换器 */
+        .lang-switch { margin-left: 50px; font-weight: 900; }
+        .lang-switch span { 
+            padding: 5px 15px; 
+            cursor: pointer;
+            border: 2px solid transparent; 
+        }
+        .lang-switch .active { border: 2px solid #000; }
     </style>
 </head>
 <body id="dynamic-body">
@@ -164,27 +185,35 @@
         <div style="display: flex; align-items: center;">
             <ul class="nav-links">
                 <li class="dropdown">
-                    <a href="javascript:void(0)"><span class="lang-en">Researcher</span><span class="lang-zh hidden">研究者</span></a>
+                    <a href="javascript:void(0)">
+                        <span class="lang-en">Researcher</span><span class="lang-zh hidden">研究者</span>
+                    </a>
                     <ul class="dropdown-menu">
                         <li><a href="projects-economics.html"><span class="lang-en">Economics</span><span class="lang-zh hidden">经济学研究</span></a></li>
                         <li><a href="projects-innovation.html"><span class="lang-en">Innovation</span><span class="lang-zh hidden">创新研究</span></a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
-                    <a href="javascript:void(0)"><span class="lang-en">Observer</span><span class="lang-zh hidden">观察者</span></a>
+                    <a href="javascript:void(0)">
+                        <span class="lang-en">Observer</span><span class="lang-zh hidden">观察者</span>
+                    </a>
                     <ul class="dropdown-menu">
                         <li><a href="obs-photo-arch.html"><span class="lang-en">Visual Archive</span><span class="lang-zh hidden">摄影辑录</span></a></li>
                         <li><a href="obs-exhibition.html"><span class="lang-en">Curation Walk</span><span class="lang-zh hidden">看展日记</span></a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
-                    <a href="javascript:void(0)"><span class="lang-en">Recorder</span><span class="lang-zh hidden">记录者</span></a>
+                    <a href="javascript:void(0)">
+                        <span class="lang-en">Recorder</span><span class="lang-zh hidden">记录者</span>
+                    </a>
                     <ul class="dropdown-menu">
                         <li><a href="lib-screening.html"><span class="lang-en">Theatre & Scene</span><span class="lang-zh hidden">观演日记</span></a></li>
                         <li><a href="lib-readings.html"><span class="lang-en">Readings & Dialectics</span><span class="lang-zh hidden">研读思辨</span></a></li>
                     </ul>
                 </li>
-                <li><a href="about.html"><span class="lang-en">Me</span><span class="lang-zh hidden">个人</span></a></li>
+                <li><a href="about.html">
+                    <span class="lang-en">Me</span><span class="lang-zh hidden">个人</span>
+                </a></li>
             </ul>
             <div class="lang-switch">
                 <span id="btn-en" onclick="setLanguage('en')" class="active">EN</span>
@@ -235,16 +264,14 @@
     </main>
 
     <script>
-        // 1. 颜色循环变换逻辑
-        const colors = ['#F7F7F2', '#F2F4F7', '#F7F2F2', '#F2F7F4']; // 纸张白、冰川蓝、淡玫瑰、薄荷灰
+        const colors = ['#F7F7F2', '#F0F0F0', '#EBEBEB', '#F5F5F5']; 
         let colorIndex = 0;
         function changeBg() {
             document.getElementById('dynamic-body').style.backgroundColor = colors[colorIndex];
             colorIndex = (colorIndex + 1) % colors.length;
         }
-        setInterval(changeBg, 5000); // 每5秒呼吸式变换颜色
+        setInterval(changeBg, 5000); 
 
-        // 2. 语言切换逻辑
         function setLanguage(lang) {
             document.querySelectorAll('.lang-en').forEach(el => lang === 'zh' ? el.classList.add('hidden') : el.classList.remove('hidden'));
             document.querySelectorAll('.lang-zh').forEach(el => lang === 'zh' ? el.classList.remove('hidden') : el.classList.add('hidden'));
