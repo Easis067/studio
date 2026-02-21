@@ -71,23 +71,32 @@
         padding: 0 100px;
     }
 
-    .main-logo {
-        font-size: 16vw;
-        font-weight: 900;
-        margin: 0;
-        letter-spacing: -0.06em;
-        line-height: 0.8;
-        color: inherit; 
-        /* 核心防闪烁：color 过渡保持 8s，镂空描边过渡 0.3s */
-        transition: color 8s ease-in-out, -webkit-text-stroke 0.3s ease;
-        cursor: default;
-    }
+ .main-logo {
+    font-size: 16vw;
+    font-weight: 900;
+    margin: 0;
+    letter-spacing: -0.06em;
+    line-height: 0.8;
+    color: inherit; 
+    
+    /* 关键：颜色呼吸是 8s，镂空切换是 0.3s，互不干扰 */
+    transition: color 8s ease-in-out, -webkit-text-stroke 0.3s ease;
+    
+    cursor: default;
+}
 
-    /* 黑色实体镂空：直接写死黑色 3px，不随呼吸变白，最稳定 */
-    .main-logo:hover {
-        color: transparent !important;
-        -webkit-text-stroke: 3px var(--black);
-    }
+.main-logo:hover {
+    /* 悬浮时内部透明 */
+    color: transparent !important;
+    /* 镂空描边固定为黑色 4px，不随呼吸变色，最稳固 */
+    -webkit-text-stroke: 4px #000000; 
+}
+
+/* 增加这个类，用于同步 JS 的背景切换 */
+body.is-purple {
+    background-color: #53589A;
+    color: #FFFFFF;
+}
 
     /* 系统 / 媒介 / 档案：加粗、加大、加宽 */
     .center-statement {
