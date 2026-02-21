@@ -6,10 +6,9 @@
     <title>About | EASIS</title>
     <style>
         :root {
-            --periwinkle: #BADD7F;   /* 呼吸目标色：抹茶绿 */
-            --fluo-yellow: #EFACA5;  /* 悬停强调色：柔粉 */
-            --white: #F7EFDA;        /* 基础奶白色 */
-            --black: #1c1c1c;
+            --white: #F7EFDA;        /* 奶白色背景，固定不变 */
+            --black: #1c1c1c;        /* 核心文字色 */
+            --accent: #EFACA5;       /* 悬停强调色：柔粉 */
         }
 
         body {
@@ -17,15 +16,13 @@
             color: var(--black);
             margin: 0;
             font-family: "Space Grotesque", "Inter", sans-serif;
-            transition: background-color 2s ease-in-out;
             -webkit-font-smoothing: antialiased;
             min-height: 100vh;
         }
 
-        body.is-active { background-color: var(--periwinkle); }
         .lang-zh.hidden, .lang-en.hidden { display: none !important; }
 
-        /* --- 导航栏 (同主页) --- */
+        /* --- 顶部导航 --- */
         .global-nav {
             display: flex;
             justify-content: space-between;
@@ -37,74 +34,77 @@
             border-bottom: 2px solid var(--black);
         }
         .nav-logo a { font-size: 2.2rem; font-weight: 900; text-decoration: none; color: var(--black); }
-        .lang-switch { border: 2px solid var(--black); padding: 2px; }
+        .lang-switch { border: 2px solid var(--black); padding: 2px; display: flex; }
         .lang-switch span { padding: 5px 15px; cursor: pointer; font-weight: 900; }
-        .lang-switch .active { background: var(--fluo-yellow); }
+        .lang-switch .active { background: var(--accent); }
 
-        /* --- About 主排版 --- */
+        /* --- 布局排版 --- */
         .about-container {
             display: grid;
-            grid-template-columns: 1fr 1fr; /* 左右分栏 */
-            padding: 200px 100px 100px;
-            gap: 50px;
+            grid-template-columns: 1fr 1fr;
+            padding: 220px 100px 100px; /* 增加顶部间距防止被导航遮挡 */
+            gap: 100px;
             max-width: 1400px;
             margin: 0 auto;
         }
 
-        /* 左侧：巨大的标题 */
+        /* 左侧：About 字样 */
         .about-title {
-            font-size: 10vw;
-            font-weight: 200; /* 轻盈细体，呼应图片风格 */
+            font-size: 11vw;
+            font-weight: 200;
             letter-spacing: -0.02em;
             margin: 0;
-            align-self: center;
+            line-height: 1;
+            /* 保持静止，不再有动画 */
         }
 
-        /* 右侧：内容区 */
+        /* 右侧：文案区 */
         .content-section {
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            gap: 80px;
+            gap: 100px;
         }
 
-        .content-block h2 {
-            font-size: 0.9rem;
+        .label {
+            font-size: 0.85rem;
             text-transform: uppercase;
-            letter-spacing: 0.2em;
-            color: rgba(0,0,0,0.4); /* 浅色标注 */
-            margin-bottom: 20px;
+            letter-spacing: 0.3em;
+            color: rgba(0,0,0,0.4);
+            margin-bottom: 25px;
             font-weight: 900;
+            display: block;
         }
 
-        .content-block p {
-            font-size: 1.4rem;
-            line-height: 1.6;
+        .intro-text {
+            font-size: 1.5rem;
+            line-height: 1.5;
             font-weight: 500;
-            max-width: 500px;
+            max-width: 520px;
+            margin: 0;
         }
 
+        /* 联系链接 */
         .contact-link {
-            font-size: 1.8rem;
+            font-size: 2rem;
             color: var(--black);
             text-decoration: none;
             font-weight: 700;
-            border-bottom: 3px solid var(--black);
-            transition: 0.3s;
+            border-bottom: 4px solid var(--black);
+            transition: all 0.3s ease;
         }
         .contact-link:hover {
-            color: var(--fluo-yellow);
-            border-color: var(--fluo-yellow);
+            color: var(--accent);
+            border-color: var(--accent);
         }
 
-        /* 移动端适配 */
-        @media (max-width: 900px) {
-            .about-container { grid-template-columns: 1fr; padding: 150px 40px; }
-            .about-title { font-size: 20vw; margin-bottom: 40px; }
+        /* 响应式排版 */
+        @media (max-width: 1024px) {
+            .about-container { grid-template-columns: 1fr; padding: 180px 60px; gap: 60px; }
+            .about-title { font-size: 25vw; }
         }
     </style>
 </head>
-<body id="dynamic-body">
+<body>
 
     <nav class="global-nav">
         <div class="nav-logo"><a href="index.html">EASIS</a></div>
@@ -119,21 +119,19 @@
 
         <div class="content-section">
             
-            <section class="content-block">
-                <h2 class="label">Practice</h2>
-                <p class="lang-en">
+            <section>
+                <span class="label">Practice / 研究实践</span>
+                <p class="intro-text lang-en">
                     Easis is a transdisciplinary researcher. By observing the structural logic of economic systems and the fluid media of urban spaces, seeking to capture artistic moments with vitality within a rigorous rational narrative.
                 </p>
-                <p class="lang-zh hidden">
+                <p class="intro-text lang-zh hidden">
                     Easis 是一位跨学科研究者。通过观察经济系统的结构性逻辑与城市空间的流动媒介，试图在严谨的理性叙事中捕捉具有生命力的艺术瞬间。
                 </p>
             </section>
 
-            <section class="content-block">
-                <h2 class="label">Contact</h2>
-                <div style="margin-top: 10px;">
-                    <span class="lang-en" style="display:block; margin-bottom:10px; opacity:0.6;">Collaborations / Inquiries:</span>
-                    <span class="lang-zh hidden" style="display:block; margin-bottom:10px; opacity:0.6;">合作 / 咨询：</span>
+            <section>
+                <span class="label">Contact / 联系</span>
+                <div style="margin-top: 15px;">
                     <a href="mailto:your-email@gmail.com" class="contact-link">your-email@gmail.com</a>
                 </div>
             </section>
@@ -142,20 +140,11 @@
     </main>
 
     <script>
-        const body = document.getElementById('dynamic-body');
-        
-        // 呼吸逻辑 (与主页保持同步)
-        function runAnimation() {
-            setTimeout(() => { body.classList.add('is-active'); }, 5000); 
-            setTimeout(() => { body.classList.remove('is-active'); }, 12000); 
-            setTimeout(runAnimation, 14000); 
-        }
-        runAnimation();
-
-        // 语言切换逻辑
+        // 仅保留语言切换逻辑，删除了所有背景变换脚本
         function setLanguage(lang) {
             document.querySelectorAll('.lang-en').forEach(el => lang === 'zh' ? el.classList.add('hidden') : el.classList.remove('hidden'));
             document.querySelectorAll('.lang-zh').forEach(el => lang === 'zh' ? el.classList.remove('hidden') : el.classList.add('hidden'));
+            
             document.getElementById('btn-en').classList.toggle('active', lang === 'en');
             document.getElementById('btn-zh').classList.toggle('active', lang === 'zh');
         }
