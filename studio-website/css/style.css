@@ -99,22 +99,30 @@ body.is-purple {
 }
 
     /* 系统 / 媒介 / 档案：加粗、加大、加宽 */
-    .center-statement {
-        margin-top: 40px;
-        padding: 18px 45px;
-        background: currentColor; /* 随呼吸变黑/白 */
-        color: var(--white);      /* 初始白字 */
-        display: inline-block;
-        transition: background-color 8s ease-in-out, color 8s ease-in-out;
-    }
+/* 中间陈述语方块：增加平滑呼吸 transition */
+.center-statement {
+    margin-top: 40px;
+    padding: 18px 45px;
+    /* 核心：背景色随 body 文字颜色变（黑白切换） */
+    background-color: currentColor; 
+    display: inline-block;
+    transition: background-color 8s ease-in-out;
+}
 
-    .center-statement p {
-        font-weight: 900; 
-        letter-spacing: 0.4em; /* 增加间距感 */
-        font-size: 1.6rem; 
-        margin: 0;
-        text-transform: uppercase;
-    }
+/* 内部文字：加粗并增加反向变色逻辑 */
+.center-statement span {
+    font-weight: 900; 
+    letter-spacing: 0.5em; 
+    font-size: 1.6rem;
+    /* 初始状态：黑方块里的白字 */
+    color: var(--white); 
+    transition: color 8s ease-in-out;
+}
+
+/* 关键：当背景变紫色时，让方块里的字变紫色（视觉上像镂空，能看清） */
+body.is-purple .center-statement span {
+    color: var(--periwinkle); 
+}
 
     /* --- 4. 底部导航 --- */
     .footer-nav {
