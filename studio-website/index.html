@@ -3,26 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EASIS | SYSTEMS & DESIGN</title>
+    <title>EASIS | Personal Archive</title>
     <style>
-        /* 1. 国际主义风格基础设置 */
+        /* 1. 动态背景与基础设定 */
+        :root {
+            --bg-base: #F7F7F2; /* 纸张白 */
+            --accent-red: #C0392B; /* 更有质感的深红 */
+        }
+
         body {
-            background-color: #F2F2F2; /* 工业冷灰色背景 */
-            color: #000000;
+            background-color: var(--bg-base);
+            color: #1A1A1A;
             margin: 0;
-            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; /* 经典瑞士字体族 */
+            /* 字体组合：标题用带衬线的，正文用平滑的无衬线 */
+            font-family: "Optima", "Candara", "Segoe UI", sans-serif;
+            transition: background-color 1.5s ease; /* 颜色变换的平滑度 */
             -webkit-font-smoothing: antialiased;
+            overflow: hidden; /* 保持首页简洁 */
         }
 
-        /* 2. 语言切换逻辑 */
+        /* 2. 语言切换与隐藏逻辑 */
         .lang-zh.hidden, .lang-en.hidden { display: none !important; }
-        .lang-zh { 
-            font-size: 1rem; 
-            font-weight: 600; /* 中文需要更有力量感 */
-            letter-spacing: 0.05em; 
-        }
+        .lang-zh { font-size: 1.1rem; letter-spacing: 0.1em; font-weight: 300; }
 
-        /* 3. 导航栏：极简线框感 */
+        /* 3. 线条导航栏 */
         .global-nav {
             display: flex;
             justify-content: space-between;
@@ -33,128 +37,127 @@
             top: 0;
             z-index: 1001;
             box-sizing: border-box;
-            border-bottom: 1px solid #000; /* 极细黑线贯穿 */
-            background: #F2F2F2;
+            border-bottom: 0.5px solid rgba(0,0,0,0.1);
         }
 
         .nav-logo a {
-            font-size: 1.5rem;
-            font-weight: 800;
-            letter-spacing: -0.02em; /* 国际主义风格喜欢紧凑的字间距 */
+            font-family: "Cinzel", "Optima", serif; /* 更有艺术感的字体 */
+            font-size: 1.6rem;
+            font-weight: 400;
+            letter-spacing: 0.2em;
             text-decoration: none;
             color: #000;
         }
 
-        .nav-links { display: flex; list-style: none; gap: 40px; margin: 0; padding: 0; }
+        .nav-links { display: flex; list-style: none; gap: 45px; margin: 0; padding: 0; }
         .nav-links a { 
             text-decoration: none; 
-            color: #000; 
+            color: rgba(0,0,0,0.6); 
             font-size: 0.8rem; 
-            font-weight: 700; 
-            text-transform: uppercase; 
+            letter-spacing: 0.15em;
+            transition: 0.3s;
         }
+        .nav-links a:hover { color: var(--accent-red); }
 
-        /* 4. 下拉菜单：硬朗块状感 */
+        /* 4. 下拉菜单（保持线条感，增加透明度） */
         .dropdown-menu {
             position: absolute;
             top: 100%;
-            left: 0;
-            background: #000; /* 翻转色：黑底白字 */
-            min-width: 200px;
+            left: -10px;
+            background: rgba(255, 255, 255, 0.95);
+            min-width: 180px;
             list-style: none;
-            padding: 20px 0;
-            margin: 0;
+            padding: 15px 0;
+            margin: 10px 0 0 0;
+            border: 0.5px solid rgba(0,0,0,0.1);
             opacity: 0;
             visibility: hidden;
-            transition: 0.2s;
+            transform: translateY(5px);
+            transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
-        .dropdown:hover .dropdown-menu { opacity: 1; visibility: visible; }
+        .dropdown:hover .dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0); }
         .dropdown-menu li a { 
-            color: #FFF !important; 
-            padding: 10px 30px; 
+            color: #444 !important; 
+            padding: 10px 25px; 
             display: block; 
-            font-size: 0.7rem !important; 
+            font-size: 0.75rem !important; 
         }
-        .dropdown-menu li a:hover { background: #E63946; } /* 经典的瑞士红强调 */
 
-        /* 5. 核心 Logo 区 */
+        /* 5. 核心展示区 */
         .hero-wrapper {
             height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            padding: 0 60px;
+            padding: 0 80px;
         }
 
         .main-logo {
-            font-size: 12vw; /* 巨型字体，占据视觉焦点 */
-            font-weight: 900;
-            line-height: 0.8;
+            font-family: "Cinzel", serif;
+            font-size: 10vw;
+            font-weight: 400;
             margin: 0;
-            letter-spacing: -0.05em;
+            letter-spacing: 0.1em;
+            color: #000;
         }
 
         .center-statement {
-            margin-top: 20px;
-            border-left: 5px solid #E63946; /* 红色装饰条 */
-            padding-left: 20px;
+            margin-top: 10px;
+            border-left: 1px solid var(--accent-red);
+            padding-left: 25px;
+            max-width: 600px;
         }
 
         .center-statement p {
-            font-weight: 700;
-            text-transform: uppercase;
-            font-size: 1.2rem;
-            margin: 0;
+            font-weight: 300;
+            letter-spacing: 0.3em;
+            font-size: 0.9rem;
+            color: #555;
+            margin: 5px 0;
         }
 
-        /* 6. 底部网格导航 */
+        /* 6. 底部网格（线条增强） */
         .footer-nav {
             position: absolute;
             bottom: 60px;
-            left: 60px;
-            right: 60px;
+            left: 80px;
+            right: 80px;
         }
 
         .nav-groups {
             display: grid;
-            grid-template-columns: repeat(4, 1fr); /* 严格的四列网格 */
-            border-top: 2px solid #000;
-            padding-top: 20px;
+            grid-template-columns: repeat(4, 1fr);
+            border-top: 0.5px solid rgba(0,0,0,1);
+            padding-top: 30px;
             list-style: none;
         }
 
         .group-label {
-            font-size: 0.7rem;
-            font-weight: 900;
-            text-transform: uppercase;
+            font-size: 0.65rem;
+            letter-spacing: 0.2em;
             display: block;
-            margin-bottom: 20px;
-            color: #E63946; /* 标注使用红色 */
+            margin-bottom: 25px;
+            color: var(--accent-red);
         }
 
         .sub-menu a {
             display: block;
             text-decoration: none;
-            color: #000;
-            font-weight: 600;
-            margin-bottom: 8px;
-            font-size: 0.9rem;
+            color: #333;
+            margin-bottom: 12px;
+            font-size: 0.85rem;
+            font-weight: 300;
+            transition: 0.3s;
         }
+        .sub-menu a:hover { padding-left: 5px; color: #000; }
 
-        /* 7. 语言切换按钮 */
-        .lang-switch span {
-            cursor: pointer;
-            font-weight: 800;
-            font-size: 0.75rem;
-            padding: 2px 5px;
-        }
-        .lang-switch .active {
-            background-color: #000;
-            color: #FFF;
-        }
+        /* 7. 语言切换 */
+        .lang-switch { margin-left: 40px; font-size: 0.7rem; letter-spacing: 0.1em; cursor: pointer; }
+        .lang-switch span { padding: 2px 8px; transition: 0.3s; }
+        .lang-switch .active { border: 0.5px solid #000; border-radius: 20px; }
     </style>
 </head>
-<body>
+<body id="dynamic-body">
 
     <nav class="global-nav">
         <div class="nav-logo"><a href="index.html">EASIS</a></div>
@@ -183,7 +186,7 @@
                 </li>
                 <li><a href="about.html"><span class="lang-en">Me</span><span class="lang-zh hidden">个人</span></a></li>
             </ul>
-            <div class="lang-switch" style="margin-left: 40px;">
+            <div class="lang-switch">
                 <span id="btn-en" onclick="setLanguage('en')" class="active">EN</span>
                 <span id="btn-zh" onclick="setLanguage('zh')">ZH</span>
             </div>
@@ -191,7 +194,7 @@
     </nav>
 
     <main class="hero-wrapper">
-        <h1 class="main-logo">EASIS.</h1>
+        <h1 class="main-logo">EASIS</h1>
         <div class="center-statement">
             <p>SYSTEMS / MEDIUM / ARCHIVE</p>
             <p class="lang-zh hidden">系统 / 媒介 / 档案</p>
@@ -232,23 +235,21 @@
     </main>
 
     <script>
-        function setLanguage(lang) {
-            const enElements = document.querySelectorAll('.lang-en');
-            const zhElements = document.querySelectorAll('.lang-zh');
-            const btnEn = document.getElementById('btn-en');
-            const btnZh = document.getElementById('btn-zh');
+        // 1. 颜色循环变换逻辑
+        const colors = ['#F7F7F2', '#F2F4F7', '#F7F2F2', '#F2F7F4']; // 纸张白、冰川蓝、淡玫瑰、薄荷灰
+        let colorIndex = 0;
+        function changeBg() {
+            document.getElementById('dynamic-body').style.backgroundColor = colors[colorIndex];
+            colorIndex = (colorIndex + 1) % colors.length;
+        }
+        setInterval(changeBg, 5000); // 每5秒呼吸式变换颜色
 
-            if (lang === 'zh') {
-                enElements.forEach(el => el.classList.add('hidden'));
-                zhElements.forEach(el => el.classList.remove('hidden'));
-                btnZh.classList.add('active');
-                btnEn.classList.remove('active');
-            } else {
-                zhElements.forEach(el => el.classList.add('hidden'));
-                enElements.forEach(el => el.classList.remove('hidden'));
-                btnEn.classList.add('active');
-                btnZh.classList.remove('active');
-            }
+        // 2. 语言切换逻辑
+        function setLanguage(lang) {
+            document.querySelectorAll('.lang-en').forEach(el => lang === 'zh' ? el.classList.add('hidden') : el.classList.remove('hidden'));
+            document.querySelectorAll('.lang-zh').forEach(el => lang === 'zh' ? el.classList.remove('hidden') : el.classList.add('hidden'));
+            document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+            document.getElementById('btn-zh').classList.toggle('active', lang === 'zh');
             localStorage.setItem('site-lang', lang);
         }
         window.addEventListener('DOMContentLoaded', () => setLanguage(localStorage.getItem('site-lang') || 'en'));
