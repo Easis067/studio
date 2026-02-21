@@ -230,21 +230,19 @@
         const body = document.getElementById('dynamic-body');
         const statement = document.querySelector('.center-statement');
         let isPeriwinkle = false;
-        
+
         function breatheColor() {
-            if (!isPeriwinkle) {
-                body.style.backgroundColor = "#53589A";
-                body.style.color = "#FFFFFF"; 
-                statement.style.backgroundColor = "#FFFFFF";
-                statement.style.color = "#53589A";
-            } else {
-                body.style.backgroundColor = "#FFFFFF";
-                body.style.color = "#000000"; 
-                statement.style.backgroundColor = "#000000";
-                statement.style.color = "#FFFFFF";
-            }
-            isPeriwinkle = !isPeriwinkle;
-        }
+    const body = document.getElementById('dynamic-body');
+    if (!isPeriwinkle) {
+        // 只改背景色和增加类名，不再用 JS 强行改文字颜色
+        body.style.backgroundColor = "#53589A";
+        body.classList.add('is-purple'); 
+    } else {
+        body.style.backgroundColor = "#FFFFFF";
+        body.classList.remove('is-purple');
+    }
+    isPeriwinkle = !isPeriwinkle;
+}
         
         setInterval(breatheColor, 8000);
 
