@@ -12,7 +12,7 @@
             --black: #000000;
         }
 
-        /* 全局呼吸：背景和文字颜色同步平滑切换，防止闪烁 */
+        /* 全局：背景和文字同步呼吸，8秒极慢过渡，防止闪烁 */
         body {
             background-color: var(--white);
             color: var(--black);
@@ -36,10 +36,10 @@
             top: 0;
             z-index: 1001;
             box-sizing: border-box;
-            border-bottom: 2px solid currentColor;
+            border-bottom: 2px solid currentColor; /* 随字色平滑变色 */
         }
 
-        /* 左上角 EASIS：悬浮变荧光黄 + 黑色加粗圈 */
+        /* 左上角 EASIS：悬停变黄+黑圈 */
         .nav-logo a {
             font-size: 2.2rem;
             font-weight: 900;
@@ -49,11 +49,7 @@
         }
         .nav-logo a:hover {
             color: var(--fluo-yellow) !important;
-            text-shadow: 
-                2px 2px 0 var(--black),
-               -2px -2px 0 var(--black),
-                2px -2px 0 var(--black),
-               -2px 2px 0 var(--black);
+            text-shadow: 2px 2px 0 var(--black), -2px -2px 0 var(--black), 2px -2px 0 var(--black), -2px 2px 0 var(--black);
         }
 
         .nav-links { display: flex; list-style: none; gap: 40px; margin: 0; padding: 0; }
@@ -68,7 +64,7 @@
             padding: 8px 18px;
             border: 2px solid currentColor;
             display: inline-block;
-            transition: background-color 0.3s;
+            transition: background-color 0.3s, border-color 8s ease-in-out;
         }
         .nav-links > li > a:hover {
             background: var(--fluo-yellow);
@@ -93,7 +89,7 @@
         .dropdown:hover .dropdown-menu { opacity: 1; visibility: visible; }
         .dropdown-menu li a { color: var(--white) !important; padding: 12px 20px; display: block; text-decoration: none; }
 
-        /* --- 中间大 EASIS：悬浮镂空 --- */
+        /* --- 中间大 EASIS：恢复镂空效果 --- */
         .hero-wrapper {
             height: 100vh;
             display: flex;
@@ -109,7 +105,8 @@
             letter-spacing: -0.06em;
             line-height: 0.8;
             color: inherit; 
-            transition: color 0.4s ease, -webkit-text-stroke 0.4s ease;
+            /* 关键：恢复镂空所需的描边 transition */
+            transition: color 0.3s ease, -webkit-text-stroke 0.3s ease;
             cursor: default;
         }
         .main-logo:hover {
@@ -143,30 +140,28 @@
             margin: 0;
         }
 
-        /* 顶部标签：固定色块框 */
         .group-label {
             font-size: 1.1rem;
             font-weight: 900;
             text-transform: uppercase;
             background: var(--fluo-yellow); 
-            color: var(--black) !important;
+            color: var(--black) !important; /* 标签固定黑字，不随呼吸变色 */
             padding: 5px 12px;
             display: inline-block;
             margin-bottom: 25px;
             border: 2px solid var(--black);
         }
 
-        /* 子项：紫底自动变白，悬停字色不变加黄色粗线 */
         .sub-menu a {
             display: block;
             text-decoration: none;
-            color: inherit; 
+            color: inherit; /* 随呼吸平滑变色，不闪烁 */
             margin-bottom: 15px;
             font-size: 1.15rem;
             font-weight: 700;
             position: relative;
             width: fit-content;
-            transition: color 8s ease-in-out;
+            transition: color 8s ease-in-out; /* 必须与背景时间一致 */
         }
         .sub-menu a:hover {
             color: inherit !important; 
@@ -185,7 +180,7 @@
             width: 100%;
         }
 
-        .lang-switch { margin-left: 50px; border: 2px solid currentColor; padding: 2px; }
+        .lang-switch { margin-left: 50px; border: 2px solid currentColor; padding: 2px; transition: border-color 8s; }
         .lang-switch span { padding: 5px 15px; cursor: pointer; font-weight: 900; }
         .lang-switch .active { background: var(--fluo-yellow); color: var(--black); }
     </style>
@@ -274,12 +269,12 @@
         function breatheColor() {
             if (!isPeriwinkle) {
                 body.style.backgroundColor = "#53589A";
-                body.style.color = "#FFFFFF"; // 紫底白字
+                body.style.color = "#FFFFFF"; // 同步切换为白字
                 statement.style.backgroundColor = "#FFFFFF";
                 statement.style.color = "#53589A";
             } else {
                 body.style.backgroundColor = "#FFFFFF";
-                body.style.color = "#000000"; // 白底黑字
+                body.style.color = "#000000"; // 同步切换为黑字
                 statement.style.backgroundColor = "#000000";
                 statement.style.color = "#FFFFFF";
             }
