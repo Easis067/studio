@@ -4,148 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EASIS | ARCHIVE</title>
-    <style>
-        :root {
-            --periwinkle: #53589A;   
-            --fluo-yellow: #E5EB15;  
-            --white: #FFFFFF;
-            --black: #000000;
-        }
-
-        body {
-            background-color: var(--white);
-            color: var(--black);
-            margin: 0;
-            font-family: "Space Grotesque", "Inter", "Helvetica Neue", sans-serif;
-            /* 严格控制 8s 呼吸，解决闪烁 */
-            transition: background-color 8s ease-in-out, color 8s ease-in-out;
-            -webkit-font-smoothing: antialiased;
-            overflow: hidden;
-        }
-
-        .lang-zh.hidden, .lang-en.hidden { display: none !important; }
-
-        /* --- 1. 左上角 Logo 优化 --- */
-        .global-nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 40px 80px;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1001;
-            box-sizing: border-box;
-            border-bottom: 2px solid currentColor;
-        }
-
-        .nav-logo a {
-            font-size: 2.2rem;
-            font-weight: 900;
-            text-decoration: none;
-            color: inherit;
-            transition: color 0.3s ease, transform 0.3s ease;
-            display: inline-block;
-        }
-        /* 悬浮效果：荧光黄 + 黑色错位阴影，比之前的更精致 */
-        .nav-logo a:hover {
-            color: var(--fluo-yellow) !important;
-            text-shadow: 3px 3px 0 var(--black);
-            transform: translateY(-2px);
-        }
-
-        .nav-links { display: flex; list-style: none; gap: 40px; margin: 0; padding: 0; }
-        .nav-links > li > a { 
-            text-decoration: none; color: inherit; font-size: 1.25rem; font-weight: 800; 
-            text-transform: uppercase; padding: 8px 18px; border: 2px solid currentColor;
-            display: inline-block; transition: 0.3s;
-        }
-        .nav-links > li > a:hover { background: var(--fluo-yellow); color: var(--black) !important; border-color: var(--black); }
-
-        .dropdown-menu {
-            position: absolute; top: 100%; left: 0; background: var(--black); min-width: 220px;
-            list-style: none; padding: 10px 0; margin-top: 10px; opacity: 0; visibility: hidden;
-            border: 1px solid var(--fluo-yellow); transition: 0.3s;
-        }
-        .dropdown:hover .dropdown-menu { opacity: 1; visibility: visible; }
-        .dropdown-menu li a { color: var(--white) !important; padding: 12px 20px; display: block; text-decoration: none; }
-
-        /* --- 2. 中间大 EASIS 与 加粗陈述 --- */
-        .hero-wrapper {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding: 0 100px;
-        }
-
-        .main-logo {
-            font-size: 16vw;
-            font-weight: 900;
-            margin: 0;
-            letter-spacing: -0.06em;
-            line-height: 0.8;
-            color: inherit; 
-            /* 增加描边厚度 transition */
-            transition: color 0.3s ease, -webkit-text-stroke 0.3s ease;
-            cursor: default;
-        }
-        /* 黑色实物镂空效果 */
-        .main-logo:hover {
-            color: transparent !important;
-            -webkit-text-stroke: 3px var(--black);
-        }
-
-        .center-statement {
-            margin-top: 40px;
-            padding: 18px 40px;
-            background: currentColor; 
-            color: var(--white);
-            display: inline-block;
-            align-self: flex-start;
-            transition: background-color 8s ease, color 8s ease;
-        }
-        /* 加粗显著化 */
-        .center-statement p {
-            font-weight: 900; 
-            letter-spacing: 0.3em; 
-            font-size: 1.4rem; 
-            margin: 0;
-            text-transform: uppercase;
-        }
-
-        /* --- 3. 底部导航 --- */
-        .footer-nav {
-            position: absolute; bottom: 60px; left: 100px; right: 100px;
-        }
-        .nav-groups {
-            display: grid; grid-template-columns: repeat(4, 1fr);
-            border-top: 4px solid currentColor; padding-top: 30px; list-style: none; margin: 0;
-        }
-
-        .group-label {
-            font-size: 1.1rem; font-weight: 900; background: var(--fluo-yellow); 
-            color: var(--black) !important; padding: 5px 12px; display: inline-block;
-            margin-bottom: 25px; border: 2px solid var(--black);
-        }
-
-        .sub-menu a {
-            display: block; text-decoration: none; color: inherit; margin-bottom: 15px;
-            font-size: 1.15rem; font-weight: 700; position: relative; width: fit-content;
-            transition: color 8s ease-in-out;
-        }
-        /* 悬浮字色不变，加荧光黄粗线下划线 */
-        .sub-menu a:hover { color: inherit !important; }
-        .sub-menu a::after {
-            content: ''; position: absolute; width: 0; height: 5px; 
-            bottom: -5px; left: 0; background-color: var(--fluo-yellow); transition: width 0.3s ease;
-        }
-        .sub-menu a:hover::after { width: 100%; }
-
-        .lang-switch { margin-left: 50px; border: 2px solid currentColor; padding: 2px; }
-        .lang-switch span { padding: 5px 15px; cursor: pointer; font-weight: 900; }
-        .lang-switch .active { background: var(--fluo-yellow); color: var(--black); }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body id="dynamic-body">
 
@@ -228,21 +87,19 @@
 
     <script>
         const body = document.getElementById('dynamic-body');
-        const statement = document.querySelector('.center-statement');
         let isPeriwinkle = false;
 
         function breatheColor() {
-    const body = document.getElementById('dynamic-body');
-    if (!isPeriwinkle) {
-        // 只改背景色和增加类名，不再用 JS 强行改文字颜色
-        body.style.backgroundColor = "#53589A";
-        body.classList.add('is-purple'); 
-    } else {
-        body.style.backgroundColor = "#FFFFFF";
-        body.classList.remove('is-purple');
-    }
-    isPeriwinkle = !isPeriwinkle;
-}
+            if (!isPeriwinkle) {
+                // 只有修改背景色和添加类名，杜绝 JS 导致的文字跳动闪烁
+                body.style.backgroundColor = "#53589A";
+                body.classList.add('is-purple'); 
+            } else {
+                body.style.backgroundColor = "#FFFFFF";
+                body.classList.remove('is-purple');
+            }
+            isPeriwinkle = !isPeriwinkle;
+        }
         
         setInterval(breatheColor, 8000);
 
