@@ -3,57 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About – Easis</title>
+    <title>About | Easis</title>
     <link rel="stylesheet" href="css/style.css">
     <style>
-        /* 针对 About 页面的特殊排版 */
         .about-container {
-            padding: 150px 10vw 100px;
-            max-width: 900px;
+            padding: 160px 10vw 100px;
+            max-width: 1000px;
             display: grid;
-            grid-template-columns: 1fr 1.5fr; /* 左右两栏：左边标题，右边正文 */
-            gap: 5vw;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 8vw;
         }
-
         .about-title h1 {
-            font-size: 3rem;
+            font-size: 3.5rem;
             font-weight: 100;
             letter-spacing: 0.3em;
-            margin: 0;
             position: sticky;
-            top: 150px;
+            top: 160px;
         }
-
-        .about-content {
-            line-height: 2;
-            color: #4a4a4a;
-            font-size: 1rem;
-        }
-
-        .about-content section {
-            margin-bottom: 4rem;
-        }
-
+        .about-content { line-height: 2; color: #444; }
+        .about-content section { margin-bottom: 5rem; }
         .section-label {
             display: block;
             font-size: 0.7rem;
             color: #bcaaa4;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            margin-bottom: 1.5rem;
+            letter-spacing: 0.25em;
+            margin-bottom: 2rem;
         }
-
-        .bio-en {
-            font-style: italic;
-            color: #888;
-            margin-top: 2rem;
-            font-size: 0.9rem;
-        }
-
-        /* 移动端适配 */
         @media (max-width: 800px) {
             .about-container { grid-template-columns: 1fr; }
-            .about-title h1 { position: static; font-size: 2.5rem; margin-bottom: 3rem; }
+            .about-title h1 { position: static; margin-bottom: 3rem; }
         }
     </style>
 </head>
@@ -70,38 +48,17 @@
     </nav>
 
     <main class="about-container">
-        <div class="about-title">
-            <h1>About</h1>
-        </div>
-
+        <div class="about-title"><h1>About</h1></div>
         <div class="about-content">
-            
             <section>
-                <span class="section-label">Identity</span>
-                <p>Easis 是一位工作于英国的跨学科研究者与艺术家。其核心实践围绕着“系统”展开——无论是严谨的经济运行机制，还是流动的城市建筑语汇。</p>
-                <p>通过对创新逻辑的解构，Easis 试图在冰冷的理性结构中寻找具有生命力的视觉表达。这种探索延伸至舞台艺术、影像叙事以及日常的建筑观察。</p>
-                
-                <div class="bio-en">
-                    Easis is a UK-based interdisciplinary researcher and artist. Their practice centers on "systems"—ranging from rigorous economic mechanisms to the fluid vernacular of urban architecture. 
-                </div>
+                <span class="section-label">Practice</span>
+                <p>Easis 是一位跨学科研究者。通过观察经济系统的结构性逻辑与城市空间的流动媒介，试图在严谨的理性叙事中捕捉具有生命力的艺术瞬间。</p>
             </section>
-
             <section>
                 <span class="section-label">Contact</span>
-                <p>如果你对跨学科研究、艺术协作或系统设计感兴趣，欢迎通过邮件联络：</p>
-                <p><a href="mailto:你的邮箱@gmail.com" style="color: #e5989b; text-decoration: none;">你的邮箱@gmail.com</a></p>
+                <p>Collaborations / Inquiries:</p>
+                <a href="mailto:你的邮箱@gmail.com" style="color: #e5989b; text-decoration: none;">你的邮箱@gmail.com</a>
             </section>
-
-            <section>
-                <span class="section-label">Focus Areas</span>
-                <ul style="list-style: none; padding: 0; font-size: 0.9rem; color: #666;">
-                    <li>· Economic System Structures</li>
-                    <li>· Innovation Logic & Systems</li>
-                    <li>· Architectural Photography</li>
-                    <li>· Theatre & Musical Critique</li>
-                </ul>
-            </section>
-
         </div>
     </main>
 
