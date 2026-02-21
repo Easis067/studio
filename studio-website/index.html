@@ -3,183 +3,196 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EASIS | SYSTEMS & ARCHIVE</title>
+    <title>EASIS | ARCHIVE</title>
     <style>
-        /* 1. 核心配色定义 */
         :root {
             --periwinkle: #53589A;   /* 长春花蓝 */
             --fluo-yellow: #E5EB15;  /* 荧光黄 */
-            --white: #FFFFFF;        /* 纯白 */
-            --black: #000000;        /* 黑色 */
-            --red: #D90429;          /* 正红 */
+            --white: #FFFFFF;
+            --black: #000000;
+            --red: #D90429;
         }
 
+        /* 1. 全局样式：强调规整感 */
         body {
             background-color: var(--white);
             color: var(--black);
             margin: 0;
-            font-family: "Inter", "Helvetica Neue", sans-serif;
-            transition: background-color 3s ease-in-out; /* 缓慢的色彩流动 */
+            /* Space Grotesque 或 Helvetica 风格，强调几何规整 */
+            font-family: "Space Grotesque", "Inter", "Helvetica Neue", sans-serif;
+            transition: background-color 3s ease-in-out, color 3s ease-in-out;
             -webkit-font-smoothing: antialiased;
             overflow: hidden;
         }
 
-        /* 2. 语言切换：硬核块状风格 */
         .lang-zh.hidden, .lang-en.hidden { display: none !important; }
-        .lang-zh { font-size: 1.1rem; font-weight: 800; letter-spacing: 0.1em; }
+        .lang-zh { font-size: 1rem; font-weight: 700; letter-spacing: 0.1em; }
 
-        /* 3. 顶部导航栏：强对比线条 */
+        /* 2. 顶部导航：增加对齐逻辑 */
         .global-nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 40px 60px;
+            padding: 45px 80px;
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1001;
             box-sizing: border-box;
-            border-bottom: 3px solid var(--black);
+            border-bottom: 2.5px solid currentColor; /* 线条随文字颜色变 */
         }
 
         .nav-logo a {
-            font-size: 2rem;
+            font-size: 2.2rem;
             font-weight: 900;
-            letter-spacing: -0.05em;
+            letter-spacing: -0.04em;
             text-decoration: none;
-            color: var(--black);
+            color: inherit;
+            transition: 0.3s;
         }
+        /* Logo 悬停变色：改为荧光黄 */
+        .nav-logo a:hover { color: var(--fluo-yellow); text-shadow: 2px 2px var(--black); }
 
-        .nav-links { display: flex; list-style: none; gap: 50px; margin: 0; padding: 0; }
+        .nav-links { display: flex; list-style: none; gap: 60px; margin: 0; padding: 0; }
         
-        /* 导航英文：厚重感 */
+        /* 导航父容器，确保下拉菜单对齐 */
+        .dropdown { position: relative; }
+
         .nav-links > li > a { 
             text-decoration: none; 
-            color: var(--black); 
-            font-size: 1.25rem; 
-            font-weight: 900; 
-            letter-spacing: -0.02em;
+            color: inherit; 
+            font-size: 1.1rem; 
+            font-weight: 800; 
+            letter-spacing: 0.02em;
             text-transform: uppercase;
+            padding: 10px 0;
         }
 
-        /* 4. 下拉菜单：荧光黄背景 + 黑色粗体 */
+        /* 3. 下拉菜单：精准对齐正下方 */
         .dropdown-menu {
             position: absolute;
             top: 100%;
-            left: 0;
-            background: var(--fluo-yellow); /* 下拉变荧光黄 */
-            min-width: 260px;
+            left: 50%; /* 移动到父级一半 */
+            transform: translateX(-50%) translateY(20px); /* 居中对齐并下移 */
+            background: var(--black); 
+            min-width: 200px;
             list-style: none;
-            padding: 0;
+            padding: 10px 0;
             margin: 0;
             opacity: 0;
             visibility: hidden;
-            border: 3px solid var(--black);
-            border-top: none;
-            transition: 0.1s;
+            transition: all 0.3s cubic-bezier(0.2, 1, 0.3, 1);
+            border: 2px solid var(--fluo-yellow); /* 荧光黄边框 */
         }
-        .dropdown:hover .dropdown-menu { opacity: 1; visibility: visible; }
+        
+        .dropdown:hover .dropdown-menu { 
+            opacity: 1; 
+            visibility: visible; 
+            transform: translateX(-50%) translateY(5px); 
+        }
         
         .dropdown-menu li a { 
-            color: var(--black) !important; 
-            padding: 15px 25px; 
+            color: var(--white) !important; 
+            padding: 12px 25px; 
             display: block; 
-            font-size: 1rem !important; 
-            font-weight: 800 !important;
+            font-size: 0.9rem !important; 
+            font-weight: 700 !important;
             text-transform: uppercase;
-            border-bottom: 2px solid var(--black);
+            text-decoration: none;
+            text-align: center; /* 菜单文字居中 */
         }
-        .dropdown-menu li:last-child a { border-bottom: none; }
+        
         .dropdown-menu li a:hover {
-            background-color: var(--periwinkle); /* 悬停变蓝 */
-            color: var(--white) !important;
+            background-color: var(--fluo-yellow);
+            color: var(--black) !important;
         }
 
-        /* 5. 核心 Logo 区 */
+        /* 4. 核心展示区 */
         .hero-wrapper {
             height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            padding: 0 80px;
+            padding: 0 100px;
         }
 
         .main-logo {
             font-size: 16vw;
             font-weight: 900;
             margin: 0;
-            letter-spacing: -0.08em;
-            color: var(--black);
+            letter-spacing: -0.06em;
             line-height: 0.8;
-            cursor: pointer;
-            transition: color 0.5s;
+            transition: 0.5s;
         }
-        .main-logo:hover { color: var(--red); } /* 鼠标移上去文字变红 */
+        /* 首页大名字悬停逻辑：变为长春花蓝边框线效果 */
+        .main-logo:hover {
+            -webkit-text-stroke: 2px var(--periwinkle);
+            color: transparent;
+        }
 
         .center-statement {
             margin-top: 40px;
             padding: 15px 30px;
-            background: var(--black);
+            background: currentColor; /* 随呼吸色反转 */
             color: var(--white);
             display: inline-block;
             align-self: flex-start;
         }
 
         .center-statement p {
-            font-weight: 900;
-            letter-spacing: 0.1em;
-            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: 0.2em;
+            font-size: 1.2rem;
             margin: 0;
         }
 
-        /* 6. 底部网格：长春花蓝标注 */
+        /* 5. 底部网格：硬核规整 */
         .footer-nav {
             position: absolute;
             bottom: 60px;
-            left: 60px;
-            right: 60px;
+            left: 100px;
+            right: 100px;
         }
 
         .nav-groups {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            border-top: 8px solid var(--black);
+            border-top: 5px solid currentColor;
             padding-top: 30px;
             list-style: none;
         }
 
         .group-label {
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             font-weight: 900;
             text-transform: uppercase;
             display: block;
             margin-bottom: 25px;
-            color: var(--red); /* 红色作为强调标注 */
+            color: var(--red);
         }
 
         .sub-menu a {
             display: block;
             text-decoration: none;
-            color: var(--black);
+            color: inherit;
             margin-bottom: 12px;
-            font-size: 1.2rem;
-            font-weight: 800;
+            font-size: 1.1rem;
+            font-weight: 700;
+            transition: 0.2s;
         }
-        .sub-menu a:hover {
-            background: var(--fluo-yellow); /* 底部链接悬停变黄 */
-        }
+        .sub-menu a:hover { color: var(--periwinkle); background: var(--fluo-yellow); padding-left: 5px; }
 
-        /* 7. 语言切换器 */
+        /* 6. 语言切换 */
         .lang-switch { 
             margin-left: 50px; 
-            background: var(--black); 
-            color: var(--white); 
-            padding: 5px;
+            border: 2px solid currentColor;
+            padding: 2px;
         }
         .lang-switch span { 
             padding: 5px 15px; 
             cursor: pointer;
             font-weight: 900;
+            display: inline-block;
         }
         .lang-switch .active { background: var(--fluo-yellow); color: var(--black); }
     </style>
@@ -191,35 +204,27 @@
         <div style="display: flex; align-items: center;">
             <ul class="nav-links">
                 <li class="dropdown">
-                    <a href="javascript:void(0)">
-                        <span class="lang-en">Researcher</span><span class="lang-zh hidden">研究者</span>
-                    </a>
+                    <a href="javascript:void(0)"><span class="lang-en">Researcher</span><span class="lang-zh hidden">研究者</span></a>
                     <ul class="dropdown-menu">
                         <li><a href="projects-economics.html"><span class="lang-en">Economics</span><span class="lang-zh hidden">经济学研究</span></a></li>
                         <li><a href="projects-innovation.html"><span class="lang-en">Innovation</span><span class="lang-zh hidden">创新研究</span></a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
-                    <a href="javascript:void(0)">
-                        <span class="lang-en">Observer</span><span class="lang-zh hidden">观察者</span>
-                    </a>
+                    <a href="javascript:void(0)"><span class="lang-en">Observer</span><span class="lang-zh hidden">观察者</span></a>
                     <ul class="dropdown-menu">
                         <li><a href="obs-photo-arch.html"><span class="lang-en">Visual Archive</span><span class="lang-zh hidden">摄影辑录</span></a></li>
                         <li><a href="obs-exhibition.html"><span class="lang-en">Curation Walk</span><span class="lang-zh hidden">看展日记</span></a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
-                    <a href="javascript:void(0)">
-                        <span class="lang-en">Recorder</span><span class="lang-zh hidden">记录者</span>
-                    </a>
+                    <a href="javascript:void(0)"><span class="lang-en">Recorder</span><span class="lang-zh hidden">记录者</span></a>
                     <ul class="dropdown-menu">
                         <li><a href="lib-screening.html"><span class="lang-en">Theatre & Scene</span><span class="lang-zh hidden">观演日记</span></a></li>
                         <li><a href="lib-readings.html"><span class="lang-en">Readings & Dialectics</span><span class="lang-zh hidden">研读思辨</span></a></li>
                     </ul>
                 </li>
-                <li><a href="about.html">
-                    <span class="lang-en">Me</span><span class="lang-zh hidden">个人</span>
-                </a></li>
+                <li><a href="about.html"><span class="lang-en">Me</span><span class="lang-zh hidden">个人</span></a></li>
             </ul>
             <div class="lang-switch">
                 <span id="btn-en" onclick="setLanguage('en')" class="active">EN</span>
@@ -270,18 +275,25 @@
     </main>
 
     <script>
-        // 呼吸背景逻辑：在纯白和长春花蓝之间缓慢变换
         const body = document.getElementById('dynamic-body');
+        const statement = document.querySelector('.center-statement');
         let isPeriwinkle = false;
         
         function breatheColor() {
-            body.style.backgroundColor = isPeriwinkle ? "#FFFFFF" : "#53589A";
-            // 当背景变蓝时，文字变白；当背景变白时，文字变黑
-            body.style.color = isPeriwinkle ? "#000000" : "#FFFFFF";
+            if (!isPeriwinkle) {
+                body.style.backgroundColor = "#53589A";
+                body.style.color = "#FFFFFF";
+                statement.style.backgroundColor = "#FFFFFF";
+                statement.style.color = "#53589A";
+            } else {
+                body.style.backgroundColor = "#FFFFFF";
+                body.style.color = "#000000";
+                statement.style.backgroundColor = "#000000";
+                statement.style.color = "#FFFFFF";
+            }
             isPeriwinkle = !isPeriwinkle;
         }
         
-        // 每 8 秒呼吸一次，营造出深邃感
         setInterval(breatheColor, 8000);
 
         function setLanguage(lang) {
