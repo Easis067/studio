@@ -10,191 +10,173 @@
             --fluo-yellow: #E5EB15;  /* 荧光黄 */
             --white: #FFFFFF;
             --black: #000000;
-            --red: #D90429;
         }
 
-        /* 1. 全局样式：强调规整感 */
+        /* 1. 慢呼吸背景 */
         body {
             background-color: var(--white);
             color: var(--black);
             margin: 0;
-            /* Space Grotesque 或 Helvetica 风格，强调几何规整 */
-            font-family: "Space Grotesque", "Inter", "Helvetica Neue", sans-serif;
-            transition: background-color 3s ease-in-out, color 3s ease-in-out;
+            font-family: "Optima", "Inter", "Helvetica Neue", sans-serif;
             -webkit-font-smoothing: antialiased;
             overflow: hidden;
+            /* 极慢的颜色过渡：12秒循环一次 */
+            transition: background-color 6s cubic-bezier(0.45, 0.05, 0.55, 0.95);
         }
 
         .lang-zh.hidden, .lang-en.hidden { display: none !important; }
-        .lang-zh { font-size: 1rem; font-weight: 700; letter-spacing: 0.1em; }
+        .lang-zh { font-size: 0.9rem; font-weight: 500; letter-spacing: 0.2em; }
 
-        /* 2. 顶部导航：增加对齐逻辑 */
+        /* 2. 顶部导航：主项加框 */
         .global-nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 45px 80px;
+            padding: 40px 60px;
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1001;
             box-sizing: border-box;
-            border-bottom: 2.5px solid currentColor; /* 线条随文字颜色变 */
+            border-bottom: 1.5px solid var(--black);
+            background: transparent; /* 保持透明，透出背景色 */
         }
 
         .nav-logo a {
-            font-size: 2.2rem;
-            font-weight: 900;
-            letter-spacing: -0.04em;
+            font-family: "Cinzel", serif;
+            font-size: 1.8rem;
+            font-weight: 400;
+            letter-spacing: 0.2em;
             text-decoration: none;
-            color: inherit;
+            color: var(--black);
+        }
+
+        .nav-links { display: flex; list-style: none; gap: 30px; margin: 0; padding: 0; }
+        
+        .dropdown { position: relative; }
+        .dropdown > a { 
+            text-decoration: none; 
+            color: var(--black); 
+            font-size: 1.15rem; 
+            font-weight: 600; 
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            padding: 8px 18px;
+            border: 1.8px solid var(--black); /* 规整的方框 */
+            display: inline-block;
             transition: 0.3s;
         }
-        /* Logo 悬停变色：改为荧光黄 */
-        .nav-logo a:hover { color: var(--fluo-yellow); text-shadow: 2px 2px var(--black); }
-
-        .nav-links { display: flex; list-style: none; gap: 60px; margin: 0; padding: 0; }
-        
-        /* 导航父容器，确保下拉菜单对齐 */
-        .dropdown { position: relative; }
-
-        .nav-links > li > a { 
-            text-decoration: none; 
-            color: inherit; 
-            font-size: 1.1rem; 
-            font-weight: 800; 
-            letter-spacing: 0.02em;
-            text-transform: uppercase;
-            padding: 10px 0;
+        .dropdown:hover > a {
+            background: var(--black);
+            color: var(--white);
         }
 
-        /* 3. 下拉菜单：精准对齐正下方 */
+        /* 下拉菜单对齐 */
         .dropdown-menu {
             position: absolute;
             top: 100%;
-            left: 50%; /* 移动到父级一半 */
-            transform: translateX(-50%) translateY(20px); /* 居中对齐并下移 */
-            background: var(--black); 
-            min-width: 200px;
+            left: 0;
+            background: var(--white); 
+            min-width: 210px;
             list-style: none;
             padding: 10px 0;
-            margin: 0;
+            margin: 8px 0 0 0;
             opacity: 0;
             visibility: hidden;
-            transition: all 0.3s cubic-bezier(0.2, 1, 0.3, 1);
-            border: 2px solid var(--fluo-yellow); /* 荧光黄边框 */
+            border: 1.5px solid var(--black);
+            box-shadow: 10px 10px 0px var(--black); /* 增加硬阴影风格 */
+            transition: 0.3s;
         }
-        
-        .dropdown:hover .dropdown-menu { 
-            opacity: 1; 
-            visibility: visible; 
-            transform: translateX(-50%) translateY(5px); 
-        }
+        .dropdown:hover .dropdown-menu { opacity: 1; visibility: visible; }
         
         .dropdown-menu li a { 
-            color: var(--white) !important; 
-            padding: 12px 25px; 
+            color: var(--black) !important; 
+            padding: 12px 20px; 
             display: block; 
-            font-size: 0.9rem !important; 
-            font-weight: 700 !important;
+            font-size: 0.85rem !important;
+            font-weight: 500 !important;
             text-transform: uppercase;
             text-decoration: none;
-            text-align: center; /* 菜单文字居中 */
         }
-        
-        .dropdown-menu li a:hover {
-            background-color: var(--fluo-yellow);
-            color: var(--black) !important;
-        }
+        .dropdown-menu li a:hover { background-color: var(--fluo-yellow); }
 
-        /* 4. 核心展示区 */
+        /* 3. 首页大名字：稳定不闪烁 */
         .hero-wrapper {
             height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            padding: 0 100px;
+            padding: 0 80px;
         }
 
         .main-logo {
-            font-size: 16vw;
-            font-weight: 900;
+            font-family: "Cinzel", serif;
+            font-size: 15vw;
+            font-weight: 400;
             margin: 0;
-            letter-spacing: -0.06em;
-            line-height: 0.8;
-            transition: 0.5s;
+            letter-spacing: 0.1em;
+            color: var(--black); /* 始终保持黑色 */
+            line-height: 1;
+            transition: 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            cursor: default;
         }
-        /* 首页大名字悬停逻辑：变为长春花蓝边框线效果 */
         .main-logo:hover {
-            -webkit-text-stroke: 2px var(--periwinkle);
             color: transparent;
+            -webkit-text-stroke: 1.5px var(--black); /* 悬停变为黑色镂空体 */
+            letter-spacing: 0.12em;
         }
 
         .center-statement {
-            margin-top: 40px;
-            padding: 15px 30px;
-            background: currentColor; /* 随呼吸色反转 */
-            color: var(--white);
-            display: inline-block;
-            align-self: flex-start;
+            margin-top: 25px;
+            border-left: 3px solid var(--black);
+            padding-left: 25px;
         }
-
         .center-statement p {
-            font-weight: 800;
-            letter-spacing: 0.2em;
-            font-size: 1.2rem;
-            margin: 0;
+            font-weight: 400;
+            letter-spacing: 0.4em;
+            font-size: 0.95rem;
+            color: var(--black);
+            margin: 5px 0;
         }
 
-        /* 5. 底部网格：硬核规整 */
+        /* 4. 底部网格 */
         .footer-nav {
             position: absolute;
             bottom: 60px;
-            left: 100px;
-            right: 100px;
+            left: 80px;
+            right: 80px;
         }
-
         .nav-groups {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            border-top: 5px solid currentColor;
+            border-top: 1.5px solid var(--black);
             padding-top: 30px;
             list-style: none;
         }
-
         .group-label {
-            font-size: 0.8rem;
-            font-weight: 900;
+            font-size: 0.75rem;
+            font-weight: 700;
             text-transform: uppercase;
             display: block;
             margin-bottom: 25px;
-            color: var(--red);
+            color: var(--black);
+            opacity: 0.6;
         }
-
         .sub-menu a {
             display: block;
             text-decoration: none;
-            color: inherit;
+            color: var(--black);
             margin-bottom: 12px;
-            font-size: 1.1rem;
-            font-weight: 700;
-            transition: 0.2s;
+            font-size: 1.05rem;
+            font-weight: 500;
+            transition: 0.3s;
         }
-        .sub-menu a:hover { color: var(--periwinkle); background: var(--fluo-yellow); padding-left: 5px; }
+        .sub-menu a:hover { color: var(--periwinkle); }
 
-        /* 6. 语言切换 */
-        .lang-switch { 
-            margin-left: 50px; 
-            border: 2px solid currentColor;
-            padding: 2px;
-        }
-        .lang-switch span { 
-            padding: 5px 15px; 
-            cursor: pointer;
-            font-weight: 900;
-            display: inline-block;
-        }
-        .lang-switch .active { background: var(--fluo-yellow); color: var(--black); }
+        /* 5. 语言切换 */
+        .lang-switch { margin-left: 40px; border: 1.5px solid var(--black); display: flex; overflow: hidden; }
+        .lang-switch span { padding: 5px 15px; cursor: pointer; font-size: 0.75rem; font-weight: 700; }
+        .lang-switch .active { background: var(--black); color: var(--white); }
     </style>
 </head>
 <body id="dynamic-body">
@@ -224,7 +206,9 @@
                         <li><a href="lib-readings.html"><span class="lang-en">Readings & Dialectics</span><span class="lang-zh hidden">研读思辨</span></a></li>
                     </ul>
                 </li>
-                <li><a href="about.html"><span class="lang-en">Me</span><span class="lang-zh hidden">个人</span></a></li>
+                <li class="dropdown" style="border:none;">
+                    <a href="about.html"><span class="lang-en">Me</span><span class="lang-zh hidden">个人</span></a>
+                </li>
             </ul>
             <div class="lang-switch">
                 <span id="btn-en" onclick="setLanguage('en')" class="active">EN</span>
@@ -275,26 +259,20 @@
     </main>
 
     <script>
+        // 极慢背景切换逻辑
         const body = document.getElementById('dynamic-body');
-        const statement = document.querySelector('.center-statement');
-        let isPeriwinkle = false;
-        
-        function breatheColor() {
-            if (!isPeriwinkle) {
-                body.style.backgroundColor = "#53589A";
-                body.style.color = "#FFFFFF";
-                statement.style.backgroundColor = "#FFFFFF";
-                statement.style.color = "#53589A";
-            } else {
-                body.style.backgroundColor = "#FFFFFF";
-                body.style.color = "#000000";
-                statement.style.backgroundColor = "#000000";
-                statement.style.color = "#FFFFFF";
-            }
-            isPeriwinkle = !isPeriwinkle;
+        const colors = ["#FFFFFF", "#F2F2F2", "#53589A", "#F2F2F2"]; // 白 -> 浅灰 -> 长春花蓝 -> 浅灰 循环
+        let currentIndex = 0;
+
+        function breathe() {
+            currentIndex = (currentIndex + 1) % colors.length;
+            body.style.backgroundColor = colors[currentIndex];
+            
+            // 当背景是深色（长春花蓝）时，为了不晃眼，可以稍微调低文字对比度，或者保持黑色
+            // 这里我们保持黑色文字以追求硬核规整感
         }
-        
-        setInterval(breatheColor, 8000);
+
+        setInterval(breathe, 12000); // 12秒切换一次，非常缓慢
 
         function setLanguage(lang) {
             document.querySelectorAll('.lang-en').forEach(el => lang === 'zh' ? el.classList.add('hidden') : el.classList.remove('hidden'));
