@@ -10,17 +10,17 @@
             --fluo-yellow: #E5EB15;  /* 荧光黄 */
             --white: #FFFFFF;
             --black: #000000;
-            --red: #D90429;
         }
 
-        /* 1. 全局样式：强调规整感 */
+        /* 1. 全局样式：呼吸背景调慢 */
         body {
             background-color: var(--white);
             color: var(--black);
             margin: 0;
-            /* Space Grotesque 或 Helvetica 风格，强调几何规整 */
+            /* 保持你喜欢的最初英文字体质感 */
             font-family: "Space Grotesque", "Inter", "Helvetica Neue", sans-serif;
-            transition: background-color 3s ease-in-out, color 3s ease-in-out;
+            /* 呼吸频率减慢到 6s 切换，总周期 12s */
+            transition: background-color 6s ease-in-out, color 6s ease-in-out;
             -webkit-font-smoothing: antialiased;
             overflow: hidden;
         }
@@ -28,18 +28,18 @@
         .lang-zh.hidden, .lang-en.hidden { display: none !important; }
         .lang-zh { font-size: 1rem; font-weight: 700; letter-spacing: 0.1em; }
 
-        /* 2. 顶部导航：增加对齐逻辑 */
+        /* 2. 顶部导航：主项加框 */
         .global-nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 45px 80px;
+            padding: 40px 80px;
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1001;
             box-sizing: border-box;
-            border-bottom: 2.5px solid currentColor; /* 线条随文字颜色变 */
+            border-bottom: 2px solid currentColor;
         }
 
         .nav-logo a {
@@ -50,64 +50,71 @@
             color: inherit;
             transition: 0.3s;
         }
-        /* Logo 悬停变色：改为荧光黄 */
-        .nav-logo a:hover { color: var(--fluo-yellow); text-shadow: 2px 2px var(--black); }
 
-        .nav-links { display: flex; list-style: none; gap: 60px; margin: 0; padding: 0; }
+        .nav-links { display: flex; list-style: none; gap: 40px; margin: 0; padding: 0; }
         
-        /* 导航父容器，确保下拉菜单对齐 */
         .dropdown { position: relative; }
 
+        /* 观察者/记录者：主项加框，字号加大 */
         .nav-links > li > a { 
             text-decoration: none; 
             color: inherit; 
-            font-size: 1.1rem; 
+            font-size: 1.25rem; /* 明显大一点 */
             font-weight: 800; 
-            letter-spacing: 0.02em;
+            letter-spacing: 0.05em;
             text-transform: uppercase;
-            padding: 10px 0;
+            padding: 8px 15px;
+            border: 2px solid currentColor; /* 核心加框设计 */
+            display: inline-block;
+            transition: 0.3s;
+        }
+        
+        .nav-links > li > a:hover {
+            background: var(--fluo-yellow);
+            color: var(--black) !important;
+            border-color: var(--fluo-yellow);
         }
 
-        /* 3. 下拉菜单：精准对齐正下方 */
+        /* 3. 下拉菜单：精准对齐在方框正下方 */
         .dropdown-menu {
             position: absolute;
             top: 100%;
-            left: 50%; /* 移动到父级一半 */
-            transform: translateX(-50%) translateY(20px); /* 居中对齐并下移 */
-            background: var(--black); 
-            min-width: 200px;
+            left: 0;
+            background: var(--black); /* 始终黑底 */
+            min-width: 220px;
             list-style: none;
             padding: 10px 0;
-            margin: 0;
+            margin: 10px 0 0 0;
             opacity: 0;
             visibility: hidden;
-            transition: all 0.3s cubic-bezier(0.2, 1, 0.3, 1);
-            border: 2px solid var(--fluo-yellow); /* 荧光黄边框 */
+            transition: 0.3s;
+            border: 1px solid var(--fluo-yellow);
         }
         
         .dropdown:hover .dropdown-menu { 
             opacity: 1; 
             visibility: visible; 
-            transform: translateX(-50%) translateY(5px); 
+            transform: translateY(0); 
         }
         
         .dropdown-menu li a { 
             color: var(--white) !important; 
-            padding: 12px 25px; 
+            padding: 12px 20px; 
             display: block; 
-            font-size: 0.9rem !important; 
-            font-weight: 700 !important;
+            font-size: 0.9rem !important; /* 子项比主项小 */
+            font-weight: 600 !important;
             text-transform: uppercase;
             text-decoration: none;
-            text-align: center; /* 菜单文字居中 */
+            transition: 0.2s;
         }
         
+        /* 下拉子项悬停：文字变荧光黄 */
         .dropdown-menu li a:hover {
-            background-color: var(--fluo-yellow);
-            color: var(--black) !important;
+            color: var(--fluo-yellow) !important;
+            padding-left: 25px;
         }
 
-        /* 4. 核心展示区 */
+        /* 4. 核心展示区：EASIS 镂空效果 */
         .hero-wrapper {
             height: 100vh;
             display: flex;
@@ -122,12 +129,15 @@
             margin: 0;
             letter-spacing: -0.06em;
             line-height: 0.8;
-            transition: 0.5s;
+            color: inherit; /* 随背景变黑或白 */
+            transition: color 0.4s, -webkit-text-stroke 0.4s;
+            cursor: default;
         }
-        /* 首页大名字悬停逻辑：变为长春花蓝边框线效果 */
+        
+        /* 鼠标悬停变镂空：颜色随背景色走（currentColor） */
         .main-logo:hover {
-            -webkit-text-stroke: 2px var(--periwinkle);
-            color: transparent;
+            color: transparent !important;
+            -webkit-text-stroke: 2px currentColor; 
         }
 
         .center-statement {
@@ -137,6 +147,7 @@
             color: var(--white);
             display: inline-block;
             align-self: flex-start;
+            border-right: 8px solid var(--fluo-yellow); /* 荧光黄装饰 */
         }
 
         .center-statement p {
@@ -146,7 +157,7 @@
             margin: 0;
         }
 
-        /* 5. 底部网格：硬核规整 */
+        /* 5. 底部网格：颜色适配 */
         .footer-nav {
             position: absolute;
             bottom: 60px;
@@ -168,7 +179,7 @@
             text-transform: uppercase;
             display: block;
             margin-bottom: 25px;
-            color: var(--red);
+            color: var(--fluo-yellow); /* 标签统一用荧光黄，在紫底白底都好看 */
         }
 
         .sub-menu a {
@@ -180,9 +191,9 @@
             font-weight: 700;
             transition: 0.2s;
         }
-        .sub-menu a:hover { color: var(--periwinkle); background: var(--fluo-yellow); padding-left: 5px; }
+        .sub-menu a:hover { color: var(--fluo-yellow); }
 
-        /* 6. 语言切换 */
+        /* 6. 语言切换器 */
         .lang-switch { 
             margin-left: 50px; 
             border: 2px solid currentColor;
@@ -206,25 +217,25 @@
                 <li class="dropdown">
                     <a href="javascript:void(0)"><span class="lang-en">Researcher</span><span class="lang-zh hidden">研究者</span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="projects-economics.html"><span class="lang-en">Economics</span><span class="lang-zh hidden">经济学研究</span></a></li>
-                        <li><a href="projects-innovation.html"><span class="lang-en">Innovation</span><span class="lang-zh hidden">创新研究</span></a></li>
+                        <li><a href="projects-economics.html">ECONOMICS</a></li>
+                        <li><a href="projects-innovation.html">INNOVATION</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
                     <a href="javascript:void(0)"><span class="lang-en">Observer</span><span class="lang-zh hidden">观察者</span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="obs-photo-arch.html"><span class="lang-en">Visual Archive</span><span class="lang-zh hidden">摄影辑录</span></a></li>
-                        <li><a href="obs-exhibition.html"><span class="lang-en">Curation Walk</span><span class="lang-zh hidden">看展日记</span></a></li>
+                        <li><a href="obs-photo-arch.html">VISUAL ARCHIVE</a></li>
+                        <li><a href="obs-exhibition.html">CURATION WALK</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
                     <a href="javascript:void(0)"><span class="lang-en">Recorder</span><span class="lang-zh hidden">记录者</span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="lib-screening.html"><span class="lang-en">Theatre & Scene</span><span class="lang-zh hidden">观演日记</span></a></li>
-                        <li><a href="lib-readings.html"><span class="lang-en">Readings & Dialectics</span><span class="lang-zh hidden">研读思辨</span></a></li>
+                        <li><a href="lib-screening.html">THEATRE & SCENE</a></li>
+                        <li><a href="lib-readings.html">READINGS</a></li>
                     </ul>
                 </li>
-                <li><a href="about.html"><span class="lang-en">Me</span><span class="lang-zh hidden">个人</span></a></li>
+                <li><a href="about.html" style="border: 2px solid currentColor; padding: 8px 15px;"><span class="lang-en">Me</span><span class="lang-zh hidden">个人</span></a></li>
             </ul>
             <div class="lang-switch">
                 <span id="btn-en" onclick="setLanguage('en')" class="active">EN</span>
@@ -243,31 +254,31 @@
         <nav class="footer-nav">
             <ul class="nav-groups">
                 <li>
-                    <span class="group-label"><span class="lang-en">Personal</span><span class="lang-zh hidden">个人</span></span>
+                    <span class="group-label">Personal</span>
                     <div class="sub-menu">
-                        <a href="about.html"><span class="lang-en">Profile</span><span class="lang-zh hidden">关于我</span></a>
-                        <a href="mailto:email@example.com"><span class="lang-en">Contact</span><span class="lang-zh hidden">联系</span></a>
+                        <a href="about.html">Profile</a>
+                        <a href="mailto:email@example.com">Contact</a>
                     </div>
                 </li>
                 <li>
-                    <span class="group-label"><span class="lang-en">Researcher</span><span class="lang-zh hidden">研究者</span></span>
+                    <span class="group-label">Researcher</span>
                     <div class="sub-menu">
-                        <a href="projects-economics.html"><span class="lang-en">Economics</span><span class="lang-zh hidden">经济学研究</span></a>
-                        <a href="projects-innovation.html"><span class="lang-en">Innovation</span><span class="lang-zh hidden">创新研究</span></a>
+                        <a href="projects-economics.html">Economics</a>
+                        <a href="projects-innovation.html">Innovation</a>
                     </div>
                 </li>
                 <li>
-                    <span class="group-label"><span class="lang-en">Observer</span><span class="lang-zh hidden">观察者</span></span>
+                    <span class="group-label">Observer</span>
                     <div class="sub-menu">
-                        <a href="obs-photo-arch.html"><span class="lang-en">Visual Archive</span><span class="lang-zh hidden">摄影辑录</span></a>
-                        <a href="obs-exhibition.html"><span class="lang-en">Curation Walk</span><span class="lang-zh hidden">看展日记</span></a>
+                        <a href="obs-photo-arch.html">Visual Archive</a>
+                        <a href="obs-exhibition.html">Curation Walk</a>
                     </div>
                 </li>
                 <li>
-                    <span class="group-label"><span class="lang-en">Recorder</span><span class="lang-zh hidden">记录者</span></span>
+                    <span class="group-label">Recorder</span>
                     <div class="sub-menu">
-                        <a href="lib-screening.html"><span class="lang-en">Theatre & Scene</span><span class="lang-zh hidden">观演日记</span></a>
-                        <a href="lib-readings.html"><span class="lang-en">Readings & Dialectics</span><span class="lang-zh hidden">研读思辨</span></a>
+                        <a href="lib-screening.html">Theatre & Scene</a>
+                        <a href="lib-readings.html">Readings</a>
                     </div>
                 </li>
             </ul>
@@ -281,11 +292,13 @@
         
         function breatheColor() {
             if (!isPeriwinkle) {
+                // 变为紫色背景时，文字和线框变白
                 body.style.backgroundColor = "#53589A";
                 body.style.color = "#FFFFFF";
                 statement.style.backgroundColor = "#FFFFFF";
                 statement.style.color = "#53589A";
             } else {
+                // 变为白色背景时，文字和线框变黑
                 body.style.backgroundColor = "#FFFFFF";
                 body.style.color = "#000000";
                 statement.style.backgroundColor = "#000000";
@@ -294,6 +307,7 @@
             isPeriwinkle = !isPeriwinkle;
         }
         
+        // 频率调慢到 8 秒切换一次
         setInterval(breatheColor, 8000);
 
         function setLanguage(lang) {
