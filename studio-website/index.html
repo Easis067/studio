@@ -12,13 +12,12 @@
             --black: #000000;
         }
 
-        /* 全局平滑呼吸，防止 JS 导致的跳闪 */
+        /* 全局平滑呼吸，防止跳闪 */
         body {
             background-color: var(--white);
             color: var(--black);
             margin: 0;
             font-family: "Space Grotesque", "Inter", sans-serif;
-            /* 核心：文字颜色与背景同步 8s 呼吸 */
             transition: background-color 8s ease-in-out, color 8s ease-in-out;
             -webkit-font-smoothing: antialiased;
             overflow: hidden;
@@ -70,14 +69,6 @@
             background: var(--fluo-yellow); color: var(--black) !important; border-color: var(--black); 
         }
 
-        .dropdown-menu {
-            position: absolute; top: 100%; left: 0; background: var(--black); min-width: 220px;
-            list-style: none; padding: 10px 0; margin-top: 10px; opacity: 0; visibility: hidden;
-            border: 1px solid var(--fluo-yellow); transition: 0.3s;
-        }
-        .dropdown:hover .dropdown-menu { opacity: 1; visibility: visible; }
-        .dropdown-menu li a { color: var(--white) !important; padding: 12px 20px; display: block; text-decoration: none; }
-
         /* --- 中间大 EASIS --- */
         .hero-wrapper {
             height: 100vh;
@@ -94,7 +85,6 @@
             letter-spacing: -0.06em;
             line-height: 0.8;
             color: inherit; 
-            /* 颜色随呼吸(8s)，镂空秒开(0.3s) */
             transition: color 8s ease-in-out, -webkit-text-stroke 0.3s ease;
             cursor: default;
         }
@@ -103,31 +93,30 @@
             -webkit-text-stroke: 4px var(--black);
         }
 
-        /* --- 系统 / 媒介 / 档案 专项显影 --- */
+        /* --- 系统 / 媒介 / 档案 (已调小) --- */
         .center-statement {
-            margin-top: 40px;
-            padding: 18px 45px;
-            background-color: currentColor; /* 方块颜色随 body 文字同步呼吸 */
+            margin-top: 30px;
+            padding: 12px 30px;
+            background-color: currentColor; 
             display: inline-block;
             align-self: flex-start;
             transition: background-color 8s ease-in-out;
         }
 
         .center-statement span {
-            font-weight: 900 !important; 
-            letter-spacing: 0.5em; 
-            font-size: 1.6rem; 
-            color: var(--white); /* 黑方块配白字 */
+            font-weight: 900; 
+            letter-spacing: 0.3em; 
+            font-size: 1.1rem; /* 调小了字号 */
+            color: var(--white); 
             transition: color 8s ease-in-out;
             display: inline-block;
         }
 
-        /* 核心修复：背景紫->方块变白->文字变紫，防止看不见 */
         body.is-purple .center-statement span {
             color: var(--periwinkle) !important;
         }
 
-        /* --- 底部导航 --- */
+        /* --- 底部导航 (Profile/Contact 加入呼吸) --- */
         .footer-nav {
             position: absolute; bottom: 60px; left: 100px; right: 100px;
         }
@@ -144,9 +133,11 @@
         }
 
         .sub-menu a {
-            display: block; text-decoration: none; color: inherit; margin-bottom: 15px;
+            display: block; text-decoration: none; 
+            color: inherit; /* 关键：继承 body 的颜色，随背景 8s 呼吸 */
+            margin-bottom: 15px;
             font-size: 1.15rem; font-weight: 700; position: relative; width: fit-content;
-            transition: color 8s ease-in-out;
+            transition: color 8s ease-in-out; 
         }
         .sub-menu a:hover { color: inherit !important; }
         .sub-menu a::after {
@@ -166,27 +157,9 @@
         <div class="nav-logo"><a href="index.html">EASIS</a></div>
         <div style="display: flex; align-items: center;">
             <ul class="nav-links">
-                <li class="dropdown">
-                    <a href="javascript:void(0)"><span class="lang-en">Researcher</span><span class="lang-zh hidden">研究者</span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#"><span class="lang-en">Economics</span><span class="lang-zh hidden">经济学研究</span></a></li>
-                        <li><a href="#"><span class="lang-en">Innovation</span><span class="lang-zh hidden">创新研究</span></a></li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="javascript:void(0)"><span class="lang-en">Observer</span><span class="lang-zh hidden">观察者</span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#"><span class="lang-en">Visual Archive</span><span class="lang-zh hidden">摄影辑录</span></a></li>
-                        <li><a href="#"><span class="lang-en">Curation Walk</span><span class="lang-zh hidden">看展日记</span></a></li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="javascript:void(0)"><span class="lang-en">Recorder</span><span class="lang-zh hidden">记录者</span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#"><span class="lang-en">Theatre & Scene</span><span class="lang-zh hidden">观演日记</span></a></li>
-                        <li><a href="#"><span class="lang-en">Readings & Dialectics</span><span class="lang-zh hidden">研读思辨</span></a></li>
-                    </ul>
-                </li>
+                <li><a href="#"><span class="lang-en">Researcher</span><span class="lang-zh hidden">研究者</span></a></li>
+                <li><a href="#"><span class="lang-en">Observer</span><span class="lang-zh hidden">观察者</span></a></li>
+                <li><a href="#"><span class="lang-en">Recorder</span><span class="lang-zh hidden">记录者</span></a></li>
                 <li><a href="about.html" style="border: 2px solid currentColor; padding: 8px 15px;"><span class="lang-en">Me</span><span class="lang-zh hidden">个人</span></a></li>
             </ul>
             <div class="lang-switch">
