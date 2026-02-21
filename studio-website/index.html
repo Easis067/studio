@@ -12,7 +12,7 @@
             --black: #000000;
         }
 
-        /* 全局平滑呼吸，防止跳闪 */
+        /* 全局平滑呼吸 */
         body {
             background-color: var(--white);
             color: var(--black);
@@ -23,7 +23,6 @@
             overflow: hidden;
         }
 
-        /* 紫色呼吸状态 */
         body.is-purple {
             background-color: var(--periwinkle);
             color: var(--white);
@@ -31,7 +30,7 @@
 
         .lang-zh.hidden, .lang-en.hidden { display: none !important; }
 
-        /* --- 导航区 --- */
+        /* --- 1. 顶部导航与下拉菜单 (修复消失问题) --- */
         .global-nav {
             display: flex;
             justify-content: space-between;
@@ -60,6 +59,8 @@
         }
 
         .nav-links { display: flex; list-style: none; gap: 40px; margin: 0; padding: 0; }
+        .nav-links > li { position: relative; } /* 为下拉菜单定位 */
+        
         .nav-links > li > a { 
             text-decoration: none; color: inherit; font-size: 1.25rem; font-weight: 800; 
             text-transform: uppercase; padding: 8px 18px; border: 2px solid currentColor;
@@ -69,7 +70,41 @@
             background: var(--fluo-yellow); color: var(--black) !important; border-color: var(--black); 
         }
 
-        /* --- 中间大 EASIS --- */
+        /* 下拉选项样式修复 */
+        .dropdown-menu {
+            position: absolute; 
+            top: 100%; 
+            left: 0; 
+            background: var(--black); 
+            min-width: 200px;
+            list-style: none; 
+            padding: 10px 0; 
+            margin: 0;
+            opacity: 0; 
+            visibility: hidden;
+            border: 2px solid var(--fluo-yellow); 
+            transition: 0.3s ease;
+            z-index: 1002;
+        }
+        .nav-links > li:hover .dropdown-menu { 
+            opacity: 1; 
+            visibility: visible; 
+            margin-top: 10px;
+        }
+        .dropdown-menu li a { 
+            color: var(--white) !important; 
+            padding: 12px 20px; 
+            display: block; 
+            text-decoration: none; 
+            font-weight: 700;
+            font-size: 1rem;
+        }
+        .dropdown-menu li a:hover {
+            background: var(--fluo-yellow);
+            color: var(--black) !important;
+        }
+
+        /* --- 2. 中间大 EASIS (错位呼吸逻辑) --- */
         .hero-wrapper {
             height: 100vh;
             display: flex;
@@ -85,15 +120,17 @@
             letter-spacing: -0.06em;
             line-height: 0.8;
             color: inherit; 
-            transition: color 8s ease-in-out, -webkit-text-stroke 0.3s ease;
+            /* 延迟 2s 呼吸，且变色时间缩短至 6s，从而与 8s 的背景错开 */
+            transition: color 6s ease-in-out 2s, -webkit-text-stroke 0.3s ease;
             cursor: default;
         }
         .main-logo:hover {
             color: transparent !important;
             -webkit-text-stroke: 4px var(--black);
+            transition: -webkit-text-stroke 0.3s ease; /* 悬停响应不受延迟影响 */
         }
 
-        /* --- 系统 / 媒介 / 档案 (已调小) --- */
+        /* 系统 / 媒介 / 档案 */
         .center-statement {
             margin-top: 30px;
             padding: 12px 30px;
@@ -102,21 +139,19 @@
             align-self: flex-start;
             transition: background-color 8s ease-in-out;
         }
-
         .center-statement span {
             font-weight: 900; 
             letter-spacing: 0.3em; 
-            font-size: 1.1rem; /* 调小了字号 */
+            font-size: 1.1rem;
             color: var(--white); 
             transition: color 8s ease-in-out;
             display: inline-block;
         }
-
         body.is-purple .center-statement span {
             color: var(--periwinkle) !important;
         }
 
-        /* --- 底部导航 (Profile/Contact 加入呼吸) --- */
+        /* --- 3. 底部导航 --- */
         .footer-nav {
             position: absolute; bottom: 60px; left: 100px; right: 100px;
         }
@@ -133,11 +168,9 @@
         }
 
         .sub-menu a {
-            display: block; text-decoration: none; 
-            color: inherit; /* 关键：继承 body 的颜色，随背景 8s 呼吸 */
-            margin-bottom: 15px;
+            display: block; text-decoration: none; color: inherit; margin-bottom: 15px;
             font-size: 1.15rem; font-weight: 700; position: relative; width: fit-content;
-            transition: color 8s ease-in-out; 
+            transition: color 8s ease-in-out;
         }
         .sub-menu a:hover { color: inherit !important; }
         .sub-menu a::after {
@@ -157,10 +190,28 @@
         <div class="nav-logo"><a href="index.html">EASIS</a></div>
         <div style="display: flex; align-items: center;">
             <ul class="nav-links">
-                <li><a href="#"><span class="lang-en">Researcher</span><span class="lang-zh hidden">研究者</span></a></li>
-                <li><a href="#"><span class="lang-en">Observer</span><span class="lang-zh hidden">观察者</span></a></li>
-                <li><a href="#"><span class="lang-en">Recorder</span><span class="lang-zh hidden">记录者</span></a></li>
-                <li><a href="about.html" style="border: 2px solid currentColor; padding: 8px 15px;"><span class="lang-en">Me</span><span class="lang-zh hidden">个人</span></a></li>
+                <li class="dropdown">
+                    <a href="javascript:void(0)"><span class="lang-en">Researcher</span><span class="lang-zh hidden">研究者</span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#"><span class="lang-en">Economics</span><span class="lang-zh hidden">经济学研究</span></a></li>
+                        <li><a href="#"><span class="lang-en">Innovation</span><span class="lang-zh hidden">创新研究</span></a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="javascript:void(0)"><span class="lang-en">Observer</span><span class="lang-zh hidden">观察者</span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#"><span class="lang-en">Visual Archive</span><span class="lang-zh hidden">摄影辑录</span></a></li>
+                        <li><a href="#"><span class="lang-en">Curation Walk</span><span class="lang-zh hidden">看展日记</span></a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="javascript:void(0)"><span class="lang-en">Recorder</span><span class="lang-zh hidden">记录者</span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#"><span class="lang-en">Theatre & Scene</span><span class="lang-zh hidden">观演日记</span></a></li>
+                        <li><a href="#"><span class="lang-en">Readings & Dialectics</span><span class="lang-zh hidden">研读思辨</span></a></li>
+                    </ul>
+                </li>
+                <li><a href="about.html"><span class="lang-en">Me</span><span class="lang-zh hidden">个人</span></a></li>
             </ul>
             <div class="lang-switch">
                 <span id="btn-en" onclick="setLanguage('en')" class="active">EN</span>
