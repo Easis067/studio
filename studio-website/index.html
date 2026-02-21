@@ -12,13 +12,12 @@
             --black: #000000;
         }
 
-        /* 1. 全局样式：文字颜色随 body 呼吸平滑过渡 */
+        /* 全局呼吸：背景和文字颜色同步平滑切换，防止闪烁 */
         body {
             background-color: var(--white);
-            color: var(--black); /* 初始黑色 */
+            color: var(--black);
             margin: 0;
             font-family: "Space Grotesque", "Inter", "Helvetica Neue", sans-serif;
-            /* 背景和文字颜色同时平滑过渡 8 秒 */
             transition: background-color 8s ease-in-out, color 8s ease-in-out;
             -webkit-font-smoothing: antialiased;
             overflow: hidden;
@@ -26,7 +25,7 @@
 
         .lang-zh.hidden, .lang-en.hidden { display: none !important; }
 
-        /* 2. 顶部导航：线框和文字颜色自适应 */
+        /* --- 顶部导航 --- */
         .global-nav {
             display: flex;
             justify-content: space-between;
@@ -37,16 +36,24 @@
             top: 0;
             z-index: 1001;
             box-sizing: border-box;
-            /* 使用 currentColor 让边框颜色自动跟随文字颜色（黑变白） */
             border-bottom: 2px solid currentColor;
-            transition: border-color 8s ease-in-out;
         }
 
+        /* 左上角 EASIS：悬浮变荧光黄 + 黑色加粗圈 */
         .nav-logo a {
             font-size: 2.2rem;
             font-weight: 900;
             text-decoration: none;
             color: inherit;
+            transition: color 0.3s ease, text-shadow 0.3s ease;
+        }
+        .nav-logo a:hover {
+            color: var(--fluo-yellow) !important;
+            text-shadow: 
+                2px 2px 0 var(--black),
+               -2px -2px 0 var(--black),
+                2px -2px 0 var(--black),
+               -2px 2px 0 var(--black);
         }
 
         .nav-links { display: flex; list-style: none; gap: 40px; margin: 0; padding: 0; }
@@ -61,13 +68,11 @@
             padding: 8px 18px;
             border: 2px solid currentColor;
             display: inline-block;
-            transition: border-color 8s ease-in-out;
+            transition: background-color 0.3s;
         }
-
-        /* 顶部导航悬停效果 */
         .nav-links > li > a:hover {
             background: var(--fluo-yellow);
-            color: var(--black) !important; /* 悬停时固定黑字 */
+            color: var(--black) !important;
             border-color: var(--fluo-yellow);
         }
 
@@ -86,9 +91,9 @@
             transition: 0.3s;
         }
         .dropdown:hover .dropdown-menu { opacity: 1; visibility: visible; }
-        .dropdown-menu li a { color: var(--white) !important; padding: 10px 20px; display: block; text-decoration: none; font-size: 0.9rem; }
+        .dropdown-menu li a { color: var(--white) !important; padding: 12px 20px; display: block; text-decoration: none; }
 
-        /* 3. 首页展示区 */
+        /* --- 中间大 EASIS：悬浮镂空 --- */
         .hero-wrapper {
             height: 100vh;
             display: flex;
@@ -104,7 +109,7 @@
             letter-spacing: -0.06em;
             line-height: 0.8;
             color: inherit; 
-            transition: color 8s ease-in-out, -webkit-text-stroke 0.4s;
+            transition: color 0.4s ease, -webkit-text-stroke 0.4s ease;
             cursor: default;
         }
         .main-logo:hover {
@@ -115,14 +120,14 @@
         .center-statement {
             margin-top: 40px;
             padding: 15px 30px;
-            background: currentColor; /* 随呼吸变色：白变黑，黑变白 */
-            color: var(--white); /* 初始白字 */
+            background: currentColor; 
+            color: var(--white);
             display: inline-block;
             align-self: flex-start;
-            transition: background-color 8s ease-in-out, color 8s ease-in-out;
+            transition: background-color 8s ease, color 8s ease;
         }
 
-        /* 4. 底部导航：针对截屏 2/3 的深度优化 */
+        /* --- 底部导航：标签加框，子项下划线 --- */
         .footer-nav {
             position: absolute;
             bottom: 60px;
@@ -136,49 +141,48 @@
             padding-top: 30px;
             list-style: none;
             margin: 0;
-            transition: border-color 8s ease-in-out;
         }
 
-        /* 标签：保持截屏 1 的色块感，颜色固定为黑字 */
+        /* 顶部标签：固定色块框 */
         .group-label {
             font-size: 1.1rem;
             font-weight: 900;
+            text-transform: uppercase;
             background: var(--fluo-yellow); 
-            color: var(--black) !important; /* 标签始终黑字，不受呼吸影响 */
+            color: var(--black) !important;
             padding: 5px 12px;
             display: inline-block;
             margin-bottom: 25px;
             border: 2px solid var(--black);
         }
 
-        /* 子项列表：解决颜色不改变、加下划线、紫底变白 */
+        /* 子项：紫底自动变白，悬停字色不变加黄色粗线 */
         .sub-menu a {
             display: block;
             text-decoration: none;
-            color: inherit; /* 颜色随呼吸变（白底黑字，紫底白字） */
+            color: inherit; 
             margin-bottom: 15px;
             font-size: 1.15rem;
             font-weight: 700;
             position: relative;
             width: fit-content;
+            transition: color 8s ease-in-out;
         }
-
-        /* 悬停效果：字色不变，出现荧光黄下划线 */
         .sub-menu a:hover {
-            color: inherit; /* 颜色固定不变 */
+            color: inherit !important; 
         }
         .sub-menu a::after {
             content: '';
             position: absolute;
             width: 0;
-            height: 4px; /* 粗下划线 */
+            height: 4px; 
             bottom: -5px;
             left: 0;
             background-color: var(--fluo-yellow);
             transition: width 0.3s ease;
         }
         .sub-menu a:hover::after {
-            width: 100%; /* 悬停时展开下划线 */
+            width: 100%;
         }
 
         .lang-switch { margin-left: 50px; border: 2px solid currentColor; padding: 2px; }
@@ -195,25 +199,25 @@
                 <li class="dropdown">
                     <a href="javascript:void(0)"><span class="lang-en">Researcher</span><span class="lang-zh hidden">研究者</span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="projects-economics.html"><span class="lang-en">Economics</span><span class="lang-zh hidden">经济学研究</span></a></li>
-                        <li><a href="projects-innovation.html"><span class="lang-en">Innovation</span><span class="lang-zh hidden">创新研究</span></a></li>
+                        <li><a href="#"><span class="lang-en">Economics</span><span class="lang-zh hidden">经济学研究</span></a></li>
+                        <li><a href="#"><span class="lang-en">Innovation</span><span class="lang-zh hidden">创新研究</span></a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
                     <a href="javascript:void(0)"><span class="lang-en">Observer</span><span class="lang-zh hidden">观察者</span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="obs-photo-arch.html"><span class="lang-en">Visual Archive</span><span class="lang-zh hidden">摄影辑录</span></a></li>
-                        <li><a href="obs-exhibition.html"><span class="lang-en">Curation Walk</span><span class="lang-zh hidden">看展日记</span></a></li>
+                        <li><a href="#"><span class="lang-en">Visual Archive</span><span class="lang-zh hidden">摄影辑录</span></a></li>
+                        <li><a href="#"><span class="lang-en">Curation Walk</span><span class="lang-zh hidden">看展日记</span></a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
                     <a href="javascript:void(0)"><span class="lang-en">Recorder</span><span class="lang-zh hidden">记录者</span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="lib-screening.html"><span class="lang-en">Theatre & Scene</span><span class="lang-zh hidden">观演日记</span></a></li>
-                        <li><a href="lib-readings.html"><span class="lang-en">Readings & Dialectics</span><span class="lang-zh hidden">研读思辨</span></a></li>
+                        <li><a href="#"><span class="lang-en">Theatre & Scene</span><span class="lang-zh hidden">观演日记</span></a></li>
+                        <li><a href="#"><span class="lang-en">Readings & Dialectics</span><span class="lang-zh hidden">研读思辨</span></a></li>
                     </ul>
                 </li>
-                <li><a href="about.html"><span class="lang-en">Me</span><span class="lang-zh hidden">个人</span></a></li>
+                <li><a href="about.html" style="border: 2px solid currentColor; padding: 8px 15px;"><span class="lang-en">Me</span><span class="lang-zh hidden">个人</span></a></li>
             </ul>
             <div class="lang-switch">
                 <span id="btn-en" onclick="setLanguage('en')" class="active">EN</span>
@@ -233,29 +237,29 @@
                 <li>
                     <span class="group-label"><span class="lang-en">Personal</span><span class="lang-zh hidden">个人</span></span>
                     <div class="sub-menu">
-                        <a href="about.html"><span class="lang-en">Profile</span><span class="lang-zh hidden">关于我</span></a>
-                        <a href="mailto:email@example.com"><span class="lang-en">Contact</span><span class="lang-zh hidden">联系</span></a>
+                        <a href="#"><span class="lang-en">Profile</span><span class="lang-zh hidden">关于我</span></a>
+                        <a href="#"><span class="lang-en">Contact</span><span class="lang-zh hidden">联系方式</span></a>
                     </div>
                 </li>
                 <li>
                     <span class="group-label"><span class="lang-en">Researcher</span><span class="lang-zh hidden">研究者</span></span>
                     <div class="sub-menu">
-                        <a href="projects-economics.html"><span class="lang-en">Economics</span><span class="lang-zh hidden">经济学研究</span></a>
-                        <a href="projects-innovation.html"><span class="lang-en">Innovation</span><span class="lang-zh hidden">创新研究</span></a>
+                        <a href="#"><span class="lang-en">Economics</span><span class="lang-zh hidden">经济学研究</span></a>
+                        <a href="#"><span class="lang-en">Innovation</span><span class="lang-zh hidden">创新研究</span></a>
                     </div>
                 </li>
                 <li>
                     <span class="group-label"><span class="lang-en">Observer</span><span class="lang-zh hidden">观察者</span></span>
                     <div class="sub-menu">
-                        <a href="obs-photo-arch.html"><span class="lang-en">Visual Archive</span><span class="lang-zh hidden">摄影辑录</span></a>
-                        <a href="obs-exhibition.html"><span class="lang-en">Curation Walk</span><span class="lang-zh hidden">看展日记</span></a>
+                        <a href="#"><span class="lang-en">Visual Archive</span><span class="lang-zh hidden">摄影辑录</span></a>
+                        <a href="#"><span class="lang-en">Curation Walk</span><span class="lang-zh hidden">看展日记</span></a>
                     </div>
                 </li>
                 <li>
                     <span class="group-label"><span class="lang-en">Recorder</span><span class="lang-zh hidden">记录者</span></span>
                     <div class="sub-menu">
-                        <a href="lib-screening.html"><span class="lang-en">Theatre & Scene</span><span class="lang-zh hidden">观演日记</span></a>
-                        <a href="lib-readings.html"><span class="lang-en">Readings & Dialectics</span><span class="lang-zh hidden">研读思辨</span></a>
+                        <a href="#"><span class="lang-en">Theatre & Scene</span><span class="lang-zh hidden">观演日记</span></a>
+                        <a href="#"><span class="lang-en">Readings & Dialectics</span><span class="lang-zh hidden">研读思辨</span></a>
                     </div>
                 </li>
             </ul>
@@ -269,15 +273,13 @@
         
         function breatheColor() {
             if (!isPeriwinkle) {
-                // 背景变紫，文字同步变白
                 body.style.backgroundColor = "#53589A";
-                body.style.color = "#FFFFFF";
+                body.style.color = "#FFFFFF"; // 紫底白字
                 statement.style.backgroundColor = "#FFFFFF";
                 statement.style.color = "#53589A";
             } else {
-                // 背景变白，文字同步变黑
                 body.style.backgroundColor = "#FFFFFF";
-                body.style.color = "#000000";
+                body.style.color = "#000000"; // 白底黑字
                 statement.style.backgroundColor = "#000000";
                 statement.style.color = "#FFFFFF";
             }
