@@ -3,25 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Easis</title>
+    <title>Easis | Systems & Archive</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body class="home-page">
 
     <nav class="global-nav">
-        <div class="nav-logo"><a href="index.html">EASIS</a></div>
+        <div class="nav-logo">
+            <a href="index.html">EASIS</a>
+        </div>
         <ul class="nav-links">
             <li><a href="projects-economics.html">Projects</a></li>
             <li><a href="obs-photo-arch.html">Observation</a></li>
             <li><a href="lib-screening.html">Library</a></li>
-            <li><a href="#" onclick="toggleAbout()">About</a></li>
-        </ul>
+            <li><a href="about.html">About</a></li> </ul>
     </nav>
 
     <main class="hero-wrapper">
-        <h1 class="main-logo">Easis</h1>
-        <div class="center-statement">
-            <p>SYSTEMS · MEDIUM · ARCHIVE</p>
+        <div class="logo-area">
+            <h1 class="main-logo">Easis</h1>
+            <div class="center-statement">
+                <p>SYSTEMS · MEDIUM · ARCHIVE</p>
+            </div>
         </div>
 
         <nav class="footer-nav">
@@ -29,10 +32,12 @@
                 <li>
                     <span class="group-label">Identity</span>
                     <div class="sub-menu">
-                        <a href="#" onclick="toggleAbout()">About</a>
+                        <a href="#" onclick="toggleAbout()">Quick Intro</a>
+                        <a href="about.html">Full Profile</a>
                         <a href="mailto:你的邮箱@gmail.com">Contact</a>
                     </div>
                 </li>
+
                 <li>
                     <span class="group-label">Projects</span>
                     <div class="sub-menu">
@@ -40,6 +45,7 @@
                         <a href="projects-innovation.html">Innovation</a>
                     </div>
                 </li>
+
                 <li>
                     <span class="group-label">Observation</span>
                     <div class="sub-menu">
@@ -47,6 +53,7 @@
                         <a href="obs-exhibition.html">Exhibition Logs</a>
                     </div>
                 </li>
+
                 <li>
                     <span class="group-label">Library</span>
                     <div class="sub-menu">
@@ -63,15 +70,17 @@
         <div class="overlay-content" onclick="event.stopPropagation()">
             <div class="about-text">
                 <h2>Easis</h2>
-                <p>基于英国的跨学科研究者。</p>
-                <p>探索作为结构的经济系统，以及作为媒介的创新逻辑。</p>
+                <p style="font-style: italic; color: #bcaaa4; margin-bottom: 20px;">Researcher & Artist</p>
+                <p>基于英国的跨学科研究者。探索作为结构的经济系统，以及作为媒介的创新逻辑。</p>
+                <p>在这里记录从伦敦西区的舞台微光到复杂的经济系统模型。点击导航栏的 "About" 查看详细介绍。</p>
             </div>
         </div>
     </div>
 
     <script>
         function toggleAbout() {
-            document.getElementById('about-overlay').classList.toggle('active');
+            const overlay = document.getElementById('about-overlay');
+            overlay.classList.toggle('active');
         }
     </script>
 </body>
