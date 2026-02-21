@@ -1,168 +1,109 @@
-<style>
-    :root {
-        --periwinkle: #53589A;   
-        --fluo-yellow: #E5EB15;  
-        --white: #FFFFFF;
-        --black: #000000;
-    }
+/* 1. 变量定义 */
+:root {
+    --periwinkle: #53589A;   
+    --fluo-yellow: #E5EB15;  
+    --white: #FFFFFF;
+    --black: #000000;
+}
 
-    /* 1. 基础呼吸逻辑：文字颜色 color 必须和 background 一样是 8s，且不能有 all */
-    body {
-        background-color: var(--white);
-        color: var(--black);
-        margin: 0;
-        font-family: "Space Grotesque", sans-serif;
-        transition: background-color 8s ease-in-out, color 8s ease-in-out;
-        -webkit-font-smoothing: antialiased;
-        overflow: hidden;
-    }
+/* 2. 全局呼吸：确保背景和文字变色是 8s 极慢过渡，防止闪烁 */
+body {
+    background-color: var(--white);
+    color: var(--black);
+    margin: 0;
+    font-family: "Space Grotesque", "Inter", sans-serif;
+    transition: background-color 8s ease-in-out, color 8s ease-in-out;
+    -webkit-font-smoothing: antialiased;
+}
 
-    .lang-zh.hidden, .lang-en.hidden { display: none !important; }
+/* 关键：配合 JS 切换类名，文字变色将自动触发 CSS 的 8s 过渡，绝不跳变 */
+body.is-purple {
+    background-color: var(--periwinkle);
+    color: var(--white);
+}
 
-    /* --- 2. 顶部导航与左上角 Logo --- */
-    .global-nav {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 40px 80px;
-        position: fixed;
-        width: 100%;
-        top: 0;
-        z-index: 1001;
-        box-sizing: border-box;
-        border-bottom: 2px solid currentColor;
-    }
+/* 3. 左上角 Logo：悬浮变黄+黑影 */
+.nav-logo a {
+    font-size: 2.2rem;
+    font-weight: 900;
+    text-decoration: none;
+    color: inherit;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+.nav-logo a:hover {
+    color: var(--fluo-yellow) !important;
+    text-shadow: 3px 3px 0 var(--black);
+}
 
-    .nav-logo a {
-        font-size: 2.2rem;
-        font-weight: 900;
-        text-decoration: none;
-        color: inherit;
-        /* 这里的过渡只要 0.3s，因为 Logo 是瞬间交互 */
-        transition: color 0.3s ease, text-shadow 0.3s ease, transform 0.3s ease;
-        display: inline-block;
-    }
-
-    /* 左上角 Logo 悬浮：荧光黄填充 + 黑色厚重投影 */
-    .nav-logo a:hover {
-        color: var(--fluo-yellow) !important;
-        text-shadow: 3px 3px 0 var(--black);
-        transform: translateY(-2px);
-    }
-
-    .nav-links { display: flex; list-style: none; gap: 40px; margin: 0; padding: 0; }
-    .nav-links > li > a { 
-        text-decoration: none; color: inherit; font-size: 1.25rem; font-weight: 800; 
-        text-transform: uppercase; padding: 8px 18px; border: 2px solid currentColor;
-        display: inline-block; transition: 0.3s;
-    }
-    .nav-links > li > a:hover { 
-        background: var(--fluo-yellow); 
-        color: var(--black) !important; 
-        border-color: var(--black); 
-    }
-
-    /* --- 3. 中间大 EASIS：防闪烁 + 实体镂空 --- */
-    .hero-wrapper {
-        height: 100vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        padding: 0 100px;
-    }
-
- .main-logo {
+/* 4. 中间大 EASIS：独立控制镂空响应 */
+.main-logo {
     font-size: 16vw;
     font-weight: 900;
-    margin: 0;
-    letter-spacing: -0.06em;
     line-height: 0.8;
     color: inherit; 
-    
-    /* 关键：颜色呼吸是 8s，镂空切换是 0.3s，互不干扰 */
+    /* color 随呼吸走(8s)，镂空描边瞬间走(0.3s) */
     transition: color 8s ease-in-out, -webkit-text-stroke 0.3s ease;
-    
     cursor: default;
 }
-
 .main-logo:hover {
-    /* 悬浮时内部透明 */
     color: transparent !important;
-    /* 镂空描边固定为黑色 4px，不随呼吸变色，最稳固 */
-    -webkit-text-stroke: 4px #000000; 
+    -webkit-text-stroke: 4px var(--black); /* 实物感黑色镂空 */
 }
 
-/* 增加这个类，用于同步 JS 的背景切换 */
-body.is-purple {
-    background-color: #53589A;
-    color: #FFFFFF;
-}
-
-    /* 系统 / 媒介 / 档案：加粗、加大、加宽 */
-/* 中间陈述语方块：增加平滑呼吸 transition */
+/* 5. 系统 / 媒介 / 档案：修复消失问题 + 加粗显著 */
 .center-statement {
     margin-top: 40px;
     padding: 18px 45px;
-    /* 核心：背景色随 body 文字颜色变（黑白切换） */
+    /* 核心：方块背景色随 body 文字呼吸（白底时黑块，紫底时白块） */
     background-color: currentColor; 
     display: inline-block;
     transition: background-color 8s ease-in-out;
 }
 
-/* 内部文字：加粗并增加反向变色逻辑 */
 .center-statement span {
     font-weight: 900; 
     letter-spacing: 0.5em; 
-    font-size: 1.6rem;
-    /* 初始状态：黑方块里的白字 */
-    color: var(--white); 
+    font-size: 1.6rem; 
+    margin: 0;
+    /* 初始：黑方块里的白字 */
+    color: var(--white);
+    transition: color 8s ease-in-out;
+    display: inline-block;
+}
+
+/* 关键修复：当 body 变紫，方块变白，里面的字要变成紫色才能看清 */
+body.is-purple .center-statement span {
+    color: var(--periwinkle);
+}
+
+/* 6. 底部导航子项：字色不变 + 荧光黄粗下划线 */
+.sub-menu a {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    font-weight: 700;
+    position: relative;
+    width: fit-content;
+    margin-bottom: 12px;
     transition: color 8s ease-in-out;
 }
-
-/* 关键：当背景变紫色时，让方块里的字变紫色（视觉上像镂空，能看清） */
-body.is-purple .center-statement span {
-    color: var(--periwinkle); 
+.sub-menu a:hover {
+    color: inherit !important; /* 鼠标指上去字不改色 */
+}
+.sub-menu a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 5px; /* 粗线 */
+    bottom: -6px;
+    left: 0;
+    background-color: var(--fluo-yellow);
+    transition: width 0.3s ease;
+}
+.sub-menu a:hover::after {
+    width: 100%;
 }
 
-    /* --- 4. 底部导航 --- */
-    .footer-nav {
-        position: absolute; bottom: 60px; left: 100px; right: 100px;
-    }
-
-    .nav-groups {
-        display: grid; grid-template-columns: repeat(4, 1fr);
-        border-top: 4px solid currentColor; padding-top: 30px; list-style: none; margin: 0;
-        transition: border-color 8s ease-in-out;
-    }
-
-    /* 标签黄色块 */
-    .group-label {
-        font-size: 1.1rem; font-weight: 900; background: var(--fluo-yellow); 
-        color: var(--black) !important; padding: 6px 14px; display: inline-block;
-        margin-bottom: 25px; border: 2.5px solid var(--black);
-    }
-
-    .sub-menu a {
-        display: block; text-decoration: none; color: inherit; margin-bottom: 15px;
-        font-size: 1.15rem; font-weight: 700; position: relative; width: fit-content;
-        transition: color 8s ease-in-out;
-    }
-
-    /* 底部子项悬浮：加荧光黄粗线 */
-    .sub-menu a:hover { color: inherit !important; }
-    .sub-menu a::after {
-        content: ''; position: absolute; width: 0; height: 5px; 
-        bottom: -6px; left: 0; background-color: var(--fluo-yellow); 
-        transition: width 0.3s ease;
-    }
-    .sub-menu a:hover::after { width: 100%; }
-
-    /* 语言切换器 */
-    .lang-switch { 
-        margin-left: 50px; border: 2px solid currentColor; padding: 2px; 
-        transition: border-color 8s ease-in-out;
-    }
-    .lang-switch span { padding: 5px 15px; cursor: pointer; font-weight: 900; transition: 0.3s; }
-    .lang-switch .active { background: var(--fluo-yellow); color: var(--black); }
-
-</style>
+/* 7. 其他 UI 元素 */
+.global-nav { border-bottom: 2px solid currentColor; transition: border-color 8s; }
+.lang-switch { border: 2px solid currentColor; transition: border-color 8s; }
