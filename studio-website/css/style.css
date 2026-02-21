@@ -1,14 +1,16 @@
-/* 基础设定：米色与流动感 */
+/* 全局设定：暖调小清新 */
 body {
     margin: 0;
     padding: 0;
-    font-family: "Hoefler Text", "Baskerville", serif;
-    background: linear-gradient(-45deg, #fcfaf2, #f3f1e9, #eef2f3, #fdf5f2);
+    /* 使用更精致的无衬线体，Mac上会非常漂亮 */
+    font-family: "Optima", "Candara", "Noto Sans SC", sans-serif;
+    /* 调色盘：奶油白、淡蜜桃、暖米、浅粉 */
+    background: linear-gradient(-45deg, #fffaf2, #fff5e6, #fdf2f4, #fafaf0);
     background-size: 400% 400%;
-    animation: gradientBG 15s ease infinite;
-    color: #1a1a1a;
+    animation: gradientBG 18s ease infinite; /* 极慢的速度，更有呼吸感 */
+    color: #4a4a4a; /* 柔和的深灰 */
     height: 100vh;
-    overflow: hidden; /* 首页不滚动 */
+    overflow: hidden;
 }
 
 @keyframes gradientBG {
@@ -17,29 +19,36 @@ body {
     100% { background-position: 0% 50%; }
 }
 
-/* 首页布局 */
+/* 首页容器 */
 .hero-wrapper {
     height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    padding: 8vh 0;
+    padding: 10vh 0;
     box-sizing: border-box;
 }
 
 .main-logo {
-    font-size: 5rem;
+    font-size: 4.5rem;
     font-weight: 200;
-    letter-spacing: 0.3em;
+    letter-spacing: 0.35em; /* 极宽的间距更有设计感 */
     text-transform: uppercase;
     margin: 0;
+    color: #333;
 }
 
-/* 底部组团导航 */
+.center-statement {
+    letter-spacing: 0.6em;
+    font-size: 0.75rem;
+    color: #bcaaa4; /* 温暖的浅咖色 */
+}
+
+/* 底部组团导航优化 */
 .footer-nav {
-    width: 90%;
-    max-width: 1100px;
+    width: 85%;
+    max-width: 1000px;
 }
 
 .nav-groups {
@@ -47,39 +56,40 @@ body {
     justify-content: space-between;
     list-style: none;
     padding: 30px 0;
-    border-top: 0.5px solid rgba(0,0,0,0.1);
+    border-top: 0.5px solid rgba(188, 170, 164, 0.3); /* 浅色分割线 */
 }
 
 .group-label {
     display: block;
-    font-size: 0.7rem;
-    color: #999;
-    margin-bottom: 12px;
-    letter-spacing: 0.1em;
+    font-size: 0.6rem;
+    color: #bcaaa4;
+    margin-bottom: 15px;
+    letter-spacing: 0.2em;
     text-transform: uppercase;
 }
 
 .sub-menu a {
     display: block;
     text-decoration: none;
-    color: #1a1a1a;
-    font-size: 0.95rem;
-    margin-bottom: 6px;
-    transition: 0.3s;
+    color: #5d5d5d;
+    font-size: 0.85rem;
+    font-weight: 300;
+    margin-bottom: 8px;
+    transition: all 0.4s ease;
 }
 
 .sub-menu a:hover {
-    padding-left: 5px;
-    color: #666;
+    color: #e5989b; /* 悬停变为柔和粉 */
+    transform: translateX(3px); /* 轻轻右移 */
 }
 
-/* About 弹窗 */
+/* 弹窗升级：毛玻璃与柔和阴影 */
 .overlay {
     display: none;
     position: fixed;
     top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(255, 255, 255, 0.7);
-    backdrop-filter: blur(10px); /* 毛玻璃效果 */
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(15px);
     z-index: 999;
 }
 
@@ -87,19 +97,12 @@ body {
 
 .overlay-content {
     background: white;
-    padding: 3rem;
+    padding: 3.5rem;
     width: 80%;
-    max-width: 500px;
-    position: relative;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.05);
+    max-width: 450px;
+    box-shadow: 0 15px 40px rgba(188, 170, 164, 0.1);
+    border-radius: 2px;
 }
 
-.close-btn {
-    position: absolute;
-    top: 20px; right: 20px;
-    font-size: 1.5rem;
-    cursor: pointer;
-}
-
-.about-text h2 { font-weight: 300; margin-top: 0; }
-.about-text p { line-height: 1.8; color: #444; }
+.about-text h2 { font-weight: 300; letter-spacing: 0.1em; }
+.about-text p { line-height: 1.8; color: #666; font-size: 0.9rem; }
