@@ -11,11 +11,11 @@
             display: none !important;
         }
         
-        /* 专门针对中文字体进行放大和加重 */
+        /* 中文字体增强：解决米色背景下中文显细的问题 */
         .lang-zh {
-            font-size: 1.1em; /* 比默认字体大 10% */
-            font-weight: 400; /* 略微加粗，增加辨识度 */
-            letter-spacing: 0.05em;
+            font-size: 1.15em; 
+            font-weight: 400;
+            letter-spacing: 0.03em;
         }
 
         .lang-switch .active {
@@ -25,6 +25,10 @@
         .lang-switch span {
             cursor: pointer;
             transition: 0.3s;
+            padding: 0 2px;
+        }
+        .lang-switch span:hover {
+            color: #e5989b;
         }
     </style>
 </head>
@@ -37,13 +41,13 @@
         <div style="display: flex; align-items: center;">
             <ul class="nav-links">
                 <li><a href="projects-economics.html">
-                    <span class="lang-en">Projects</span><span class="lang-zh hidden">项目</span>
+                    <span class="lang-en">Researcher</span><span class="lang-zh hidden">研究者</span>
                 </a></li>
                 <li><a href="obs-photo-arch.html">
-                    <span class="lang-en">Observation</span><span class="lang-zh hidden">观察</span>
+                    <span class="lang-en">Observer</span><span class="lang-zh hidden">观察者</span>
                 </a></li>
                 <li><a href="lib-screening.html">
-                    <span class="lang-en">Library</span><span class="lang-zh hidden">档案</span>
+                    <span class="lang-en">Recorder</span><span class="lang-zh hidden">记录者</span>
                 </a></li>
                 <li><a href="about.html">
                     <span class="lang-en">Me</span><span class="lang-zh hidden">个人</span>
@@ -59,16 +63,17 @@
     </nav>
 
     <main class="hero-wrapper">
-        <div class="logo-area">
+        <div class="logo-area" style="text-align: center;">
             <h1 class="main-logo">Easis</h1>
             <div class="center-statement">
                 <p>SYSTEMS · MEDIUM · ARCHIVE</p>
-                <p class="lang-zh hidden" style="font-size: 0.7rem; letter-spacing: 0.5em; margin-top: 5px; font-weight: 300;">系统 · 媒介 · 档案</p>
+                <p class="lang-zh hidden" style="font-size: 0.7rem; letter-spacing: 0.5em; margin-top: 10px; font-weight: 300;">系统 · 媒介 · 档案</p>
             </div>
         </div>
 
         <nav class="footer-nav">
-            <ul class="nav-groups">
+            <ul class="nav-groups" style="list-style: none; display: flex; justify-content: space-between; border-top: 0.5px solid rgba(188,170,164,0.3); padding-top: 30px;">
+                
                 <li>
                     <span class="group-label">
                         <span class="lang-en">Personal</span><span class="lang-zh hidden">个人</span>
@@ -85,31 +90,43 @@
 
                 <li>
                     <span class="group-label">
-                        <span class="lang-en">Projects</span><span class="lang-zh hidden">研究项目</span>
+                        <span class="lang-en">Researcher</span><span class="lang-zh hidden">研究者</span>
                     </span>
                     <div class="sub-menu">
-                        <a href="projects-economics.html">Economics</a>
-                        <a href="projects-innovation.html">Innovation</a>
+                        <a href="projects-economics.html">
+                            <span class="lang-en">Economics</span><span class="lang-zh hidden">经济研究</span>
+                        </a>
+                        <a href="projects-innovation.html">
+                            <span class="lang-en">Innovation</span><span class="lang-zh hidden">创新逻辑</span>
+                        </a>
                     </div>
                 </li>
 
                 <li>
                     <span class="group-label">
-                        <span class="lang-en">Observation</span><span class="lang-zh hidden">视觉观察</span>
+                        <span class="lang-en">Observer</span><span class="lang-zh hidden">观察者</span>
                     </span>
                     <div class="sub-menu">
-                        <a href="obs-photo-arch.html">Photo & Arch</a>
-                        <a href="obs-exhibition.html">Exhibition</a>
+                        <a href="obs-photo-arch.html">
+                            <span class="lang-en">Visual Archive</span><span class="lang-zh hidden">摄影辑录</span>
+                        </a>
+                        <a href="obs-exhibition.html">
+                            <span class="lang-en">Curation Walk</span><span class="lang-zh hidden">看展日记</span>
+                        </a>
                     </div>
                 </li>
 
                 <li>
                     <span class="group-label">
-                        <span class="lang-en">Library</span><span class="lang-zh hidden">数字档案</span>
+                        <span class="lang-en">Recorder</span><span class="lang-zh hidden">记录者</span>
                     </span>
                     <div class="sub-menu">
-                        <a href="lib-screening.html">Stage & Screen</a>
-                        <a href="lib-readings.html">Readings</a>
+                        <a href="lib-screening.html">
+                            <span class="lang-en">Theatre & Scene</span><span class="lang-zh hidden">观演日记</span>
+                        </a>
+                        <a href="lib-readings.html">
+                            <span class="lang-en">Readings & Dialectics</span><span class="lang-zh hidden">研读思辨</span>
+                        </a>
                     </div>
                 </li>
             </ul>
@@ -142,6 +159,5 @@
             setLanguage(savedLang);
         });
     </script>
-
 </body>
 </html>
