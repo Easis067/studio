@@ -5,17 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EASIS | ARCHIVE</title>
     
+    <!-- 引入高级现代几何字体 Space Grotesque，这是大字好看的关键 -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesque:wght@500;700;900&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            /* 核心：大面积艺术留白，搭配点缀亮眼色 */
-            --white: #F9F9F9;         /* 基础底色：高级美术纸张白 */
-            --periwinkle: #EFEBE4;    /* 呼吸变色：极其优雅的浅羊绒色，平滑自然 */
-            --fluo-yellow: #00E1D9;   /* 灵魂亮眼色：数码极光青（极亮、极现代，抓人眼球） */
-            --black: #111111;         /* 文字与线条：高档石墨黑 */
+            --white: #F9F9F9;         /* 基础白天底色 */
+            --periwinkle: #111111;    /* 呼吸变色：一秒入夜！极致石墨黑 */
+            --fluo-yellow: #00E1D9;   /* 灵魂亮眼色：数码极光青 */
+            --black: #111111;         /* 白天文字与线条颜色 */
         }
 
         body {
@@ -23,14 +23,46 @@
             color: var(--black);
             margin: 0;
             font-family: "Space Grotesque", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            transition: background-color 3s cubic-bezier(0.4, 0, 0.2, 1); 
+            /* 关键：让所有文字颜色、边框颜色和背景一起平滑过渡，产生高级的流体感 */
+            transition: background-color 2s cubic-bezier(0.4, 0, 0.2, 1), color 2s ease, border-color 2s ease; 
             -webkit-font-smoothing: antialiased;
             overflow: hidden;
         }
 
-        /* 呼吸激活状态：平滑过渡到优雅的浅羊绒色 */
+        /* 🌙 核心反转逻辑：当黑夜降临时，所有文字、边框自动变白 */
         body.is-active {
             background-color: var(--periwinkle);
+            color: #F9F9F9;
+        }
+        body.is-active .global-nav,
+        body.is-active .nav-links > li > a,
+        body.is-active .nav-groups,
+        body.is-active .lang-switch {
+            border-color: #F9F9F9 !important;
+        }
+        body.is-active .nav-logo a,
+        body.is-active .nav-links > li > a,
+        body.is-active .sub-menu a,
+        body.is-active .lang-switch span,
+        body.is-active .main-logo {
+            color: #F9F9F9 !important;
+        }
+        /* 变黑时，底部的方块标签变成白底黑字，保持高级的正负形反转 */
+        body.is-active .group-label {
+            background: #F9F9F9 !important;
+            color: #111111 !important;
+            border-color: #F9F9F9 !important;
+        }
+        body.is-active .group-label:hover {
+            background: var(--fluo-yellow) !important;
+            border-color: #111111 !important;
+            color: #111111 !important;
+        }
+        body.is-active .center-statement {
+            background-color: #F9F9F9;
+        }
+        body.is-active .center-statement span {
+            color: #111111;
         }
 
         .lang-zh.hidden, .lang-en.hidden { display: none !important; }
@@ -67,8 +99,8 @@
         
         /* 导航栏悬停：吐出亮眼的极光青与硬核黑阴影 */
         .nav-links > li > a:hover { 
-            background: var(--fluo-yellow); 
-            color: var(--black); 
+            background: var(--fluo-yellow) !important; 
+            color: #111111 !important; 
             border-color: var(--black); 
             box-shadow: 4px 4px 0 var(--black);
         }
@@ -104,6 +136,7 @@
             line-height: 0.8;
             color: var(--black); 
             cursor: default;
+            transition: color 0.2s ease;
         }
         
         /* 悬停在巨大的 EASIS 上时，变成镂空，并用亮眼色描边 */
@@ -117,10 +150,12 @@
             padding: 10px 24px;
             background-color: var(--black);
             display: inline-block;
+            transition: background-color 2s ease;
         }
         .center-statement span {
             font-weight: 700; letter-spacing: 0.4em; font-size: 1rem;
             color: var(--white);
+            transition: color 2s ease;
         }
 
         /* --- 底部导航 --- */
@@ -138,23 +173,23 @@
             color: var(--black); padding: 5px 12px; display: inline-block;
             margin-bottom: 20px; border: 1.5px solid var(--black);
             box-shadow: 2px 2px 0 var(--black);
-            transition: 0.2s;
+            transition: all 0.2s ease, background-color 2s ease, border-color 2s ease;
         }
         .group-label:hover {
-            background: var(--fluo-yellow);
+            background: var(--fluo-yellow) !important;
             transform: translate(-1px, -1px);
             box-shadow: 3px 3px 0 var(--black);
         }
 
         .sub-menu a {
             display: block; text-decoration: none; 
-            color: var(--black);
+            color: inherit; /* 继承父级颜色，完美适配黑白反转 */
             margin-bottom: 12px; font-size: 1.05rem; font-weight: 600; 
             position: relative; width: fit-content;
             opacity: 0.8;
             transition: 0.2s;
         }
-        .sub-menu a:hover { color: var(--black); opacity: 1; }
+        .sub-menu a:hover { opacity: 1; }
         .sub-menu a::after {
             content: ''; position: absolute; width: 0; height: 3px; 
             bottom: -4px; left: 0; background-color: var(--fluo-yellow); 
@@ -163,9 +198,9 @@
         .sub-menu a:hover::after { width: 100%; }
 
         /* 语言切换 */
-        .lang-switch { margin-left: 50px; border: 1.5px solid var(--black); padding: 2px; background: var(--white); }
-        .lang-switch span { padding: 4px 12px; cursor: pointer; font-weight: 700; color: var(--black); font-size: 0.9rem; }
-        .lang-switch .active { background: var(--fluo-yellow); color: var(--black); }
+        .lang-switch { margin-left: 50px; border: 1.5px solid var(--black); padding: 2px; background: transparent; transition: border-color 2s ease; }
+        .lang-switch span { padding: 4px 12px; cursor: pointer; font-weight: 700; color: inherit; font-size: 0.9rem; }
+        .lang-switch .active { background: var(--fluo-yellow); color: #111111 !important; }
     </style>
 </head>
 <body id="dynamic-body">
@@ -258,7 +293,7 @@
     <script>
         const body = document.getElementById('dynamic-body');
         
-        // 保持你原本非常棒的呼吸动画逻辑
+        // 黑白反转时间轮轴：第 5 秒切入黑夜，第 12 秒回到白天，14秒一个大循环
         function runAnimation() {
             setTimeout(() => { body.classList.add('is-active'); }, 5000); 
             setTimeout(() => { body.classList.remove('is-active'); }, 12000); 
@@ -266,7 +301,7 @@
         }
         runAnimation();
 
-        // 完美的双语无缝切换逻辑
+        // 中英文语言无缝切换
         function setLanguage(lang) {
             document.querySelectorAll('.lang-en').forEach(el => lang === 'zh' ? el.classList.add('hidden') : el.classList.remove('hidden'));
             document.querySelectorAll('.lang-zh').forEach(el => lang === 'zh' ? el.classList.remove('hidden') : el.classList.add('hidden'));
