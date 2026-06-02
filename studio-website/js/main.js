@@ -1,27 +1,29 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2113.4">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
-  </style>
-</head>
-<body>
-<p class="p1">document.addEventListener("DOMContentLoaded", () =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">  </span>const cards = document.querySelectorAll(".project-card");</p>
-<p class="p1"><span class="Apple-converted-space">  </span>cards.forEach(card =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">    </span>card.style.opacity = 0;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>card.style.transform = "translateY(20px)";</p>
-<p class="p1"><span class="Apple-converted-space">    </span>setTimeout(() =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>card.style.transition = "opacity 0.6s ease, transform 0.6s ease";</p>
-<p class="p1"><span class="Apple-converted-space">      </span>card.style.opacity = 1;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>card.style.transform = "translateY(0)";</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}, 100);</p>
-<p class="p1"><span class="Apple-converted-space">  </span>});</p>
-<p class="p1">});</p>
-</body>
-</html>
+document.addEventListener("DOMContentLoaded", () => {
+  const cards = document.querySelectorAll(".project-card");
+
+  // 1. 初始化准备：先让所有卡片变透明并下移
+  cards.forEach(card => {
+    card.style.opacity = 0;
+    card.style.transform = "translateY(20px)";
+    card.style.transition = "opacity 0.6s ease, transform 0.6s ease";
+  });
+
+  // 2. 创建一个“观察器”
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      // 当卡片进入视口（被用户看到）
+      if (entry.isIntersecting) {
+        const card = entry.target;
+        card.style.opacity = 1;
+        card.style.transform = "translateY(0)";
+        // 动画触发后，停止观察这个卡片（避免重复触发）
+        observer.unobserve(card);
+      }
+    });
+  }, {
+    threshold: 0.1 // 当卡片露出 10% 的时候就触发动画
+  });
+
+  // 3. 开始观察每一个卡片
+  cards.forEach(card => observer.observe(card));
+});
