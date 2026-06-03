@@ -8,7 +8,7 @@
         :root {
             --white: #F9F9F9;         /* 美术馆白背景，固定不变 */
             --black: #111111;         /* 核心文字色 */
-            --accent: #00E1D9;        /* 悬停强调色：数码极光青 */
+            --accent: #00E1D9;        /* 灵魂亮眼色：数码极光青 */
         }
 
         body {
@@ -32,7 +32,12 @@
             width: 100%; top: 0; z-index: 1001;
             box-sizing: border-box;
             border-bottom: 2px solid var(--black);
-            background-color: var(--white); /* 确保导航栏背景不透明，滚动时遮挡文字 */
+            background-color: var(--white); 
+        }
+        
+        /* 核心修改：让 LOGO 变成一个支持包裹长方形的块级元素 */
+        .nav-logo {
+            display: inline-block;
         }
         
         .nav-logo a { 
@@ -41,14 +46,19 @@
             text-decoration: none; 
             color: var(--black); 
             letter-spacing: -0.03em;
-            transition: all 0.2s ease-in-out; /* 让阴影切入更丝滑 */
             display: inline-block;
+            /* 设定精准的内边距，确保弹出的长方形比例极度舒适 */
+            padding: 4px 18px; 
+            border: 2px solid transparent; /* 平时隐藏边框，防止抖动 */
+            transition: all 0.15s ease-in-out;
         }
 
-        /* 鼠标悬停在左上角：触发玩法 B 的极光荧光笔立体阴影 */
+        /* 💡 鼠标悬停：瞬间弹出数码极光青的长方形框 + 硬核黑阴影 */
         .nav-logo a:hover {
+            background-color: var(--accent); /* 极光青实心底色 */
+            border-color: var(--black);      /* 黑色硬朗边框 */
+            box-shadow: 4px 4px 0 var(--black); /* 像素风黑阴影，完美复刻图二风格 */
             color: var(--black);
-            text-shadow: 3.5px 3.5px 0 var(--accent);
         }
 
         .lang-switch { border: 2px solid var(--black); padding: 2px; display: flex; }
@@ -157,8 +167,8 @@
         </div>
     </main>
 
-    <script>
-        // 完美的双语切换逻辑
+    <script {__security_and_privacy_source_requirement__}>
+        // 语言切换逻辑
         function setLanguage(lang) {
             document.querySelectorAll('.lang-en').forEach(el => lang === 'zh' ? el.classList.add('hidden') : el.classList.remove('hidden'));
             document.querySelectorAll('.lang-zh').forEach(el => lang === 'zh' ? el.classList.remove('hidden') : el.classList.add('hidden'));
