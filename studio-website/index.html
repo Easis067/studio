@@ -24,7 +24,12 @@
             font-family: "Space Grotesque", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             transition: background-color 4s cubic-bezier(0.4, 0, 0.2, 1), color 4s ease, border-color 4s ease; 
             -webkit-font-smoothing: antialiased;
-            overflow: hidden; /* 电脑端锁定，保持纯净大屏感 */
+            overflow-x: hidden; /* 防止横向溢出 */
+        }
+
+        /* 电脑端大屏锁定，保持纯净看展感；移动端允许顺畅滚动 */
+        @media (min-width: 769px) {
+            body { overflow: hidden; height: 100vh; }
         }
 
         /* 🌙 核心反转逻辑 */
@@ -201,7 +206,7 @@
             right: 100px;
         }
         
-        /* ⚡ 完美的 3 列经典结构：ABOUT 框(1fr), WORK 类(1.2fr), LOGS 类(1.2fr) */
+        /* 3列经典布局结构 */
         .nav-groups {
             display: grid; 
             grid-template-columns: 1fr 1.2fr 1.2fr; 
@@ -282,7 +287,7 @@
             box-shadow: 3px 3px 0 var(--black);
         }
 
-        /* 底部子菜单：支持多层级细分 */
+        /* 底部子菜单 */
         .sub-menu {
             display: flex;
             flex-direction: column;
@@ -290,7 +295,7 @@
             width: 100%;
         }
 
-        /* 底部列表里的内部小分类副标题（比如：项目研究 / 实践经历） */
+        /* 内部小分类副标题 */
         .sub-group-title {
             font-size: 0.85rem;
             font-weight: 800;
@@ -300,7 +305,7 @@
             margin-top: 8px;
             margin-bottom: 2px;
         }
-        .sub-group-title:first-child { margin-top: 0; } /* 第一个标题不需要顶部外边距 */
+        .sub-group-title:first-child { margin-top: 0; } 
 
         .sub-menu a {
             display: block; text-decoration: none; 
@@ -325,15 +330,24 @@
         .lang-switch span { padding: 4px 12px; cursor: pointer; font-weight: 700; color: inherit; font-size: 0.9rem; }
         .lang-switch .active { background: var(--fluo-yellow); color: #111111 !important; }
 
-        /* 📱 移动端响应式兼容 */
+        /* 📱 移动端响应式极致兼容（防止手机上点不到） */
         @media (max-width: 768px) {
-            body { overflow-x: hidden; overflow-y: auto; }
             .global-nav { padding: 15px 20px; }
-            .nav-menu-container { display: none; }
+            
+            /* ⚡ 核心修复：手机端不要隐藏导航栏，允许横向或正常展示 */
+            .nav-menu-container { display: flex; } 
+            .menu-divider { margin: 0 10px; }
+            .nav-links { gap: 8px; }
+            .nav-links > li > a { padding: 4px 10px; font-size: 0.9rem; }
+            .lang-switch { margin-left: 15px; }
+            .lang-switch span { padding: 4px 6px; font-size: 0.8rem; }
+            
             .hero-wrapper { height: auto; padding: 130px 20px 40px 20px; }
             .main-logo { font-size: 24vw; line-height: 0.9; }
-            .footer-nav { position: static; margin-top: 40px; padding: 0; width: 100%; }
-            .nav-groups { grid-template-columns: 1fr; gap: 30px; padding-top: 25px; }
+            
+            /* ⚡ 核心修复：手机上解除绝对定位，让底部能够往下撑开滚动，彻底能点到 */
+            .footer-nav { position: static; margin-top: 60px; padding: 0 20px 60px 20px; width: auto; }
+            .nav-groups { grid-template-columns: 1fr; gap: 35px; padding-top: 25px; }
         }
     </style>
 </head>
@@ -416,7 +430,9 @@
                     </span>
                     <div class="sub-menu">
                         <span class="sub-group-title"><span class="lang-en">Project</span><span class="lang-zh hidden">项目课题</span></span>
+                        
                         <a href="economics.html"><span class="lang-en">Economics</span><span class="lang-zh hidden">经济学研究</span></a>
+                        
                         <a href="#"><span class="lang-en">Innovation</span><span class="lang-zh hidden">创新学研究</span></a>
                         
                         <span class="sub-group-title"><span class="lang-en">Practice</span><span class="lang-zh hidden">实践经历</span></span>
