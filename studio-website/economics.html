@@ -26,7 +26,7 @@
             display: flex; 
             justify-content: space-between; 
             align-items: center;
-            padding: 15px 80px !important; /* ⚡ 极限缩减：上下间距从 30px 直接砍半到 15px */
+            padding: 15px 80px !important; 
             position: fixed; 
             width: 100%; 
             top: 0; 
@@ -44,7 +44,7 @@
             color: var(--black) !important; 
             letter-spacing: -0.03em !important;
             display: inline-block !important;
-            padding: 2px 10px !important; /* ⚡ 缩减 Logo 的内边距，配合整体变薄 */
+            padding: 2px 10px !important; 
             border: none !important; 
             transition: background-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease !important;
         }
@@ -89,8 +89,8 @@
 
         /* --- 主内容布局 --- */
         .projects-container { 
-            padding: 160px 80px 100px; /* ⚡ 顺应变薄的菜单栏，把顶距从 200px 压缩到 160px */
-            max-width: 1400px; 
+            padding: 160px 80px 100px; 
+            max-width: 1200px; /* 稍微缩窄，让文字排版更具阅读舒适度 */
             margin: 0 auto; 
             box-sizing: border-box;
         }
@@ -127,100 +127,95 @@
             font-weight: 500;
         }
 
-        /* --- 双栏网格布局 --- */
-        .projects-grid {
+        /* --- 极简学术档案列表（替代原网格） --- */
+        .papers-list {
+            display: flex;
+            flex-direction: column;
+            border-top: 1.5px solid var(--black); /* 顶部封线 */
+        }
+
+        /* 单篇文章行 */
+        .paper-row {
             display: grid;
-            grid-template-columns: repeat(2, 1fr); 
-            gap: 50px; 
+            grid-template-columns: 180px 1fr 160px; /* 完美的 编号/主体/分类 三栏黄金比例 */
+            align-items: flex-start;
+            padding: 35px 15px;
+            border-bottom: 1.5px solid var(--black);
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .project-card {
-            display: flex;
-            flex-direction: column;
-            text-decoration: none; 
-            color: inherit; 
-            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .project-card:hover { 
-            transform: translateY(-8px); 
-        }
-        
-        .project-image { 
-            width: 100%; 
-            height: 320px; 
-            background: var(--black); 
-            overflow: hidden; 
-            border: 1.5px solid var(--black); 
-            box-shadow: 0px 0px 0 var(--black);
-            transition: all 0.3s ease; 
-            margin-bottom: 25px; 
-        }
-        .project-card:hover .project-image { 
-            box-shadow: 6px 6px 0 var(--black);
-        }
-        .project-image img { 
-            width: 100%; 
-            height: 100%; 
-            object-fit: cover; 
-            filter: grayscale(100%); 
-            transition: all 0.6s ease; 
-            opacity: 0.8; 
-        }
-        .project-card:hover .project-image img { 
-            filter: grayscale(0%); 
-            opacity: 1; 
+        /* 悬停动效：优雅地往右微调，背景瞬间染成荧光黄，极具档案抽取的交互感 */
+        .paper-row:hover {
+            background-color: var(--fluo-yellow);
+            transform: translateX(10px);
         }
 
-        .project-info {
+        /* 编号/时间 */
+        .paper-index {
+            font-size: 1.1rem;
+            font-weight: 900;
+            letter-spacing: 0.05em;
+            opacity: 0.5;
+        }
+        .paper-row:hover .paper-index {
+            opacity: 1;
+        }
+
+        /* 主体内容 */
+        .paper-content {
+            padding-right: 40px;
+        }
+        .paper-content h2 {
+            font-size: 1.7rem;
+            font-weight: 900;
+            margin: 0 0 12px 0;
+            letter-spacing: -0.02em;
+            line-height: 1.3;
+        }
+        .paper-content p {
+            font-size: 1.05rem;
+            line-height: 1.6;
+            margin: 0;
+            opacity: 0.7;
+            font-weight: 500;
+        }
+        /* 当鼠标悬停时，摘要文字显得更黑更清晰 */
+        .paper-row:hover .paper-content p {
+            opacity: 0.9;
+        }
+
+        /* 右侧标签 */
+        .paper-tag-zone {
             display: flex;
             flex-direction: column;
+            align-items: flex-end;
+            gap: 15px;
         }
-        .project-category { 
+        .paper-category { 
             font-size: 0.8rem; 
             font-weight: 900; 
             background: var(--black); 
             color: var(--white) !important; 
             padding: 4px 10px; 
             width: fit-content; 
-            margin-bottom: 15px; 
-            letter-spacing: 0.1em;
-        }
-        .project-info h2 { 
-            font-size: 1.8rem; 
-            margin: 0 0 12px 0; 
-            font-weight: 900;
-            letter-spacing: -0.02em;
-            line-height: 1.3;
-        }
-        .project-info p {
-            font-size: 1.05rem;
-            line-height: 1.6;
-            margin: 0 0 25px 0;
-            opacity: 0.7;
-            font-weight: 500;
-            min-height: 80px; 
-        }
-
-        .read-more { 
-            font-size: 0.9rem;
-            font-weight: 900; 
-            color: var(--black);
+            letter-spacing: 0.05em;
             text-transform: uppercase;
-            border: 1.5px solid var(--black); 
-            padding: 6px 16px;
-            width: fit-content;
-            transition: all 0.2s ease-in-out; 
-            box-shadow: 2px 2px 0 var(--black);
         }
-        .project-card:hover .read-more {
-            background-color: var(--fluo-yellow);
-            box-shadow: 4px 4px 0 var(--black);
-            transform: translate(-1px, -1px);
+        /* 悬停时右侧的小箭头动效 */
+        .paper-arrow {
+            font-size: 1.2rem;
+            font-weight: 900;
+            transition: transform 0.2s ease;
+        }
+        .paper-row:hover .paper-arrow {
+            transform: translateX(5px);
         }
 
         /* --- 移动端响应式 --- */
         @media (max-width: 768px) {
-            .global-nav { padding: 12px 20px !important; } /* 📱 手机端同步变薄 */
+            .global-nav { padding: 12px 20px !important; } 
             .nav-right-zone { gap: 15px; }
             .nav-logo a { font-size: 1.6rem !important; }
             
@@ -229,19 +224,20 @@
             .page-header h1 { font-size: 2.8rem; }
             .page-header h1::after { height: 8px; } 
             
-            .projects-grid {
+            .paper-row {
                 grid-template-columns: 1fr;
-                gap: 60px;
+                gap: 15px;
+                padding: 25px 5px;
             }
-            .project-card:hover { transform: none; }
-            .project-image { height: 220px; }
-            .project-info h2 { font-size: 1.5rem; }
-            .project-info p { margin-bottom: 20px; min-height: auto; }
+            .paper-row:hover { transform: none; }
+            .paper-content { padding-right: 0; }
+            .paper-tag-zone { align-items: flex-start; }
         }
     </style>
 </head>
 <body>
 
+    <!-- 顶部导航栏 -->
     <nav class="global-nav">
         <div class="nav-logo"><a href="index.html">EASIS</a></div>
         
@@ -262,6 +258,7 @@
         </div>
     </nav>
 
+    <!-- 主内容区 -->
     <main class="projects-container">
         <header class="page-header">
             <h1>ECONOMICS</h1>
@@ -269,30 +266,62 @@
             <p class="lang-zh hidden">市场机制与系统的结构性分析。</p>
         </header>
 
-        <div class="projects-grid">
-            <a href="#" class="project-card">
-                <div class="project-image"><img src="images/eco-01.jpg" alt=""></div>
-                <div class="project-info">
-                    <span class="project-category">System Analysis / 2025</span>
+        <!-- ⚡ 升级后的极简学术文献流布局 -->
+        <div class="papers-list">
+            
+            <!-- 文章 1 (把 href="#" 换成你实际的文章链接或 PDF 地址) -->
+            <a href="papers/research-01.pdf" target="_blank" class="paper-row">
+                <!-- 左栏：索引编号与年份 -->
+                <div class="paper-index">WP / 2026.04</div>
+                
+                <!-- 中栏：双语标题与摘要 -->
+                <div class="paper-content">
                     <h2 class="lang-en">Economic System Research Project Title</h2>
-                    <p class="lang-en">This is the research abstract for your first project. It presents clean data visualization and system analysis models on a gallery-white background.</p>
+                    <p class="lang-en">This is the research abstract for your first project. It presents clean data visualization and system analysis models on an institutional archive layer.</p>
+                    
                     <h2 class="lang-zh hidden">第一个经济系统研究项目标题</h2>
-                    <p class="lang-zh hidden">这里是第一个项目的中文研究摘要。去除了原本复杂的背景呼吸，现在在纯净的美术馆白底色下，完美且专注地呈现你的学术与思考成果。</p>
-                    <span class="read-more">View Research</span>
+                    <p class="lang-zh hidden">这里是第一个项目的中文研究摘要。去除了原本复杂的图片背景，现在在纯净的美术馆白底色下，完美且专注地呈现你的学术与思考成果。</p>
+                </div>
+                
+                <!-- 右栏：分类标签与跳转暗示 -->
+                <div class="paper-tag-zone">
+                    <span class="paper-category">System Analysis</span>
+                    <span class="paper-arrow">→</span>
                 </div>
             </a>
 
-            <a href="#" class="project-card">
-                <div class="project-image"><img src="images/eco-02.jpg" alt=""></div>
-                <div class="project-info">
-                    <span class="project-category">Innovation Research / 2026</span>
+            <!-- 文章 2 -->
+            <a href="#" class="paper-row">
+                <div class="paper-index">WP / 2026.02</div>
+                <div class="paper-content">
                     <h2 class="lang-en">Market Mechanisms & Innovation Dialectics</h2>
                     <p class="lang-en">This is the research abstract for your second project, exploring the structural relationships between emerging technologies and microeconomic changes.</p>
+                    
                     <h2 class="lang-zh hidden">第二个经济研究：市场机制与创新辩证</h2>
-                    <p class="lang-zh hidden">这里是第二个项目的中文研究摘要。可以用来写关于技术创新、微观经济变化或者市场结构演进的分析，保持高度一致的视觉质感。</p>
-                    <span class="read-more">View Research</span>
+                    <p class="lang-zh hidden">这里是第二个项目的中文研究摘要。可以用来写关于技术创新、微观经济变化或者市场结构演进的分析，保持高度一致的学术质感。</p>
+                </div>
+                <div class="paper-tag-zone">
+                    <span class="paper-category">Innovation</span>
+                    <span class="paper-arrow">→</span>
                 </div>
             </a>
+
+            <!-- 文章 3 (如果你有第三篇，直接解除注释或保留；如果只有两篇，可以直接删掉这块) -->
+            <a href="#" class="paper-row">
+                <div class="paper-index">ESSAY / 2025</div>
+                <div class="paper-content">
+                    <h2 class="lang-en">Asymmetric Information in Regional Supply Chains</h2>
+                    <p class="lang-en">An empirical review on information asymmetry and risk premium distribution channels among micro-market economic entities.</p>
+                    
+                    <h2 class="lang-zh hidden">区域供应链中的信息不对称研究</h2>
+                    <p class="lang-zh hidden">这是一篇关于微观市场主体间信息不对称与风险溢价分销渠道的实证评述，采用严谨的分析框架。</p>
+                </div>
+                <div class="paper-tag-zone">
+                    <span class="paper-category">Micro Theory</span>
+                    <span class="paper-arrow">→</span>
+                </div>
+            </a>
+
         </div> 
     </main>
 
