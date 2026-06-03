@@ -22,29 +22,29 @@
         /* 核心控制：隐藏未激活的语言文本 */
         .lang-zh.hidden, .lang-en.hidden { display: none !important; }
 
-        /* --- 导航栏 --- */
+        /* --- 顶部导航栏（像素级同步主页尺寸） --- */
         .global-nav {
             display: flex; 
             justify-content: space-between; 
             align-items: center;
-            padding: 40px 80px; 
+            padding: 30px 80px; /* ⚖️ 从 40px 缩减到 30px，与主页高度绝对统一 */
             position: fixed; 
             width: 100%; 
             top: 0; 
             z-index: 1001;
             box-sizing: border-box; 
-            border-bottom: 2px solid var(--black);
+            border-bottom: 1.5px solid var(--black); /* ⚖️ 边框细度从 2px 同步为 1.5px */
             background-color: var(--white);
         }
         .nav-logo a { 
-            font-size: 2.2rem; 
+            font-size: 2rem; /* ⚖️ 字号从 2.2rem 缩减到 2rem，同步主页 */
             font-weight: 900; 
             text-decoration: none; 
             color: var(--black); 
             letter-spacing: -0.03em;
             display: inline-block;
             padding: 4px 18px;
-            border: 2px solid transparent;
+            border: 1.5px solid transparent;
             transition: all 0.15s ease-in-out;
         }
         .nav-logo a:hover {
@@ -53,7 +53,7 @@
             box-shadow: 4px 4px 0 var(--black);
         }
 
-        /* 右侧组合区（只有当前标签 + 语言切换） */
+        /* 右侧组合区 */
         .nav-right-zone {
             display: flex;
             align-items: center;
@@ -64,31 +64,31 @@
         .nav-links a { 
             text-decoration: none; 
             color: var(--black); 
-            font-size: 1.1rem; 
-            font-weight: 800; 
+            font-size: 1.05rem; /* ⚖️ 字号同步主页的 1.05rem */
+            font-weight: 700; 
             text-transform: uppercase; 
             padding: 6px 16px; 
-            border: 2px solid var(--black); 
+            border: 1.5px solid var(--black); /* ⚖️ 线条同步 1.5px */
             transition: 0.2s ease-in-out; 
             background: var(--fluo-yellow); 
             box-shadow: 2px 2px 0 var(--black);
         }
 
-        /* 语言切换选择器样式 */
-        .lang-switch { border: 2px solid var(--black); padding: 2px; display: flex; background: transparent; }
-        .lang-switch span { padding: 4px 12px; cursor: pointer; font-weight: 800; font-size: 0.9rem; color: var(--black); }
+        /* 语言切换器（同步主页规格） */
+        .lang-switch { border: 1.5px solid var(--black); padding: 2px; display: flex; background: transparent; }
+        .lang-switch span { padding: 4px 12px; cursor: pointer; font-weight: 700; font-size: 0.9rem; color: var(--black); }
         .lang-switch .active { background: var(--fluo-yellow); }
 
         /* --- 主内容布局 --- */
         .projects-container { 
-            padding: 220px 80px 100px; 
+            padding: 200px 80px 100px; /* ⚖️ 顶距从 220px 适度微调，呼应变窄的导航栏 */
             max-width: 1200px; 
             margin: 0 auto; 
             box-sizing: border-box;
         }
         .page-header { 
             margin-bottom: 80px; 
-            border-left: 8px solid var(--fluo-yellow); /* 经典黄边条 */
+            border-left: 8px solid var(--fluo-yellow); 
             padding-left: 30px; 
         }
         .page-header h1 { 
@@ -109,7 +109,7 @@
             display: grid; 
             grid-template-columns: 420px 1fr; 
             gap: 60px; 
-            margin-bottom: 120px; /* 卡片之间的呼吸间距 */
+            margin-bottom: 120px; 
             text-decoration: none; 
             color: inherit; 
             transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
@@ -123,7 +123,7 @@
             height: 260px; 
             background: var(--black); 
             overflow: hidden; 
-            border: 2px solid var(--black); 
+            border: 1.5px solid var(--black); /* ⚖️ 卡片线宽微调，视觉更精致 */
             box-shadow: 0px 0px 0 var(--black);
             transition: all 0.3s ease; 
         }
@@ -174,13 +174,13 @@
             font-weight: 500;
         }
 
-        /* 稳定不闪烁的经典黄高亮按钮 */
+        /* 稳定不闪烁的按钮 */
         .read-more { 
             font-size: 0.95rem;
             font-weight: 900; 
             color: var(--black);
             text-transform: uppercase;
-            border: 2px solid var(--black); 
+            border: 1.5px solid var(--black); /* ⚖️ 同步 1.5px */
             padding: 6px 16px;
             width: fit-content;
             transition: all 0.2s ease-in-out; 
@@ -194,10 +194,9 @@
 
         /* --- 移动端响应式 --- */
         @media (max-width: 768px) {
-            .global-nav { padding: 20px 30px; }
+            .global-nav { padding: 20px; } /* ⚖️ 手机端也完全同步主页的 20px padding */
             .nav-right-zone { gap: 15px; }
             .nav-logo a { font-size: 1.6rem; padding: 2px 10px; }
-            .nav-links a { font-size: 0.9rem; padding: 4px 10px; }
             
             .projects-container { padding: 140px 24px 60px; }
             .page-header { margin-bottom: 50px; padding-left: 15px; }
@@ -268,7 +267,6 @@
     </main>
 
     <script>
-        // 中英文切换控制
         function setLanguage(lang) {
             document.querySelectorAll('.lang-en').forEach(el => lang === 'zh' ? el.classList.add('hidden') : el.classList.remove('hidden'));
             document.querySelectorAll('.lang-zh').forEach(el => lang === 'zh' ? el.classList.remove('hidden') : el.classList.add('hidden'));
