@@ -27,9 +27,9 @@
             overflow-x: hidden; /* 防止横向溢出 */
         }
 
-        /* 电脑端大屏锁定，保持纯净看展感；移动端允许顺畅滚动 */
+        /* 💻 电脑端优化：移除强制 overflow: hidden 避免挡住点击 */
         @media (min-width: 769px) {
-            body { overflow: hidden; height: 100vh; }
+            body { min-height: 100vh; }
         }
 
         /* 🌙 核心反转逻辑 */
@@ -78,7 +78,7 @@
 
         .lang-zh.hidden, .lang-en.hidden { display: none !important; }
 
-        /* --- 顶部导航 --- */
+        /* --- 顶部导航（加入穿透防护） --- */
         .global-nav {
             display: flex;
             justify-content: space-between;
@@ -91,6 +91,12 @@
             box-sizing: border-box;
             border-bottom: 1.5px solid var(--black);
             background-color: inherit; 
+            pointer-events: none; /* ✨ 顶层大盒子不拦截点击 */
+        }
+        
+        /* 确保导航内部的按钮依然可以正常点击 */
+        .nav-logo, .nav-menu-container, .lang-switch {
+            pointer-events: auto; 
         }
 
         .nav-logo a {
@@ -160,11 +166,12 @@
 
         /* --- 主内容 --- */
         .hero-wrapper {
-            height: 100vh;
+            position: relative;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: flex-start; 
-            padding: 16vh 100px 0 100px; 
+            padding: 18vh 100px 25vh 100px; /* 增加底部 padding 给 footer 腾出安全空间 */
             box-sizing: border-box;
         }
 
@@ -198,12 +205,13 @@
             transition: color 2s ease;
         }
 
-        /* --- 底部区域 --- */
+        /* --- 底部区域（核心修复：增加 z-index，防遮挡） --- */
         .footer-nav {
             position: absolute; 
-            bottom: 6vh; 
+            bottom: 5vh; 
             left: 100px; 
             right: 100px;
+            z-index: 10; /* ✨ 提到最上层，确保能被点击 */
         }
         
         /* 3列经典布局结构 */
@@ -330,11 +338,9 @@
         .lang-switch span { padding: 4px 12px; cursor: pointer; font-weight: 700; color: inherit; font-size: 0.9rem; }
         .lang-switch .active { background: var(--fluo-yellow); color: #111111 !important; }
 
-        /* 📱 移动端响应式极致兼容（防止手机上点不到） */
+        /* 📱 移动端响应式极致兼容 */
         @media (max-width: 768px) {
             .global-nav { padding: 15px 20px; }
-            
-            /* ⚡ 核心修复：手机端不要隐藏导航栏，允许横向或正常展示 */
             .nav-menu-container { display: flex; } 
             .menu-divider { margin: 0 10px; }
             .nav-links { gap: 8px; }
@@ -342,10 +348,9 @@
             .lang-switch { margin-left: 15px; }
             .lang-switch span { padding: 4px 6px; font-size: 0.8rem; }
             
-            .hero-wrapper { height: auto; padding: 130px 20px 40px 20px; }
+            .hero-wrapper { height: auto; min-height: auto; padding: 130px 20px 40px 20px; }
             .main-logo { font-size: 24vw; line-height: 0.9; }
             
-            /* ⚡ 核心修复：手机上解除绝对定位，让底部能够往下撑开滚动，彻底能点到 */
             .footer-nav { position: static; margin-top: 60px; padding: 0 20px 60px 20px; width: auto; }
             .nav-groups { grid-template-columns: 1fr; gap: 35px; padding-top: 25px; }
         }
