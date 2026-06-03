@@ -7,7 +7,7 @@
     <style>
         :root {
             --white: #F9F9F9;         /* 统一的美术馆白背景 */
-            --fluo-yellow: #E5EB15;   /* 🔥 换回你最爱的经典高亮黄！ */
+            --fluo-yellow: #E5EB15;   /* 经典高亮黄 */
             --black: #111111;         /* 极致石墨黑 */
         }
         
@@ -53,7 +53,7 @@
             box-shadow: 4px 4px 0 var(--black);
         }
 
-        /* 右侧组合区（链接 + 语言切换） */
+        /* 右侧组合区（只有当前标签 + 语言切换） */
         .nav-right-zone {
             display: flex;
             align-items: center;
@@ -70,13 +70,11 @@
             padding: 6px 16px; 
             border: 2px solid var(--black); 
             transition: 0.2s ease-in-out; 
-        }
-        .nav-links a:hover { 
             background: var(--fluo-yellow); 
-            box-shadow: 4px 4px 0 var(--black);
+            box-shadow: 2px 2px 0 var(--black);
         }
 
-        /* 💡 语言切换选择器样式 */
+        /* 语言切换选择器样式 */
         .lang-switch { border: 2px solid var(--black); padding: 2px; display: flex; background: transparent; }
         .lang-switch span { padding: 4px 12px; cursor: pointer; font-weight: 800; font-size: 0.9rem; color: var(--black); }
         .lang-switch .active { background: var(--fluo-yellow); }
@@ -106,12 +104,12 @@
             font-weight: 500;
         }
 
-        /* --- 项目卡片 --- */
+        /* --- 项目卡片群 --- */
         .project-card {
             display: grid; 
             grid-template-columns: 420px 1fr; 
             gap: 60px; 
-            margin-bottom: 120px;
+            margin-bottom: 120px; /* 卡片之间的呼吸间距 */
             text-decoration: none; 
             color: inherit; 
             transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
@@ -176,7 +174,7 @@
             font-weight: 500;
         }
 
-        /* 💡 稳定不闪烁的经典黄高亮按钮 */
+        /* 稳定不闪烁的经典黄高亮按钮 */
         .read-more { 
             font-size: 0.95rem;
             font-weight: 900; 
@@ -220,8 +218,7 @@
         
         <div class="nav-right-zone">
             <ul class="nav-links">
-                <li><a href="economics.html" style="background:var(--fluo-yellow); box-shadow: 2px 2px 0 var(--black);"><span class="lang-en">Economics</span><span class="lang-zh hidden">经济学</span></a></li>
-                <li><a href="index.html"><span class="lang-en">Back Home</span><span class="lang-zh hidden">返回首页</span></a></li>
+                <li><a href="economics.html"><span class="lang-en">Economics</span><span class="lang-zh hidden">经济学</span></a></li>
             </ul>
             
             <div class="lang-switch">
@@ -244,10 +241,25 @@
                 <span class="project-category">System Analysis / 2025</span>
                 
                 <h2 class="lang-en">Economic System Research Project Title</h2>
-                <p class="lang-en">This is the research abstract in English. It presents clean and precise data visualization and system analysis models on a gallery-white background.</p>
+                <p class="lang-en">This is the research abstract for your first project. It presents clean data visualization and system analysis models on a gallery-white background.</p>
                 
-                <h2 class="lang-zh hidden">某项经济系统研究标题</h2>
-                <p class="lang-zh hidden">这里是中文的研究摘要。去除了原本复杂的背景呼吸，现在在纯净的美术馆白底色下，完美且专注地呈现你的学术与思考成果。</p>
+                <h2 class="lang-zh hidden">第一个经济系统研究项目标题</h2>
+                <p class="lang-zh hidden">这里是第一个项目的中文研究摘要。去除了原本复杂的背景呼吸，现在在纯净的美术馆白底色下，完美且专注地呈现你的学术与思考成果。</p>
+                
+                <span class="read-more">View Research</span>
+            </div>
+        </a>
+
+        <a href="#" class="project-card">
+            <div class="project-image"><img src="images/eco-02.jpg" alt=""></div>
+            <div class="project-info">
+                <span class="project-category">Innovation Research / 2026</span>
+                
+                <h2 class="lang-en">Market Mechanisms & Innovation Dialectics</h2>
+                <p class="lang-en">This is the research abstract for your second project, exploring the structural relationships between emerging technologies and microeconomic changes.</p>
+                
+                <h2 class="lang-zh hidden">第二个经济研究：市场机制与创新辩证</h2>
+                <p class="lang-zh hidden">这里是第二个项目的中文研究摘要。可以用来写关于技术创新、微观经济变化或者市场结构演进的分析，保持高度一致的视觉质感。</p>
                 
                 <span class="read-more">View Research</span>
             </div>
@@ -256,7 +268,7 @@
     </main>
 
     <script>
-        // 中英文切换的核心控制逻辑
+        // 中英文切换控制
         function setLanguage(lang) {
             document.querySelectorAll('.lang-en').forEach(el => lang === 'zh' ? el.classList.add('hidden') : el.classList.remove('hidden'));
             document.querySelectorAll('.lang-zh').forEach(el => lang === 'zh' ? el.classList.remove('hidden') : el.classList.add('hidden'));
