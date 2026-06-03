@@ -27,7 +27,7 @@
             overflow: hidden; /* 电脑端锁定，保持纯净大屏感 */
         }
 
-        /* 🌙 核心反转逻辑 - 原封不动 */
+        /* 🌙 核心反转逻辑 */
         body.is-active {
             background-color: var(--periwinkle);
             color: #F9F9F9;
@@ -36,7 +36,8 @@
         body.is-active .nav-links > li > a,
         body.is-active .nav-groups,
         body.is-active .lang-switch,
-        body.is-active .menu-divider {
+        body.is-active .menu-divider,
+        body.is-active .group-container {
             border-color: #F9F9F9 !important;
         }
         body.is-active .nav-logo a,
@@ -70,7 +71,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 80px; /* ⚡ 保持薄款精致间距 */
+            padding: 15px 80px; /* 精致薄款 */
             position: fixed;
             width: 100%;
             top: 0;
@@ -88,7 +89,6 @@
             letter-spacing: -0.03em;
         }
 
-        /* 顶部两极菜单大容器 */
         .nav-menu-container {
             display: flex;
             align-items: center;
@@ -109,7 +109,7 @@
             box-shadow: 4px 4px 0 var(--black);
         }
 
-        /* 💡 顶部工作与生活的克制分割线 */
+        /* 顶部两极分割线 */
         .menu-divider {
             width: 0;
             height: 22px;
@@ -119,7 +119,6 @@
             transition: border-color 4s ease;
         }
 
-        /* 下拉菜单方框外观保留 */
         .dropdown-menu {
             position: absolute; top: 100%; left: 0; background: var(--black); min-width: 200px;
             list-style: none; padding: 10px 0; margin: 0; opacity: 0; visibility: hidden;
@@ -172,20 +171,34 @@
             transition: color 2s ease;
         }
 
-        /* --- 底部导航网格 --- */
+        /* --- ⚡ 底部导航：保留框的灵魂，重构空间层次 --- */
         .footer-nav {
             position: absolute; bottom: 50px; left: 100px; right: 100px;
         }
+        
+        /* 改变网格布局，让三大块（About / Work / Logs）拥有独立的分栏框感 */
         .nav-groups {
-            /* 🛠️ 重构为 3 列大网格：ABOUT | WORK | LOGS */
-            display: grid; grid-template-columns: 1.2fr 2fr 2fr;
-            border-top: 1.5px solid var(--black); padding-top: 25px; list-style: none; margin: 0;
+            display: grid; 
+            grid-template-columns: 1fr 1.5fr 1.5fr; /* 三个板块的宽度比例 */
+            gap: 40px; /* 板块与板块之间拉开明显的空白距离 */
+            border-top: 1.5px solid var(--black); 
+            padding-top: 35px; 
+            list-style: none; 
+            margin: 0;
         }
 
+        /* 给每一个大类（About, Work, Logs）加上独立的透明容器，让它们的子菜单在视觉上“抱团” */
+        .group-container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        /* 依然是你最爱的框 */
         .group-label {
             font-size: 0.95rem; font-weight: 700; background: var(--white); 
             color: var(--black); padding: 5px 12px; display: inline-block;
-            margin-bottom: 20px; border: 1.5px solid var(--black);
+            margin-bottom: 25px; border: 1.5px solid var(--black);
             box-shadow: 2px 2px 0 var(--black);
             transition: all 0.2s ease, background-color 2s ease, border-color 2s ease;
         }
@@ -195,10 +208,17 @@
             box-shadow: 3px 3px 0 var(--black);
         }
 
+        /* 子菜单列表 */
+        .sub-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 12px; /* 让子选项排得更松落有致 */
+        }
+
         .sub-menu a {
             display: block; text-decoration: none; 
             color: inherit; 
-            margin-bottom: 12px; font-size: 1.05rem; font-weight: 600; 
+            margin: 0; font-size: 1.05rem; font-weight: 600; 
             position: relative; width: fit-content;
             opacity: 0.8;
             transition: 0.2s;
@@ -216,65 +236,26 @@
         .lang-switch span { padding: 4px 12px; cursor: pointer; font-weight: 700; color: inherit; font-size: 0.9rem; }
         .lang-switch .active { background: var(--fluo-yellow); color: #111111 !important; }
 
-        /* ==========================================================================
-           📱 移动端硬核响应式调校
-           ========================================================================== */
+        /* 📱 移动端响应式 */
         @media (max-width: 768px) {
-            body {
-                overflow-x: hidden;
-                overflow-y: auto; 
-            }
-
-            .global-nav {
-                padding: 15px 20px;
-            }
-            .nav-menu-container {
-                display: none; /* 手机端隐藏复杂的顶部级联菜单 */
-            }
-
-            .hero-wrapper {
-                height: auto;
-                padding: 140px 20px 40px 20px; 
-            }
-            .main-logo {
-                font-size: 24vw; 
-                line-height: 0.9;
-            }
-            .center-statement {
-                margin-top: 20px;
-                padding: 8px 16px;
-            }
-            .center-statement span {
-                font-size: 0.85rem;
-                letter-spacing: 0.2em;
-            }
-
-            .footer-nav {
-                position: static; 
-                margin-top: 60px;
-                padding: 0;
-                width: 100%;
-            }
-            /* 手机端 3 列拆为瀑布流流式布局 */
-            .nav-groups {
-                grid-template-columns: 1fr;
-                gap: 35px;
-                padding-top: 20px;
-            }
-            .group-label {
-                font-size: 0.85rem;
-                margin-bottom: 12px;
-            }
-            .sub-menu a {
-                font-size: 0.95rem;
-                margin-bottom: 10px;
-            }
+            body { overflow-x: hidden; overflow-y: auto; }
+            .global-nav { padding: 15px 20px; }
+            .nav-menu-container { display: none; }
+            .hero-wrapper { height: auto; padding: 140px 20px 40px 20px; }
+            .main-logo { font-size: 24vw; line-height: 0.9; }
+            .center-statement { margin-top: 20px; padding: 8px 16px; }
+            .center-statement span { font-size: 0.85rem; letter-spacing: 0.2em; }
+            .footer-nav { position: static; margin-top: 60px; padding: 0; width: 100%; }
+            .nav-groups { grid-template-columns: 1fr; gap: 40px; padding-top: 25px; }
+            .group-label { font-size: 0.85rem; margin-bottom: 15px; }
+            .sub-menu { gap: 10px; }
+            .sub-menu a { font-size: 0.95rem; }
         }
     </style>
 </head>
 <body id="dynamic-body">
 
-    <!-- 顶部导航栏：结构清晰分离 -->
+    <!-- 顶部导航栏 -->
     <nav class="global-nav">
         <div class="nav-logo"><a href="index.html">EASIS</a></div>
         <div style="display: flex; align-items: center;">
@@ -325,12 +306,12 @@
             </p>
         </div>
 
-        <!-- 底部大板块网格布局：重新编排为三大核心块 -->
+        <!-- 底部导航：完全重组成关于、工作、生活三大独立阵营 -->
         <nav class="footer-nav">
             <ul class="nav-groups">
                 
-                <!-- 大块 1: ABOUT -->
-                <li>
+                <!-- 1️⃣ 阵营一: ABOUT -->
+                <li class="group-container">
                     <span class="group-label">
                         <span class="lang-en">About</span><span class="lang-zh hidden">关于我</span>
                     </span>
@@ -340,8 +321,8 @@
                     </div>
                 </li>
 
-                <!-- 大块 2: WORK -->
-                <li>
+                <!-- 2️⃣ 阵营二: WORK (包含经济、创新、经历) -->
+                <li class="group-container">
                     <span class="group-label">
                         <span class="lang-en">Work & Research</span><span class="lang-zh hidden">专业研究</span>
                     </span>
@@ -352,8 +333,8 @@
                     </div>
                 </li>
 
-                <!-- 大块 3: LOGS (打造属于你的画廊感自留地) -->
-                <li>
+                <!-- 3️⃣ 阵营三: LOGS (包含看世界、记录下的) -->
+                <li class="group-container">
                     <span class="group-label">
                         <span class="lang-en">Personal Logs</span><span class="lang-zh hidden">日常留存</span>
                     </span>
@@ -367,7 +348,7 @@
         </nav>
     </main>
 
-    <!-- 原生黑白夜间反转与多语言脚本 - 完全无缝保留 -->
+    <!-- 脚本 -->
     <script>
         const body = document.getElementById('dynamic-body');
         
