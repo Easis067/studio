@@ -143,14 +143,14 @@
             height: 100vh;
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            padding: 0 100px;
+            justify-content: flex-start; /* ⚡ 改变对齐方式，让内容整体靠上 */
+            padding: 16vh 100px 0 100px; /* ⚡ 精准调整顶部留白，让大字和导航栏保持呼吸感但不空旷 */
             box-sizing: border-box;
         }
 
-        /* ⚡ 【调整】EASIS 占屏幕比例缩小一点，从 15vw 降为 11vw */
+        /* ⚡ 【改回】原滋原味的 15vw 震撼大字 */
         .main-logo {
-            font-size: 11vw;
+            font-size: 15vw;
             font-weight: 900;
             margin: 0;
             letter-spacing: -0.06em;
@@ -179,16 +179,19 @@
             transition: color 2s ease;
         }
 
-        /* --- ⚡ 底部区域重构 --- */
+        /* --- 底部区域 --- */
         .footer-nav {
-            position: absolute; bottom: 50px; left: 100px; right: 100px;
+            position: absolute; 
+            bottom: 6vh; 
+            left: 100px; /* ⚡ 锁死 100px，确保下方的 ABOUT 框左边缘跟上面的 EASIS 处于绝对直线对齐 */
+            right: 100px;
         }
         
-        /* 比例重构：让 ABOUT 巨无霸框占更宽空间，与后两列拉开黄金分割 */
+        /* ⚡ 【调整比例】把第一列调小（1fr），让它占不到总长的三分之一 */
         .nav-groups {
             display: grid; 
-            grid-template-columns: 1.5fr 1fr 1fr; 
-            gap: 50px; 
+            grid-template-columns: 1fr 1.2fr 1.2fr; 
+            gap: 60px; 
             border-top: 1.5px solid var(--black); 
             padding-top: 35px; 
             list-style: none; 
@@ -201,12 +204,12 @@
             align-items: flex-start;
         }
 
-        /* ⚡ 【新创作】ABOUT 专属大框 */
+        /* ABOUT 专属小巧大框 */
         .about-big-box {
             width: 100%;
             box-sizing: border-box;
             border: 1.5px solid var(--black);
-            padding: 20px 24px;
+            padding: 18px 20px;
             background: transparent;
             text-decoration: none;
             color: inherit;
@@ -214,7 +217,7 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            min-height: 140px; /* 锁死高度，确保座右铭有完美的留白生存空间 */
+            min-height: 130px; 
             transition: all 0.2s ease, border-color 2s ease;
         }
         .about-big-box:hover {
@@ -228,33 +231,33 @@
             justify-content: space-between;
             align-items: center;
             width: 100%;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
         .about-title {
-            font-size: 1.3rem; /* ⚡ 框内大字号 */
+            font-size: 1.2rem; 
             font-weight: 900;
             text-transform: uppercase;
             letter-spacing: -0.01em;
         }
         .about-arrow {
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             font-weight: 900;
             transition: transform 0.2s ease;
         }
         .about-big-box:hover .about-arrow {
-            transform: translateX(4px); /* 悬停时箭头极其微弱的向右位移 */
+            transform: translateX(4px); 
         }
         .about-motto {
-            font-size: 1.05rem; /* ⚡ 框内大字号 */
+            font-size: 1rem; 
             font-weight: 600;
-            line-height: 1.5;
+            line-height: 1.4;
             margin: 0;
             opacity: 0.9;
         }
 
-        /* ⚡ 【调整】后两个普通的类别的标签框，里面的字体稍微放大 */
+        /* 普通分类的标签框样式 */
         .group-label {
-            font-size: 1.1rem; /* ⚡ 从0.95rem放大到1.1rem */
+            font-size: 1.1rem; 
             font-weight: 700; background: var(--white); 
             color: var(--black); padding: 6px 16px; display: inline-block;
             margin-bottom: 20px; border: 1.5px solid var(--black);
@@ -267,7 +270,7 @@
             box-shadow: 3px 3px 0 var(--black);
         }
 
-        /* ⚡ 【调整】普通小菜单里的链接字号放大 */
+        /* 普通小菜单里的链接字号 */
         .sub-menu {
             display: flex;
             flex-direction: column;
@@ -277,7 +280,7 @@
             display: block; text-decoration: none; 
             color: inherit; 
             margin: 0; 
-            font-size: 1.15rem; /* ⚡ 从1.05rem放大到1.15rem，更易读 */
+            font-size: 1.15rem; 
             font-weight: 600; 
             position: relative; width: fit-content;
             opacity: 0.8;
@@ -301,13 +304,13 @@
             body { overflow-x: hidden; overflow-y: auto; }
             .global-nav { padding: 15px 20px; }
             .nav-menu-container { display: none; }
-            .hero-wrapper { height: auto; padding: 140px 20px 40px 20px; }
+            .hero-wrapper { height: auto; padding: 130px 20px 40px 20px; }
             .main-logo { font-size: 24vw; line-height: 0.9; }
             .center-statement { margin-top: 20px; padding: 8px 16px; }
             .center-statement span { font-size: 0.85rem; letter-spacing: 0.2em; }
             .footer-nav { position: static; margin-top: 40px; padding: 0; width: 100%; }
             .nav-groups { grid-template-columns: 1fr; gap: 30px; padding-top: 25px; }
-            .about-big-box { min-height: 120px; }
+            .about-big-box { min-height: 110px; }
             .group-label { font-size: 1rem; margin-bottom: 12px; }
             .sub-menu { gap: 10px; }
             .sub-menu a { font-size: 1.05rem; }
@@ -357,7 +360,7 @@
         </div>
     </nav>
 
-    <!-- 主视觉区 -->
+    <!-- 主视觉区：提升了整体靠上位置，极大压缩了留白 -->
     <main class="hero-wrapper">
         <h1 class="main-logo">EASIS</h1>
         <div class="center-statement">
@@ -371,7 +374,7 @@
         <nav class="footer-nav">
             <ul class="nav-groups">
                 
-                <!-- ⚡ 独立、巨大的 ABOUT 框（没有过多的二级菜单堆砌，直奔主题） -->
+                <!-- ⚡ 独立小巧的 ABOUT 框：占总宽不到 1/3，完美和上方的 EASIS 左对齐 -->
                 <li>
                     <a href="about.html" class="about-big-box">
                         <div class="about-header">
@@ -381,7 +384,6 @@
                             <span class="about-arrow">→</span>
                         </div>
                         <p class="about-motto">
-                            <!-- 💡 可以在这里自由更换你的个性座右铭 -->
                             <span class="lang-en">"Stay rational in research, stay perceptive in life."</span>
                             <span class="lang-zh hidden">“于研究中保持理性，于生活里留存感知。”</span>
                         </p>
