@@ -161,6 +161,7 @@
             justify-content: flex-start; 
             padding: 16vh 100px 0 100px; 
             box-sizing: border-box;
+            position: relative;
         }
 
         .main-logo {
@@ -172,6 +173,7 @@
             color: var(--black); 
             cursor: default;
             transition: color 0.2s ease;
+            pointer-events: none; /* 🔥 修复核心：允许鼠标点击穿透巨大的 Logo 隐形盒子 */
         }
         
         .main-logo:hover {
@@ -199,9 +201,10 @@
             bottom: 6vh; 
             left: 100px; 
             right: 100px;
+            z-index: 10; /* 🔥 修复核心：提高层级，确保底部导航永远浮在最上层 */
         }
         
-        /* ⚡ 完美的 3 列经典结构：ABOUT 框(1fr), WORK 类(1.2fr), LOGS 类(1.2fr) */
+        /* 完美的 3 列经典结构 */
         .nav-groups {
             display: grid; 
             grid-template-columns: 1fr 1.2fr 1.2fr; 
@@ -282,7 +285,7 @@
             box-shadow: 3px 3px 0 var(--black);
         }
 
-        /* 底部子菜单：支持多层级细分 */
+        /* 底部子菜单 */
         .sub-menu {
             display: flex;
             flex-direction: column;
@@ -290,7 +293,7 @@
             width: 100%;
         }
 
-        /* 底部列表里的内部小分类副标题（比如：项目研究 / 实践经历） */
+        /* 底部列表里的内部小分类副标题 */
         .sub-group-title {
             font-size: 0.85rem;
             font-weight: 800;
@@ -300,7 +303,7 @@
             margin-top: 8px;
             margin-bottom: 2px;
         }
-        .sub-group-title:first-child { margin-top: 0; } /* 第一个标题不需要顶部外边距 */
+        .sub-group-title:first-child { margin-top: 0; } 
 
         .sub-menu a {
             display: block; text-decoration: none; 
@@ -331,7 +334,7 @@
             .global-nav { padding: 15px 20px; }
             .nav-menu-container { display: none; }
             .hero-wrapper { height: auto; padding: 130px 20px 40px 20px; }
-            .main-logo { font-size: 24vw; line-height: 0.9; }
+            .main-logo { font-size: 24vw; line-height: 0.9; pointer-events: auto; }
             .footer-nav { position: static; margin-top: 40px; padding: 0; width: 100%; }
             .nav-groups { grid-template-columns: 1fr; gap: 30px; padding-top: 25px; }
         }
