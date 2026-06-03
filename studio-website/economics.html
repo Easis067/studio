@@ -6,9 +6,9 @@
     <title>Economics | EASIS</title>
     <style>
         :root {
-            --white: #F9F9F9;         /* 统一的美术馆白背景 */
-            --fluo-yellow: #E5EB15;   /* 经典高亮黄 */
-            --black: #111111;         /* 极致石墨黑 */
+            --white: #F9F9F9;         
+            --fluo-yellow: #E5EB15;   
+            --black: #111111;         
         }
         
         body {
@@ -19,38 +19,30 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* 核心控制：隐藏未激活的语言文本 */
         .lang-zh.hidden, .lang-en.hidden { display: none !important; }
 
-        /* --- 顶部导航栏（像素级同步主页尺寸） --- */
+        /* --- 顶部导航栏（完全同步主页的高度距离） --- */
         .global-nav {
             display: flex; 
             justify-content: space-between; 
             align-items: center;
-            padding: 30px 80px; /* ⚖️ 从 40px 缩减到 30px，与主页高度绝对统一 */
+            padding: 30px 80px; /* 📏 间距完全同步主页 */
             position: fixed; 
             width: 100%; 
             top: 0; 
             z-index: 1001;
             box-sizing: border-box; 
-            border-bottom: 1.5px solid var(--black); /* ⚖️ 边框细度从 2px 同步为 1.5px */
+            border-bottom: 1.5px solid var(--black); 
             background-color: var(--white);
         }
+        
+        /* 左上角 Logo：字重完美同步主页 */
         .nav-logo a { 
-            font-size: 2rem; /* ⚖️ 字号从 2.2rem 缩减到 2rem，同步主页 */
-            font-weight: 900; 
+            font-size: 2rem; 
+            font-weight: 700; /* 🖋️ 从 900 改为 700，跟主页一样 */
             text-decoration: none; 
             color: var(--black); 
             letter-spacing: -0.03em;
-            display: inline-block;
-            padding: 4px 18px;
-            border: 1.5px solid transparent;
-            transition: all 0.15s ease-in-out;
-        }
-        .nav-logo a:hover {
-            background-color: var(--fluo-yellow);
-            border-color: var(--black);
-            box-shadow: 4px 4px 0 var(--black);
         }
 
         /* 右侧组合区 */
@@ -60,28 +52,35 @@
             gap: 30px;
         }
 
+        /* 右侧菜单：字重和大小完全同步主页 */
         .nav-links { display: flex; list-style: none; gap: 20px; margin: 0; padding: 0; }
         .nav-links a { 
             text-decoration: none; 
             color: var(--black); 
-            font-size: 1.05rem; /* ⚖️ 字号同步主页的 1.05rem */
-            font-weight: 700; 
+            font-size: 1.05rem; /* 📏 同步主页字号 */
+            font-weight: 700;   /* 🖋️ 同步主页字重 */
             text-transform: uppercase; 
             padding: 6px 16px; 
-            border: 1.5px solid var(--black); /* ⚖️ 线条同步 1.5px */
+            border: 1.5px solid var(--black); 
             transition: 0.2s ease-in-out; 
             background: var(--fluo-yellow); 
             box-shadow: 2px 2px 0 var(--black);
         }
 
-        /* 语言切换器（同步主页规格） */
+        /* 语言切换器：字重同步主页 */
         .lang-switch { border: 1.5px solid var(--black); padding: 2px; display: flex; background: transparent; }
-        .lang-switch span { padding: 4px 12px; cursor: pointer; font-weight: 700; font-size: 0.9rem; color: var(--black); }
+        .lang-switch span { 
+            padding: 4px 12px; 
+            cursor: pointer; 
+            font-weight: 700; /* 🖋️ 统一为 700 */
+            font-size: 0.9rem; 
+            color: var(--black); 
+        }
         .lang-switch .active { background: var(--fluo-yellow); }
 
         /* --- 主内容布局 --- */
         .projects-container { 
-            padding: 200px 80px 100px; /* ⚖️ 顶距从 220px 适度微调，呼应变窄的导航栏 */
+            padding: 200px 80px 100px; 
             max-width: 1200px; 
             margin: 0 auto; 
             box-sizing: border-box;
@@ -93,7 +92,7 @@
         }
         .page-header h1 { 
             font-size: 4.5rem; 
-            font-weight: 900; 
+            font-weight: 900; /* 保持大字报的极粗张力 */
             margin: 0; 
             letter-spacing: -0.04em;
         }
@@ -123,7 +122,7 @@
             height: 260px; 
             background: var(--black); 
             overflow: hidden; 
-            border: 1.5px solid var(--black); /* ⚖️ 卡片线宽微调，视觉更精致 */
+            border: 1.5px solid var(--black); 
             box-shadow: 0px 0px 0 var(--black);
             transition: all 0.3s ease; 
         }
@@ -174,13 +173,13 @@
             font-weight: 500;
         }
 
-        /* 稳定不闪烁的按钮 */
+        /* View Research 按钮 */
         .read-more { 
             font-size: 0.95rem;
             font-weight: 900; 
             color: var(--black);
             text-transform: uppercase;
-            border: 1.5px solid var(--black); /* ⚖️ 同步 1.5px */
+            border: 1.5px solid var(--black); 
             padding: 6px 16px;
             width: fit-content;
             transition: all 0.2s ease-in-out; 
@@ -194,9 +193,9 @@
 
         /* --- 移动端响应式 --- */
         @media (max-width: 768px) {
-            .global-nav { padding: 20px; } /* ⚖️ 手机端也完全同步主页的 20px padding */
+            .global-nav { padding: 20px; } 
             .nav-right-zone { gap: 15px; }
-            .nav-logo a { font-size: 1.6rem; padding: 2px 10px; }
+            .nav-logo a { font-size: 1.6rem; }
             
             .projects-container { padding: 140px 24px 60px; }
             .page-header { margin-bottom: 50px; padding-left: 15px; }
@@ -217,7 +216,12 @@
         
         <div class="nav-right-zone">
             <ul class="nav-links">
-                <li><a href="economics.html"><span class="lang-en">Economics</span><span class="lang-zh hidden">经济学</span></a></li>
+                <li>
+                    <a href="economics.html">
+                        <span class="lang-en">Economics</span>
+                        <span class="lang-zh hidden">经济学</span>
+                    </a>
+                </li>
             </ul>
             
             <div class="lang-switch">
@@ -234,6 +238,7 @@
             <p class="lang-zh hidden">市场机制与系统的结构性分析。</p>
         </header>
 
+        <!-- 项目卡片 1 -->
         <a href="#" class="project-card">
             <div class="project-image"><img src="images/eco-01.jpg" alt=""></div>
             <div class="project-info">
@@ -249,6 +254,7 @@
             </div>
         </a>
 
+        <!-- 项目卡片 2 -->
         <a href="#" class="project-card">
             <div class="project-image"><img src="images/eco-02.jpg" alt=""></div>
             <div class="project-info">
