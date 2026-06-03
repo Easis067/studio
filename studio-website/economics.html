@@ -36,12 +36,23 @@
             background-color: var(--white);
         }
         
+        /* 🛠️ 纯净 Logo：移除一切可能导致抖动的多余边框 */
         .nav-logo a { 
             font-size: 2rem; 
-            font-weight: 700; 
+            font-weight: 700; /* 🖋️ 纯粹的 700 字重，确保与主页完全一致 */
             text-decoration: none; 
             color: var(--black); 
             letter-spacing: -0.03em;
+            display: inline-block;
+            padding: 4px 12px; /* 留出舒适的呼吸空间供悬停变色 */
+            transition: all 0.15s ease-in-out;
+        }
+        
+        /* 🛠️ 健康的悬停互动：不改变边框，直接染黄并加阴影，绝不抖动闪烁 */
+        .nav-logo a:hover {
+            background-color: var(--fluo-yellow);
+            box-shadow: 3px 3px 0 var(--black);
+            transform: translate(-1px, -1px);
         }
 
         .nav-right-zone {
@@ -77,37 +88,52 @@
         /* --- 主内容布局 --- */
         .projects-container { 
             padding: 200px 80px 100px; 
-            max-width: 1400px; /* 🧱 放大最大宽度，给双栏留足呼吸空间 */
+            max-width: 1400px; 
             margin: 0 auto; 
             box-sizing: border-box;
         }
         
-        /* 📐 大标题向左移：去掉了原本左侧的黄边条和 padding，实现绝对靠左对齐 */
+        /* 大标题区域 */
         .page-header { 
             margin-bottom: 60px; 
             padding-left: 0; 
+            display: inline-block; /* 让宽度自适应文字内容 */
         }
         .page-header h1 { 
             font-size: 4.5rem; 
             font-weight: 900; 
             margin: 0; 
             letter-spacing: -0.04em;
+            position: relative;
+            padding-bottom: 15px; /* 给下方的黄色底线留出空隙 */
         }
+        
+        /* 💛 标题附近的黄色加量：标志性的野兽派粗底线 */
+        .page-header h1::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%; /* 宽度与 ECONOMICS 单词完全等宽 */
+            height: 12px; /* 足够有分量的黄色厚度 */
+            background-color: var(--fluo-yellow);
+            z-index: -1; /* 压在文字字脚的视觉底层，高级不挡字 */
+        }
+
         .page-header p {
             font-size: 1.2rem;
-            margin-top: 10px;
+            margin-top: 15px;
             opacity: 0.6;
             font-weight: 500;
         }
 
-        /* --- 🧱 核心改动：双栏网格布局 --- */
+        /* --- 双栏网格布局 --- */
         .projects-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr); /* 电脑端一行两列 */
-            gap: 50px; /* 卡片之间的间距 */
+            grid-template-columns: repeat(2, 1fr); 
+            gap: 50px; 
         }
 
-        /* 项目卡片（从左右分栏改为上下分栏） */
         .project-card {
             display: flex;
             flex-direction: column;
@@ -116,18 +142,18 @@
             transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .project-card:hover { 
-            transform: translateY(-8px); /* 悬停时向上微微浮动，更有精神 */
+            transform: translateY(-8px); 
         }
         
         .project-image { 
             width: 100%; 
-            height: 320px; /* 固定图片高度，保证两张图天然对齐 */
+            height: 320px; 
             background: var(--black); 
             overflow: hidden; 
             border: 1.5px solid var(--black); 
             box-shadow: 0px 0px 0 var(--black);
             transition: all 0.3s ease; 
-            margin-bottom: 25px; /* 图片与下方文字的距离 */
+            margin-bottom: 25px; 
         }
         .project-card:hover .project-image { 
             box-shadow: 6px 6px 0 var(--black);
@@ -145,7 +171,6 @@
             opacity: 1; 
         }
 
-        /* 卡片文字区 */
         .project-info {
             display: flex;
             flex-direction: column;
@@ -161,7 +186,7 @@
             letter-spacing: 0.1em;
         }
         .project-info h2 { 
-            font-size: 1.8rem; /* 适度缩小字号，适应双栏紧凑感 */
+            font-size: 1.8rem; 
             margin: 0 0 12px 0; 
             font-weight: 900;
             letter-spacing: -0.02em;
@@ -173,7 +198,7 @@
             margin: 0 0 25px 0;
             opacity: 0.7;
             font-weight: 500;
-            min-height: 80px; /* 确保简介文字高度基本一致，卡片尾部对齐 */
+            min-height: 80px; 
         }
 
         .read-more { 
@@ -193,7 +218,7 @@
             transform: translate(-1px, -1px);
         }
 
-        /* --- 📱 移动端响应式 --- */
+        /* --- 移动端响应式 --- */
         @media (max-width: 768px) {
             .global-nav { padding: 20px; } 
             .nav-right-zone { gap: 15px; }
@@ -202,8 +227,8 @@
             .projects-container { padding: 140px 24px 60px; }
             .page-header { margin-bottom: 40px; }
             .page-header h1 { font-size: 2.8rem; }
+            .page-header h1::after { height: 8px; } /* 手机端底线适度变细 */
             
-            /* 📱 手机端自动切回一竖列 */
             .projects-grid {
                 grid-template-columns: 1fr;
                 gap: 60px;
@@ -218,6 +243,7 @@
 <body>
 
     <nav class="global-nav">
+        <!-- 🛠️ 纯净、平滑且健康的 Logo 模块 -->
         <div class="nav-logo"><a href="index.html">EASIS</a></div>
         
         <div class="nav-right-zone">
@@ -239,12 +265,12 @@
 
     <main class="projects-container">
         <header class="page-header">
+            <!-- 💛 这里的 H1 标题自带高亮黄色的粗底座线 -->
             <h1>ECONOMICS</h1>
             <p class="lang-en">Structural analysis of market mechanisms and systems.</p>
             <p class="lang-zh hidden">市场机制与系统的结构性分析。</p>
         </header>
 
-        <!-- 🧱 双栏包裹容器 -->
         <div class="projects-grid">
 
             <!-- 项目卡片 1 -->
@@ -273,13 +299,13 @@
                     <p class="lang-en">This is the research abstract for your second project, exploring the structural relationships between emerging technologies and microeconomic changes.</p>
                     
                     <h2 class="lang-zh hidden">第二个经济研究：市场机制与创新辩证</h2>
-                    <p class="lang-zh hidden">这里是第二个项目的中文研究摘要。可以用来写关于技术创新、微观经济变化或者市场结构演进的分析，保持高度一致的视觉质感。</p>
+                    <p class="lang-zh hidden">这里是第二个项目的中文研究摘要。可以用来写关于技术创新、微观 economic 变化或者市场结构演进的分析，保持高度一致的视觉质感。</p>
                     
                     <span class="read-more">View Research</span>
                 </div>
             </a>
 
-        </div> <!-- /projects-grid -->
+        </div> 
 
     </main>
 
