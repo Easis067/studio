@@ -15,7 +15,7 @@
             background-color: var(--white);
             color: var(--black);
             margin: 0;
-            font-family: "Space Grotesque", "Inter", -apple-system, sans-serif;
+            font-family: "Space Grotesque", "Inter", sans-serif;
             -webkit-font-smoothing: antialiased;
             min-height: 100vh;
         }
@@ -35,6 +35,10 @@
             background-color: var(--white); 
         }
         
+        .nav-logo {
+            display: inline-block;
+        }
+        
         .nav-logo a { 
             font-size: 2.2rem; 
             font-weight: 900; 
@@ -47,6 +51,7 @@
             transition: all 0.15s ease-in-out;
         }
 
+        /* 鼠标悬停：弹出极光青长方形框 + 黑阴影 */
         .nav-logo a:hover {
             background-color: var(--accent); 
             border-color: var(--black);      
@@ -55,106 +60,74 @@
         }
 
         .lang-switch { border: 2px solid var(--black); padding: 2px; display: flex; }
-        .lang-switch span { padding: 5px 15px; cursor: pointer; font-weight: 900; font-size: 0.9rem; }
+        .lang-switch span { padding: 5px 15px; cursor: pointer; font-weight: 900; }
         .lang-switch .active { background: var(--accent); }
 
-        /* --- 整体两栏布局 --- */
+        /* --- 布局排版 --- */
         .about-container {
             display: grid;
-            grid-template-columns: 1fr 1.2fr;
-            padding: 240px 80px 120px; 
-            gap: 80px;
+            grid-template-columns: 1fr 1fr;
+            padding: 220px 100px 100px; 
+            gap: 100px;
             max-width: 1400px;
             margin: 0 auto;
-            box-sizing: border-box;
         }
 
-        /* 左侧：About 大字（增加艺术张力） */
+        /* 左侧：About 字样 */
         .about-title {
-            font-size: 12vw;
-            font-weight: 800;
-            letter-spacing: -0.04em;
+            font-size: 11vw;
+            font-weight: 200;
+            letter-spacing: -0.02em;
             margin: 0;
-            line-height: 0.8;
-            text-transform: uppercase;
-            position: sticky;
-            top: 240px;
-            height: fit-content;
+            line-height: 1;
         }
 
-        /* 右侧：排版核心区 */
+        /* 右侧：文案区 */
         .content-section {
             display: flex;
             flex-direction: column;
-            gap: 120px; /* 大空隙，拉开模块距离 */
+            gap: 100px;
         }
 
         .label {
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             text-transform: uppercase;
-            letter-spacing: 0.25em;
+            letter-spacing: 0.3em;
             color: rgba(0,0,0,0.4);
-            margin-bottom: 35px;
+            margin-bottom: 25px;
             font-weight: 900;
             display: block;
         }
 
-        /* 💡 诗意化的文本排版体系 */
-        .intro-text-wrapper {
-            font-size: 1.8rem; /* 放大字号，让文字成为视觉主角 */
-            line-height: 1.8; 
-            font-weight: 300;  /* 减弱字重，轻盈有质感 */
-            color: var(--black);
+        /* 💡 恢复为原本自然的完整段落，只略微调整到最好读的 1.6rem 字号 */
+        .intro-text {
+            font-size: 1.6rem;
+            line-height: 1.7; 
+            font-weight: 500;
+            max-width: 560px;
             margin: 0;
-            letter-spacing: -0.01em;
-        }
-
-        /* 强调重点行，制造视觉停留 */
-        .intro-text-wrapper em {
-            font-style: normal;
-            font-weight: 600;
-            border-bottom: 2px solid var(--black);
-            padding-bottom: 2px;
-        }
-
-        /* 短句分行间隔 */
-        .text-line {
-            display: block;
-            margin-bottom: 12px;
-        }
-        
-        .text-line.indent {
-            padding-left: 24px; /* 制造错落的排版美感 */
-            color: rgba(0,0,0,0.6);
         }
 
         /* 联系链接 */
         .contact-link {
-            font-size: 2.2rem;
+            font-size: 2rem;
             color: var(--black);
             text-decoration: none;
-            font-weight: 800;
-            letter-spacing: -0.02em;
+            font-weight: 700;
             border-bottom: 4px solid var(--black);
-            transition: all 0.2s ease;
+            transition: all 0.3s ease;
             display: inline-block;
             width: fit-content;
         }
         .contact-link:hover {
             color: var(--accent);
             border-color: var(--accent);
-            background-color: var(--black);
-            padding: 0 10px;
         }
 
-        /* 响应式移动端优化 */
+        /* 响应式排版 */
         @media (max-width: 1024px) {
-            .global-nav { padding: 30px 40px; }
-            .about-container { grid-template-columns: 1fr; padding: 180px 40px 60px; gap: 40px; }
-            .about-title { font-size: 22vw; position: static; margin-bottom: 20px; }
-            .intro-text-wrapper { font-size: 1.4rem; line-height: 1.7; }
-            .text-line.indent { padding-left: 12px; }
-            .contact-link { font-size: 1.6rem; }
+            .about-container { grid-template-columns: 1fr; padding: 180px 60px; gap: 60px; }
+            .about-title { font-size: 25vw; }
         }
     </style>
 </head>
@@ -173,36 +146,20 @@
 
         <div class="content-section">
             
-            <!-- 个人陈述区：错落有致的诗意排版 -->
             <section>
                 <span class="label">The Observer / 观察者说</span>
-                
-                <!-- 中文版排版 -->
-                <div class="intro-text-wrapper lang-zh hidden">
-                    <span class="text-line">我是 <strong>Easis</strong>。</span>
-                    <span class="text-line">这里有潜心研究的经济问题与创新的思考，</span>
-                    <span class="text-line indent">也有镜头里的城市与旅途、</span>
-                    <span class="text-line indent">书页边的笔记、散场后的回响，</span>
-                    <span class="text-line indent">和展览里停下来的那几分钟。</span>
-                    <span class="text-line" style="margin-top: 30px;"><em>背包上路，做世界的观察者。</em></span>
-                </div>
-
-                <!-- 英文版排版 -->
-                <div class="intro-text-wrapper lang-en">
-                    <span class="text-line">This is <strong>Easis</strong>.</span>
-                    <span class="text-line">Here lie reflections on economics and innovation,</span>
-                    <span class="text-line indent">alongside cities and journeys through my lens,</span>
-                    <span class="text-line indent">notes in the margins of books,</span>
-                    <span class="text-line indent">echoes after the theater curtain falls,</span>
-                    <span class="text-line indent">and those quiet minutes standing before an exhibition.</span>
-                    <span class="text-line" style="margin-top: 30px;"><em>Backpack on, hitting the road as an observer of the world.</em></span>
-                </div>
+                <!-- 💡 完美的完整段落，没有任何多余的做作修饰 -->
+                <p class="intro-text lang-en">
+                    Easis. Here lie reflections on economics and innovation, alongside cities and journeys through my lens, notes in the margins of books, echoes after the theater curtain falls, and those quiet minutes spent standing before an exhibition. Backpack on, hitting the road as an observer of the world.
+                </p>
+                <p class="intro-text lang-zh hidden">
+                    我是 Easis。这里有潜心研究的经济问题与创新的思考，也有镜头里的城市与旅途、书页边的笔记、散场后的回响，和展览里停下来的那几分钟。背包上路，做世界的观察者。
+                </p>
             </section>
 
-            <!-- 联络区 -->
             <section>
                 <span class="label">Connect / 联络</span>
-                <div style="margin-top: 10px;">
+                <div style="margin-top: 15px;">
                     <a href="mailto:Easis067@outlook.com" class="contact-link">Easis067@outlook.com</a>
                 </div>
             </section>
