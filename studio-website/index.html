@@ -24,12 +24,7 @@
             font-family: "Space Grotesque", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             transition: background-color 4s cubic-bezier(0.4, 0, 0.2, 1), color 4s ease, border-color 4s ease; 
             -webkit-font-smoothing: antialiased;
-            overflow-x: hidden; /* 防止横向溢出 */
-        }
-
-        /* 💻 电脑端优化：移除强制 overflow: hidden 避免挡住点击 */
-        @media (min-width: 769px) {
-            body { min-height: 100vh; }
+            overflow: hidden; /* 电脑端锁定，保持纯净大屏感 */
         }
 
         /* 🌙 核心反转逻辑 */
@@ -78,7 +73,7 @@
 
         .lang-zh.hidden, .lang-en.hidden { display: none !important; }
 
-        /* --- 顶部导航（加入穿透防护） --- */
+        /* --- 顶部导航 --- */
         .global-nav {
             display: flex;
             justify-content: space-between;
@@ -91,12 +86,6 @@
             box-sizing: border-box;
             border-bottom: 1.5px solid var(--black);
             background-color: inherit; 
-            pointer-events: none; /* ✨ 顶层大盒子不拦截点击 */
-        }
-        
-        /* 确保导航内部的按钮依然可以正常点击 */
-        .nav-logo, .nav-menu-container, .lang-switch {
-            pointer-events: auto; 
         }
 
         .nav-logo a {
@@ -166,12 +155,11 @@
 
         /* --- 主内容 --- */
         .hero-wrapper {
-            position: relative;
-            min-height: 100vh;
+            height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: flex-start; 
-            padding: 18vh 100px 25vh 100px; /* 增加底部 padding 给 footer 腾出安全空间 */
+            padding: 16vh 100px 0 100px; 
             box-sizing: border-box;
         }
 
@@ -205,16 +193,15 @@
             transition: color 2s ease;
         }
 
-        /* --- 底部区域（核心修复：增加 z-index，防遮挡） --- */
+        /* --- 底部区域 --- */
         .footer-nav {
             position: absolute; 
-            bottom: 5vh; 
+            bottom: 6vh; 
             left: 100px; 
             right: 100px;
-            z-index: 10; /* ✨ 提到最上层，确保能被点击 */
         }
         
-        /* 3列经典布局结构 */
+        /* ⚡ 完美的 3 列经典结构：ABOUT 框(1fr), WORK 类(1.2fr), LOGS 类(1.2fr) */
         .nav-groups {
             display: grid; 
             grid-template-columns: 1fr 1.2fr 1.2fr; 
@@ -295,7 +282,7 @@
             box-shadow: 3px 3px 0 var(--black);
         }
 
-        /* 底部子菜单 */
+        /* 底部子菜单：支持多层级细分 */
         .sub-menu {
             display: flex;
             flex-direction: column;
@@ -303,7 +290,7 @@
             width: 100%;
         }
 
-        /* 内部小分类副标题 */
+        /* 底部列表里的内部小分类副标题（比如：项目研究 / 实践经历） */
         .sub-group-title {
             font-size: 0.85rem;
             font-weight: 800;
@@ -313,7 +300,7 @@
             margin-top: 8px;
             margin-bottom: 2px;
         }
-        .sub-group-title:first-child { margin-top: 0; } 
+        .sub-group-title:first-child { margin-top: 0; } /* 第一个标题不需要顶部外边距 */
 
         .sub-menu a {
             display: block; text-decoration: none; 
@@ -338,21 +325,15 @@
         .lang-switch span { padding: 4px 12px; cursor: pointer; font-weight: 700; color: inherit; font-size: 0.9rem; }
         .lang-switch .active { background: var(--fluo-yellow); color: #111111 !important; }
 
-        /* 📱 移动端响应式极致兼容 */
+        /* 📱 移动端响应式兼容 */
         @media (max-width: 768px) {
+            body { overflow-x: hidden; overflow-y: auto; }
             .global-nav { padding: 15px 20px; }
-            .nav-menu-container { display: flex; } 
-            .menu-divider { margin: 0 10px; }
-            .nav-links { gap: 8px; }
-            .nav-links > li > a { padding: 4px 10px; font-size: 0.9rem; }
-            .lang-switch { margin-left: 15px; }
-            .lang-switch span { padding: 4px 6px; font-size: 0.8rem; }
-            
-            .hero-wrapper { height: auto; min-height: auto; padding: 130px 20px 40px 20px; }
+            .nav-menu-container { display: none; }
+            .hero-wrapper { height: auto; padding: 130px 20px 40px 20px; }
             .main-logo { font-size: 24vw; line-height: 0.9; }
-            
-            .footer-nav { position: static; margin-top: 60px; padding: 0 20px 60px 20px; width: auto; }
-            .nav-groups { grid-template-columns: 1fr; gap: 35px; padding-top: 25px; }
+            .footer-nav { position: static; margin-top: 40px; padding: 0; width: 100%; }
+            .nav-groups { grid-template-columns: 1fr; gap: 30px; padding-top: 25px; }
         }
     </style>
 </head>
@@ -435,9 +416,7 @@
                     </span>
                     <div class="sub-menu">
                         <span class="sub-group-title"><span class="lang-en">Project</span><span class="lang-zh hidden">项目课题</span></span>
-                        
                         <a href="economics.html"><span class="lang-en">Economics</span><span class="lang-zh hidden">经济学研究</span></a>
-                        
                         <a href="#"><span class="lang-en">Innovation</span><span class="lang-zh hidden">创新学研究</span></a>
                         
                         <span class="sub-group-title"><span class="lang-en">Practice</span><span class="lang-zh hidden">实践经历</span></span>
