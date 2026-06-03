@@ -6,7 +6,7 @@
     <title>About | EASIS</title>
     <style>
         :root {
-            --white: #F9F9F9;         /* 美术馆白背景，固定不变 */
+            --white: #F9F9F9;         /* 美术馆白背景 */
             --black: #111111;         /* 核心文字色 */
             --accent: #00E1D9;        /* 灵魂亮眼色：数码极光青 */
         }
@@ -35,7 +35,6 @@
             background-color: var(--white); 
         }
         
-        /* 核心修改：让 LOGO 变成一个支持包裹长方形的块级元素 */
         .nav-logo {
             display: inline-block;
         }
@@ -47,17 +46,16 @@
             color: var(--black); 
             letter-spacing: -0.03em;
             display: inline-block;
-            /* 设定精准的内边距，确保弹出的长方形比例极度舒适 */
             padding: 4px 18px; 
-            border: 2px solid transparent; /* 平时隐藏边框，防止抖动 */
+            border: 2px solid transparent; 
             transition: all 0.15s ease-in-out;
         }
 
-        /* 💡 鼠标悬停：瞬间弹出数码极光青的长方形框 + 硬核黑阴影 */
+        /* 鼠标悬停：弹出极光青长方形框 + 黑阴影 */
         .nav-logo a:hover {
-            background-color: var(--accent); /* 极光青实心底色 */
-            border-color: var(--black);      /* 黑色硬朗边框 */
-            box-shadow: 4px 4px 0 var(--black); /* 像素风黑阴影，完美复刻图二风格 */
+            background-color: var(--accent); 
+            border-color: var(--black);      
+            box-shadow: 4px 4px 0 var(--black); 
             color: var(--black);
         }
 
@@ -103,9 +101,9 @@
 
         .intro-text {
             font-size: 1.5rem;
-            line-height: 1.5;
+            line-height: 1.7; /* 稍微增加了行高，让你这一段绝妙的文字呼吸感更足 */
             font-weight: 500;
-            max-width: 520px;
+            max-width: 540px;
             margin: 0;
         }
 
@@ -150,10 +148,10 @@
             <section>
                 <span class="label">Practice / 研究实践</span>
                 <p class="intro-text lang-en">
-                    Easis is a transdisciplinary researcher. By observing the structural logic of economic systems and the fluid media of urban spaces, seeking to capture artistic moments with vitality within a rigorous rational narrative.
+                    Easis. Here lie reflections on economics and innovation, alongside cities and journeys through my lens, notes in the margins of books, echoes after the theater curtain falls, and those quiet minutes spent standing before an exhibition. Backpack on, hitting the road as an observer of the world.
                 </p>
                 <p class="intro-text lang-zh hidden">
-                    Easis 是一位跨学科研究者。通过观察 economic 系统的结构性逻辑与城市空间的流动媒介，试图在严谨的理性叙事中捕捉具有生命力的艺术瞬间。
+                    我是 Easis。这里有潜心研究的经济问题与创新的思考，也有镜头里的城市与旅途、书页边的笔记、散场后的回响，和展览里停下来的那几分钟。背包上路，做世界的观察者。
                 </p>
             </section>
 
@@ -167,8 +165,7 @@
         </div>
     </main>
 
-    <script {__security_and_privacy_source_requirement__}>
-        // 语言切换逻辑
+    <script>
         function setLanguage(lang) {
             document.querySelectorAll('.lang-en').forEach(el => lang === 'zh' ? el.classList.add('hidden') : el.classList.remove('hidden'));
             document.querySelectorAll('.lang-zh').forEach(el => lang === 'zh' ? el.classList.remove('hidden') : el.classList.add('hidden'));
