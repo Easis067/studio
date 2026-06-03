@@ -11,10 +11,10 @@
 
     <style>
         :root {
-            --white: #F9F9F9;         /* 基础白天底色：美术馆白 */
-            --periwinkle: #111111;    /* 极致石墨黑 */
-            --fluo-yellow: #00E1D9;   /* 灵魂亮眼色：数码极光青 */
-            --black: #111111;         /* 白天文字与线条颜色 */
+            --white: #F9F9F9;         
+            --periwinkle: #111111;    
+            --fluo-yellow: #00E1D9;   
+            --black: #111111;         
         }
 
         body {
@@ -24,7 +24,7 @@
             font-family: "Space Grotesque", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             transition: background-color 4s cubic-bezier(0.4, 0, 0.2, 1), color 4s ease, border-color 4s ease; 
             -webkit-font-smoothing: antialiased;
-            overflow: hidden; /* 电脑端锁定，保持纯净大屏感 */
+            overflow: hidden; 
         }
 
         /* 🌙 核心反转逻辑 */
@@ -82,7 +82,7 @@
             position: fixed;
             width: 100%;
             top: 0;
-            z-index: 1002; /* 确保高于下拉菜单 */
+            z-index: 2002; 
             box-sizing: border-box;
             border-bottom: 1.5px solid var(--black);
             background-color: inherit; 
@@ -116,7 +116,6 @@
             box-shadow: 4px 4px 0 var(--black);
         }
 
-        /* 顶部两极分割线 */
         .menu-divider {
             width: 0;
             height: 22px;
@@ -126,12 +125,11 @@
             transition: border-color 4s ease;
         }
 
-        /* 修复核心：调整下拉菜单定位，防止被主体内容切断 */
         .dropdown-menu {
             position: absolute; top: 100%; left: 0; background: var(--black); min-width: 220px;
             list-style: none; padding: 10px 0; margin: 0; opacity: 0; visibility: hidden;
             border: 1.5px solid var(--black); transition: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            z-index: 2000;
+            z-index: 3000;
         }
         .nav-links > li:hover .dropdown-menu { opacity: 1; visibility: visible; margin-top: 10px; }
         .dropdown-menu li a { 
@@ -140,7 +138,6 @@
         }
         .dropdown-menu li a:hover { color: var(--fluo-yellow) !important; }
 
-        /* 顶部二级菜单里的组标题 */
         .menu-group-title {
             display: block;
             padding: 8px 20px 4px 20px;
@@ -155,12 +152,12 @@
             margin: 6px 0;
         }
 
-        /* --- 主内容弹性布局 --- */
+        /* --- 主内容 --- */
         .hero-wrapper {
             height: 100vh;
             display: flex;
             flex-direction: column;
-            justify-content: space-between; /* 完美自适应多端，将底部导航推至最底 */
+            justify-content: space-between; 
             padding: 16vh 100px 6vh 100px; 
             box-sizing: border-box;
             position: relative;
@@ -181,12 +178,7 @@
             color: var(--black); 
             cursor: default;
             transition: color 0.2s ease;
-            pointer-events: none; /* 允许鼠标点击穿透巨大的 Logo 隐形盒子 */
-        }
-        
-        .main-logo:hover {
-            color: transparent !important;
-            -webkit-text-stroke: 3px var(--fluo-yellow); 
+            pointer-events: none; 
         }
 
         .center-statement {
@@ -203,14 +195,13 @@
             transition: color 2s ease;
         }
 
-        /* --- 底部区域优化 --- */
+        /* --- 底部导航 --- */
         .footer-nav {
             width: 100%;
-            z-index: 100; /* 确保底部导航永远浮在最上层且能点击 */
+            z-index: 100; 
             position: relative;
         }
         
-        /* 完美的 3 列经典结构 */
         .nav-groups {
             display: grid; 
             grid-template-columns: 1fr 1.2fr 1.2fr; 
@@ -228,7 +219,6 @@
             align-items: flex-start;
         }
 
-        /* ABOUT 专属大框 */
         .about-big-box {
             width: 100%;
             box-sizing: border-box;
@@ -257,27 +247,11 @@
             width: 100%;
             margin-bottom: 12px;
         }
-        .about-title {
-            font-size: 1.2rem; 
-            font-weight: 900;
-            text-transform: uppercase;
-            letter-spacing: -0.01em;
-        }
-        .about-arrow {
-            font-size: 1.4rem;
-            font-weight: 900;
-            transition: transform 0.2s ease;
-        }
+        .about-title { font-size: 1.2rem; font-weight: 900; text-transform: uppercase; }
+        .about-arrow { font-size: 1.4rem; font-weight: 900; transition: transform 0.2s ease; }
         .about-big-box:hover .about-arrow { transform: translateX(4px); }
-        .about-motto {
-            font-size: 1rem; 
-            font-weight: 600;
-            line-height: 1.4;
-            margin: 0;
-            opacity: 0.9;
-        }
+        .about-motto { font-size: 1rem; font-weight: 600; line-height: 1.4; margin: 0; opacity: 0.9; }
 
-        /* 普通分类的标签框样式 */
         .group-label {
             font-size: 1.1rem; 
             font-weight: 700; background: var(--white); 
@@ -286,41 +260,19 @@
             box-shadow: 2px 2px 0 var(--black);
             transition: all 0.2s ease, background-color 2s ease, border-color 2s ease;
         }
-        .group-label:hover {
-            background: var(--fluo-yellow) !important;
-            transform: translate(-1px, -1px);
-            box-shadow: 3px 3px 0 var(--black);
-        }
 
-        /* 底部子菜单 */
-        .sub-menu {
-            display: flex;
-            flex-direction: column;
-            gap: 10px; 
-            width: 100%;
-        }
+        .sub-menu { display: flex; flex-direction: column; gap: 10px; width: 100%; }
 
-        /* 底部列表里的内部小分类副标题 */
         .sub-group-title {
-            font-size: 0.85rem;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            opacity: 0.5;
-            margin-top: 8px;
-            margin-bottom: 2px;
+            font-size: 0.85rem; font-weight: 800; text-transform: uppercase;
+            letter-spacing: 0.05em; opacity: 0.5; margin-top: 8px; margin-bottom: 2px;
         }
         .sub-group-title:first-child { margin-top: 0; } 
 
         .sub-menu a {
-            display: block; text-decoration: none; 
-            color: inherit; 
-            margin: 0; 
-            font-size: 1.15rem; 
-            font-weight: 600; 
-            position: relative; width: fit-content;
-            opacity: 0.8;
-            transition: 0.2s;
+            display: block; text-decoration: none; color: inherit; margin: 0; 
+            font-size: 1.15rem; font-weight: 600; position: relative; width: fit-content;
+            opacity: 0.8; transition: 0.2s;
         }
         .sub-menu a:hover { opacity: 1; }
         .sub-menu a::after {
@@ -330,12 +282,10 @@
         }
         .sub-menu a:hover::after { width: 100%; }
 
-        /* 语言切换 */
         .lang-switch { margin-left: 40px; border: 1.5px solid var(--black); padding: 2px; background: transparent; transition: border-color 2s ease; display: flex; }
         .lang-switch span { padding: 4px 12px; cursor: pointer; font-weight: 700; color: inherit; font-size: 0.9rem; }
         .lang-switch .active { background: var(--fluo-yellow); color: #111111 !important; }
 
-        /* 📱 移动端响应式兼容 */
         @media (max-width: 768px) {
             body { overflow-x: hidden; overflow-y: auto; }
             .global-nav { padding: 15px 20px; }
@@ -360,10 +310,10 @@
                         <ul class="dropdown-menu">
                             <span class="menu-group-title"><span class="lang-en">Project</span><span class="lang-zh hidden">课题研究</span></span>
                             <li><a href="economics.html"><span class="lang-en">Economics</span><span class="lang-zh hidden">经济学研究</span></a></li>
-                            <li><a href="#"><span class="lang-en">Innovation</span><span class="lang-zh hidden">创新学研究</span></a></li>
+                            <li><a href="innovation.html"><span class="lang-en">Innovation</span><span class="lang-zh hidden">创新学研究</span></a></li>
                             <li class="divider"></li>
                             <span class="menu-group-title"><span class="lang-en">Practice</span><span class="lang-zh hidden">实践经历</span></span>
-                            <li><a href="#"><span class="lang-en">Experience / CV</span><span class="lang-zh hidden">工作与学术经历</span></a></li>
+                            <li><a href="works.html"><span class="lang-en">Experience / CV</span><span class="lang-zh hidden">工作与学术经历</span></a></li>
                         </ul>
                     </li>
                 </ul>
@@ -375,12 +325,12 @@
                         <a href="javascript:void(0)"><span class="lang-en">Logs</span><span class="lang-zh hidden">日常留存</span></a>
                         <ul class="dropdown-menu">
                             <span class="menu-group-title"><span class="lang-en">Observer</span><span class="lang-zh hidden">看世界</span></span>
-                            <li><a href="#"><span class="lang-en">Visual Archive</span><span class="lang-zh hidden">摄影辑录</span></a></li>
-                            <li><a href="#"><span class="lang-en">Curation Walk</span><span class="lang-zh hidden">看展日记</span></a></li>
+                            <li><a href="notebook.html"><span class="lang-en">Visual Archive</span><span class="lang-zh hidden">摄影辑录</span></a></li>
+                            <li><a href="notebook.html"><span class="lang-en">Curation Walk</span><span class="lang-zh hidden">看展日记</span></a></li>
                             <li class="divider"></li>
                             <span class="menu-group-title"><span class="lang-en">Recorder</span><span class="lang-zh hidden">正在记录中</span></span>
-                            <li><a href="#"><span class="lang-en">Theatre & Scene</span><span class="lang-zh hidden">观演日记</span></a></li>
-                            <li><a href="#"><span class="lang-en">Readings & Dialectics</span><span class="lang-zh hidden">读书笔记</span></a></li>
+                            <li><a href="notebook.html"><span class="lang-en">Theatre & Scene</span><span class="lang-zh hidden">观演日记</span></a></li>
+                            <li><a href="notebook.html"><span class="lang-en">Readings & Dialectics</span><span class="lang-zh hidden">读书笔记</span></a></li>
                         </ul>
                     </li>
                 </ul>
@@ -429,10 +379,10 @@
                     <div class="sub-menu">
                         <span class="sub-group-title"><span class="lang-en">Project</span><span class="lang-zh hidden">项目课题</span></span>
                         <a href="economics.html"><span class="lang-en">Economics</span><span class="lang-zh hidden">经济学研究</span></a>
-                        <a href="#"><span class="lang-en">Innovation</span><span class="lang-zh hidden">创新学研究</span></a>
+                        <a href="innovation.html"><span class="lang-en">Innovation</span><span class="lang-zh hidden">创新学研究</span></a>
                         
                         <span class="sub-group-title"><span class="lang-en">Practice</span><span class="lang-zh hidden">实践经历</span></span>
-                        <a href="#"><span class="lang-en">CV & Experience</span><span class="lang-zh hidden">工作经历档案</span></a>
+                        <a href="works.html"><span class="lang-en">CV & Experience</span><span class="lang-zh hidden">工作经历档案</span></a>
                     </div>
                 </li>
 
@@ -442,12 +392,12 @@
                     </span>
                     <div class="sub-menu">
                         <span class="sub-group-title"><span class="lang-en">Observer</span><span class="lang-zh hidden">看世界</span></span>
-                        <a href="#"><span class="lang-en">Visual Archive</span><span class="lang-zh hidden">影像档案</span></a>
-                        <a href="#"><span class="lang-en">Curation Walk</span><span class="lang-zh hidden">看展日记</span></a>
+                        <a href="notebook.html"><span class="lang-en">Visual Archive</span><span class="lang-zh hidden">影像档案</span></a>
+                        <a href="notebook.html"><span class="lang-en">Curation Walk</span><span class="lang-zh hidden">看展日记</span></a>
                         
                         <span class="sub-group-title"><span class="lang-en">Recorder</span><span class="lang-zh hidden">正在记录中</span></span>
-                        <a href="#"><span class="lang-en">Theatre & Scene</span><span class="lang-zh hidden">走进剧场</span></a>
-                        <a href="#"><span class="lang-en">Readings & Dialectics</span><span class="lang-zh hidden">读书笔记</span></a>
+                        <a href="notebook.html"><span class="lang-en">Theatre & Scene</span><span class="lang-zh hidden">走进剧场</span></a>
+                        <a href="notebook.html"><span class="lang-en">Readings & Dialectics</span><span class="lang-zh hidden">读书笔记</span></a>
                     </div>
                 </li>
 
