@@ -5,20 +5,70 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EASIS | ARCHIVE</title>
     
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesque:wght=500;700;900&display=swap" rel="stylesheet">
+
     <style>
         :root {
-            --white: #F9F9F9;         
-            --fluo-yellow: #00E1D9;   
-            --black: #111111;         
+            --white: #F9F9F9;         /* 基础白天底色：美术馆白 */
+            --periwinkle: #111111;    /* 极致石墨黑 */
+            --fluo-yellow: #00E1D9;   /* 灵魂亮眼色：数码极光青 */
+            --black: #111111;         /* 白天文字与线条颜色 */
         }
 
         body {
             background-color: var(--white);
             color: var(--black);
             margin: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-family: "Space Grotesque", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            transition: background-color 4s cubic-bezier(0.4, 0, 0.2, 1), color 4s ease, border-color 4s ease; 
             -webkit-font-smoothing: antialiased;
-            overflow-x: hidden;
+            overflow: hidden; /* 电脑端锁定，保持纯净大屏感 */
+        }
+
+        /* 🌙 核心反转逻辑 */
+        body.is-active {
+            background-color: var(--periwinkle);
+            color: #F9F9F9;
+        }
+        body.is-active .global-nav,
+        body.is-active .nav-links > li > a,
+        body.is-active .nav-groups,
+        body.is-active .lang-switch,
+        body.is-active .menu-divider,
+        body.is-active .about-big-box {
+            border-color: #F9F9F9 !important;
+        }
+        body.is-active .nav-logo a,
+        body.is-active .nav-links > li > a,
+        body.is-active .sub-menu a,
+        body.is-active .lang-switch span,
+        body.is-active .main-logo {
+            color: #F9F9F9 !important;
+        }
+        body.is-active .group-label {
+            background: #F9F9F9 !important;
+            color: #111111 !important;
+            border-color: #F9F9F9 !important;
+        }
+        body.is-active .group-label:hover {
+            background: var(--fluo-yellow) !important;
+            border-color: #111111 !important;
+            color: #111111 !important;
+        }
+        body.is-active .about-big-box:hover {
+            background: var(--fluo-yellow) !important;
+            border-color: var(--black) !important;
+        }
+        body.is-active .about-big-box:hover * {
+            color: #111111 !important;
+        }
+        body.is-active .center-statement {
+            background-color: #F9F9F9;
+        }
+        body.is-active .center-statement span {
+            color: #111111;
         }
 
         .lang-zh.hidden, .lang-en.hidden { display: none !important; }
@@ -32,10 +82,10 @@
             position: fixed;
             width: 100%;
             top: 0;
-            z-index: 1001;
+            z-index: 1002; /* 确保高于下拉菜单 */
             box-sizing: border-box;
             border-bottom: 1.5px solid var(--black);
-            background-color: var(--white); 
+            background-color: inherit; 
         }
 
         .nav-logo a {
@@ -56,31 +106,70 @@
         .nav-links > li > a { 
             text-decoration: none; color: var(--black); font-size: 1.05rem; font-weight: 700; 
             text-transform: uppercase; padding: 6px 16px; border: 1.5px solid var(--black);
-            display: inline-block; transition: 0.2s ease;
+            display: inline-block; transition: 0.2s ease-in-out;
         }
         
         .nav-links > li > a:hover { 
             background: var(--fluo-yellow) !important; 
+            color: #111111 !important; 
+            border-color: var(--black); 
             box-shadow: 4px 4px 0 var(--black);
         }
 
+        /* 顶部两极分割线 */
         .menu-divider {
             width: 0;
             height: 22px;
             border-left: 1.5px solid var(--black);
             margin: 0 20px;
             opacity: 0.8;
+            transition: border-color 4s ease;
         }
 
-        /* --- 主内容 --- */
+        /* 修复核心：调整下拉菜单定位，防止被主体内容切断 */
+        .dropdown-menu {
+            position: absolute; top: 100%; left: 0; background: var(--black); min-width: 220px;
+            list-style: none; padding: 10px 0; margin: 0; opacity: 0; visibility: hidden;
+            border: 1.5px solid var(--black); transition: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 2000;
+        }
+        .nav-links > li:hover .dropdown-menu { opacity: 1; visibility: visible; margin-top: 10px; }
+        .dropdown-menu li a { 
+            color: var(--white) !important; padding: 12px 20px; display: block; 
+            text-decoration: none; font-weight: 600; font-size: 0.95rem;
+        }
+        .dropdown-menu li a:hover { color: var(--fluo-yellow) !important; }
+
+        /* 顶部二级菜单里的组标题 */
+        .menu-group-title {
+            display: block;
+            padding: 8px 20px 4px 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--fluo-yellow);
+            opacity: 0.8;
+        }
+        .dropdown-menu li.divider {
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            margin: 6px 0;
+        }
+
+        /* --- 主内容弹性布局 --- */
         .hero-wrapper {
-            min-height: 100vh;
+            height: 100vh;
             display: flex;
             flex-direction: column;
-            justify-content: flex-start; 
-            padding: 18vh 80px 25vh 80px; 
+            justify-content: space-between; /* 完美自适应多端，将底部导航推至最底 */
+            padding: 16vh 100px 6vh 100px; 
             box-sizing: border-box;
             position: relative;
+        }
+
+        .main-logo-zone {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
         }
 
         .main-logo {
@@ -90,8 +179,14 @@
             letter-spacing: -0.06em;
             line-height: 0.8;
             color: var(--black); 
-            user-select: none;
-            pointer-events: none; /* 彻底防止大字挡住下方的点击 */
+            cursor: default;
+            transition: color 0.2s ease;
+            pointer-events: none; /* 允许鼠标点击穿透巨大的 Logo 隐形盒子 */
+        }
+        
+        .main-logo:hover {
+            color: transparent !important;
+            -webkit-text-stroke: 3px var(--fluo-yellow); 
         }
 
         .center-statement {
@@ -100,29 +195,31 @@
             background-color: var(--black);
             display: inline-block;
             width: fit-content;
+            transition: background-color 2s ease;
         }
         .center-statement span {
             font-weight: 700; letter-spacing: 0.4em; font-size: 1rem;
             color: var(--white);
+            transition: color 2s ease;
         }
 
-        /* --- 底部区域：绝对浮动在最上层 --- */
+        /* --- 底部区域优化 --- */
         .footer-nav {
-            margin-top: auto;
-            padding-top: 40px;
             width: 100%;
-            z-index: 999; 
+            z-index: 100; /* 确保底部导航永远浮在最上层且能点击 */
             position: relative;
         }
         
+        /* 完美的 3 列经典结构 */
         .nav-groups {
             display: grid; 
-            grid-template-columns: 1fr 1fr 1fr; 
-            gap: 40px; 
+            grid-template-columns: 1fr 1.2fr 1.2fr; 
+            gap: 60px; 
             border-top: 1.5px solid var(--black); 
             padding-top: 35px; 
             list-style: none; 
             margin: 0;
+            transition: border-color 4s ease;
         }
 
         .group-container {
@@ -131,22 +228,21 @@
             align-items: flex-start;
         }
 
-        /* ABOUT 大框 */
+        /* ABOUT 专属大框 */
         .about-big-box {
             width: 100%;
             box-sizing: border-box;
             border: 1.5px solid var(--black);
             padding: 18px 20px;
-            background: var(--white);
+            background: transparent;
             text-decoration: none;
             color: inherit;
             box-shadow: 4px 4px 0 var(--black);
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            min-height: 140px; 
-            transition: all 0.2s ease;
-            cursor: pointer;
+            min-height: 130px; 
+            transition: all 0.2s ease, border-color 2s ease;
         }
         .about-big-box:hover {
             background: var(--fluo-yellow) !important;
@@ -159,62 +255,99 @@
             justify-content: space-between;
             align-items: center;
             width: 100%;
+            margin-bottom: 12px;
         }
-        .about-title { font-size: 1.2rem; font-weight: 900; text-transform: uppercase; }
-        .about-arrow { font-size: 1.4rem; font-weight: 900; }
-        .about-motto { font-size: 0.95rem; font-weight: 600; line-height: 1.4; margin: 15px 0 0 0; opacity: 0.8; }
+        .about-title {
+            font-size: 1.2rem; 
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: -0.01em;
+        }
+        .about-arrow {
+            font-size: 1.4rem;
+            font-weight: 900;
+            transition: transform 0.2s ease;
+        }
+        .about-big-box:hover .about-arrow { transform: translateX(4px); }
+        .about-motto {
+            font-size: 1rem; 
+            font-weight: 600;
+            line-height: 1.4;
+            margin: 0;
+            opacity: 0.9;
+        }
 
-        /* 分类标签 */
+        /* 普通分类的标签框样式 */
         .group-label {
             font-size: 1.1rem; 
             font-weight: 700; background: var(--white); 
             color: var(--black); padding: 6px 16px; display: inline-block;
             margin-bottom: 20px; border: 1.5px solid var(--black);
             box-shadow: 2px 2px 0 var(--black);
+            transition: all 0.2s ease, background-color 2s ease, border-color 2s ease;
+        }
+        .group-label:hover {
+            background: var(--fluo-yellow) !important;
+            transform: translate(-1px, -1px);
+            box-shadow: 3px 3px 0 var(--black);
         }
 
-        .sub-menu { display: flex; flex-direction: column; gap: 12px; width: 100%; }
+        /* 底部子菜单 */
+        .sub-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 10px; 
+            width: 100%;
+        }
 
+        /* 底部列表里的内部小分类副标题 */
         .sub-group-title {
-            font-size: 0.8rem; font-weight: 800; text-transform: uppercase;
-            letter-spacing: 0.05em; opacity: 0.4; margin-top: 5px; margin-bottom: 2px;
+            font-size: 0.85rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            opacity: 0.5;
+            margin-top: 8px;
+            margin-bottom: 2px;
         }
+        .sub-group-title:first-child { margin-top: 0; } 
 
-        /* 核心点击链接 */
         .sub-menu a {
-            display: block; 
-            text-decoration: none; 
-            color: var(--black); 
-            font-size: 1.2rem; 
-            font-weight: 700; 
-            width: fit-content; 
-            padding: 2px 0;
-            border-bottom: 2px solid transparent;
-            cursor: pointer;
-            transition: all 0.15s ease;
+            display: block; text-decoration: none; 
+            color: inherit; 
+            margin: 0; 
+            font-size: 1.15rem; 
+            font-weight: 600; 
+            position: relative; width: fit-content;
+            opacity: 0.8;
+            transition: 0.2s;
         }
-        .sub-menu a:hover { 
-            color: var(--black);
-            border-bottom-color: var(--fluo-yellow);
-            transform: translateX(4px);
+        .sub-menu a:hover { opacity: 1; }
+        .sub-menu a::after {
+            content: ''; position: absolute; width: 0; height: 3px; 
+            bottom: -4px; left: 0; background-color: var(--fluo-yellow); 
+            transition: width 0.2s ease;
         }
+        .sub-menu a:hover::after { width: 100%; }
 
         /* 语言切换 */
-        .lang-switch { margin-left: 40px; border: 1.5px solid var(--black); padding: 2px; display: flex; background: transparent; }
-        .lang-switch span { padding: 4px 12px; cursor: pointer; font-weight: 700; font-size: 0.9rem; color: var(--black); }
-        .lang-switch .active { background: var(--fluo-yellow); }
+        .lang-switch { margin-left: 40px; border: 1.5px solid var(--black); padding: 2px; background: transparent; transition: border-color 2s ease; display: flex; }
+        .lang-switch span { padding: 4px 12px; cursor: pointer; font-weight: 700; color: inherit; font-size: 0.9rem; }
+        .lang-switch .active { background: var(--fluo-yellow); color: #111111 !important; }
 
+        /* 📱 移动端响应式兼容 */
         @media (max-width: 768px) {
+            body { overflow-x: hidden; overflow-y: auto; }
             .global-nav { padding: 15px 20px; }
             .nav-menu-container { display: none; }
-            .hero-wrapper { padding: 120px 20px 40px 20px; }
-            .main-logo { font-size: 24vw; }
-            .footer-nav { position: static; margin-top: 40px; }
-            .nav-groups { grid-template-columns: 1fr; gap: 30px; }
+            .hero-wrapper { height: auto; padding: 130px 20px 40px 20px; }
+            .main-logo { font-size: 24vw; line-height: 0.9; pointer-events: auto; }
+            .footer-nav { position: static; margin-top: 40px; padding: 0; width: 100%; }
+            .nav-groups { grid-template-columns: 1fr; gap: 30px; padding-top: 25px; }
         }
     </style>
 </head>
-<body>
+<body id="dynamic-body">
 
     <nav class="global-nav">
         <div class="nav-logo"><a href="index.html">EASIS</a></div>
@@ -222,9 +355,37 @@
             <div class="nav-menu-container">
                 <ul class="nav-links">
                     <li><a href="about.html"><span class="lang-en">Me</span><span class="lang-zh hidden">个人</span></a></li>
-                    <li><a href="economics.html"><span class="lang-en">Work</span><span class="lang-zh hidden">经历</span></a></li>
+                    <li class="dropdown">
+                        <a href="economics.html"><span class="lang-en">Work</span><span class="lang-zh hidden">项目与经历</span></a>
+                        <ul class="dropdown-menu">
+                            <span class="menu-group-title"><span class="lang-en">Project</span><span class="lang-zh hidden">课题研究</span></span>
+                            <li><a href="economics.html"><span class="lang-en">Economics</span><span class="lang-zh hidden">经济学研究</span></a></li>
+                            <li><a href="#"><span class="lang-en">Innovation</span><span class="lang-zh hidden">创新学研究</span></a></li>
+                            <li class="divider"></li>
+                            <span class="menu-group-title"><span class="lang-en">Practice</span><span class="lang-zh hidden">实践经历</span></span>
+                            <li><a href="#"><span class="lang-en">Experience / CV</span><span class="lang-zh hidden">工作与学术经历</span></a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <div class="menu-divider"></div>
+
+                <ul class="nav-links">
+                    <li class="dropdown">
+                        <a href="javascript:void(0)"><span class="lang-en">Logs</span><span class="lang-zh hidden">日常留存</span></a>
+                        <ul class="dropdown-menu">
+                            <span class="menu-group-title"><span class="lang-en">Observer</span><span class="lang-zh hidden">看世界</span></span>
+                            <li><a href="#"><span class="lang-en">Visual Archive</span><span class="lang-zh hidden">摄影辑录</span></a></li>
+                            <li><a href="#"><span class="lang-en">Curation Walk</span><span class="lang-zh hidden">看展日记</span></a></li>
+                            <li class="divider"></li>
+                            <span class="menu-group-title"><span class="lang-en">Recorder</span><span class="lang-zh hidden">正在记录中</span></span>
+                            <li><a href="#"><span class="lang-en">Theatre & Scene</span><span class="lang-zh hidden">观演日记</span></a></li>
+                            <li><a href="#"><span class="lang-en">Readings & Dialectics</span><span class="lang-zh hidden">读书笔记</span></a></li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
+
             <div class="lang-switch">
                 <span id="btn-en" onclick="setLanguage('en')" class="active">EN</span>
                 <span id="btn-zh" onclick="setLanguage('zh')">中文</span>
@@ -233,12 +394,14 @@
     </nav>
 
     <main class="hero-wrapper">
-        <h1 class="main-logo">EASIS</h1>
-        <div class="center-statement">
-            <p style="margin: 0;">
-                <span class="lang-en">SYSTEMS / MEDIUM / ARCHIVE</span>
-                <span class="lang-zh hidden">系统 / 媒介 / 档案</span>
-            </p>
+        <div class="main-logo-zone">
+            <h1 class="main-logo">EASIS</h1>
+            <div class="center-statement">
+                <p style="margin: 0;">
+                    <span class="lang-en">SYSTEMS / MEDIUM / ARCHIVE</span>
+                    <span class="lang-zh hidden">系统 / 媒介 / 档案</span>
+                </p>
+            </div>
         </div>
 
         <nav class="footer-nav">
@@ -261,12 +424,15 @@
 
                 <li class="group-container">
                     <span class="group-label">
-                        <span class="lang-en">Research</span><span class="lang-zh hidden">专业研究</span>
+                        <span class="lang-en">Work & Research</span><span class="lang-zh hidden">专业研究</span>
                     </span>
                     <div class="sub-menu">
-                        <span class="sub-group-title"><span class="lang-en">Project</span><span class="lang-zh hidden">课题</span></span>
+                        <span class="sub-group-title"><span class="lang-en">Project</span><span class="lang-zh hidden">项目课题</span></span>
                         <a href="economics.html"><span class="lang-en">Economics</span><span class="lang-zh hidden">经济学研究</span></a>
                         <a href="#"><span class="lang-en">Innovation</span><span class="lang-zh hidden">创新学研究</span></a>
+                        
+                        <span class="sub-group-title"><span class="lang-en">Practice</span><span class="lang-zh hidden">实践经历</span></span>
+                        <a href="#"><span class="lang-en">CV & Experience</span><span class="lang-zh hidden">工作经历档案</span></a>
                     </div>
                 </li>
 
@@ -275,8 +441,13 @@
                         <span class="lang-en">Personal Logs</span><span class="lang-zh hidden">日常留存</span>
                     </span>
                     <div class="sub-menu">
-                        <span class="sub-group-title"><span class="lang-en">Observer</span><span class="lang-zh hidden">记录</span></span>
+                        <span class="sub-group-title"><span class="lang-en">Observer</span><span class="lang-zh hidden">看世界</span></span>
                         <a href="#"><span class="lang-en">Visual Archive</span><span class="lang-zh hidden">影像档案</span></a>
+                        <a href="#"><span class="lang-en">Curation Walk</span><span class="lang-zh hidden">看展日记</span></a>
+                        
+                        <span class="sub-group-title"><span class="lang-en">Recorder</span><span class="lang-zh hidden">正在记录中</span></span>
+                        <a href="#"><span class="lang-en">Theatre & Scene</span><span class="lang-zh hidden">走进剧场</span></a>
+                        <a href="#"><span class="lang-en">Readings & Dialectics</span><span class="lang-zh hidden">读书笔记</span></a>
                     </div>
                 </li>
 
@@ -285,9 +456,19 @@
     </main>
 
     <script>
+        const body = document.getElementById('dynamic-body');
+        
+        function runAnimation() {
+            setTimeout(() => { body.classList.add('is-active'); }, 15000); 
+            setTimeout(() => { body.classList.remove('is-active'); }, 30000); 
+            setTimeout(runAnimation, 35000); 
+        }
+        runAnimation();
+
         function setLanguage(lang) {
             document.querySelectorAll('.lang-en').forEach(el => lang === 'zh' ? el.classList.add('hidden') : el.classList.remove('hidden'));
             document.querySelectorAll('.lang-zh').forEach(el => lang === 'zh' ? el.classList.remove('hidden') : el.classList.add('hidden'));
+            
             document.getElementById('btn-en').classList.toggle('active', lang === 'en');
             document.getElementById('btn-zh').classList.toggle('active', lang === 'zh');
         }
