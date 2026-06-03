@@ -24,7 +24,7 @@
             font-family: "Space Grotesque", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             transition: background-color 4s cubic-bezier(0.4, 0, 0.2, 1), color 4s ease, border-color 4s ease; 
             -webkit-font-smoothing: antialiased;
-            overflow: hidden;
+            overflow: hidden; /* 电脑端锁定，保持纯净大屏感 */
         }
 
         /* 🌙 核心反转逻辑 */
@@ -33,3 +33,337 @@
             color: #F9F9F9;
         }
         body.is-active .global-nav,
+        body.is-active .nav-links > li > a,
+        body.is-active .nav-groups,
+        body.is-active .lang-switch {
+            border-color: #F9F9F9 !important;
+        }
+        body.is-active .nav-logo a,
+        body.is-active .nav-links > li > a,
+        body.is-active .sub-menu a,
+        body.is-active .lang-switch span,
+        body.is-active .main-logo {
+            color: #F9F9F9 !important;
+        }
+        body.is-active .group-label {
+            background: #F9F9F9 !important;
+            color: #111111 !important;
+            border-color: #F9F9F9 !important;
+        }
+        body.is-active .group-label:hover {
+            background: var(--fluo-yellow) !important;
+            border-color: #111111 !important;
+            color: #111111 !important;
+        }
+        body.is-active .center-statement {
+            background-color: #F9F9F9;
+        }
+        body.is-active .center-statement span {
+            color: #111111;
+        }
+
+        .lang-zh.hidden, .lang-en.hidden { display: none !important; }
+
+        /* --- 顶部导航 --- */
+        .global-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 30px 80px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1001;
+            box-sizing: border-box;
+            border-bottom: 1.5px solid var(--black);
+            background-color: inherit; /* 保证黑白反转时背景融合 */
+        }
+
+        .nav-logo a {
+            font-size: 2rem;
+            font-weight: 900;
+            text-decoration: none;
+            color: var(--black);
+            letter-spacing: -0.03em;
+        }
+
+        .nav-links { display: flex; list-style: none; gap: 30px; margin: 0; padding: 0; }
+        .nav-links > li { position: relative; }
+        .nav-links > li > a { 
+            text-decoration: none; color: var(--black); font-size: 1.05rem; font-weight: 700; 
+            text-transform: uppercase; padding: 6px 16px; border: 1.5px solid var(--black);
+            display: inline-block; transition: 0.2s ease-in-out;
+        }
+        
+        .nav-links > li > a:hover { 
+            background: var(--fluo-yellow) !important; 
+            color: #111111 !important; 
+            border-color: var(--black); 
+            box-shadow: 4px 4px 0 var(--black);
+        }
+
+        .dropdown-menu {
+            position: absolute; top: 100%; left: 0; background: var(--black); min-width: 200px;
+            list-style: none; padding: 10px 0; margin: 0; opacity: 0; visibility: hidden;
+            border: 1.5px solid var(--black); transition: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .nav-links > li:hover .dropdown-menu { opacity: 1; visibility: visible; margin-top: 10px; }
+        .dropdown-menu li a { 
+            color: var(--white) !important; padding: 12px 20px; display: block; 
+            text-decoration: none; font-weight: 600; font-size: 0.95rem;
+        }
+        .dropdown-menu li a:hover { color: var(--fluo-yellow) !important; }
+
+        /* --- 主内容 --- */
+        .hero-wrapper {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 100px;
+            box-sizing: border-box;
+        }
+
+        .main-logo {
+            font-size: 15vw;
+            font-weight: 900;
+            margin: 0;
+            letter-spacing: -0.06em;
+            line-height: 0.8;
+            color: var(--black); 
+            cursor: default;
+            transition: color 0.2s ease;
+        }
+        
+        .main-logo:hover {
+            color: transparent !important;
+            -webkit-text-stroke: 3px var(--fluo-yellow); 
+        }
+
+        .center-statement {
+            margin-top: 30px;
+            padding: 10px 24px;
+            background-color: var(--black);
+            display: inline-block;
+            width: fit-content;
+            transition: background-color 2s ease;
+        }
+        .center-statement span {
+            font-weight: 700; letter-spacing: 0.4em; font-size: 1rem;
+            color: var(--white);
+            transition: color 2s ease;
+        }
+
+        /* --- 底部导航 --- */
+        .footer-nav {
+            position: absolute; bottom: 50px; left: 100px; right: 100px;
+        }
+        .nav-groups {
+            display: grid; grid-template-columns: repeat(4, 1fr);
+            border-top: 1.5px solid var(--black); padding-top: 25px; list-style: none; margin: 0;
+        }
+
+        .group-label {
+            font-size: 0.95rem; font-weight: 700; background: var(--white); 
+            color: var(--black); padding: 5px 12px; display: inline-block;
+            margin-bottom: 20px; border: 1.5px solid var(--black);
+            box-shadow: 2px 2px 0 var(--black);
+            transition: all 0.2s ease, background-color 2s ease, border-color 2s ease;
+        }
+        .group-label:hover {
+            background: var(--fluo-yellow) !important;
+            transform: translate(-1px, -1px);
+            box-shadow: 3px 3px 0 var(--black);
+        }
+
+        .sub-menu a {
+            display: block; text-decoration: none; 
+            color: inherit; 
+            margin-bottom: 12px; font-size: 1.05rem; font-weight: 600; 
+            position: relative; width: fit-content;
+            opacity: 0.8;
+            transition: 0.2s;
+        }
+        .sub-menu a:hover { opacity: 1; }
+        .sub-menu a::after {
+            content: ''; position: absolute; width: 0; height: 3px; 
+            bottom: -4px; left: 0; background-color: var(--fluo-yellow); 
+            transition: width 0.2s ease;
+        }
+        .sub-menu a:hover::after { width: 100%; }
+
+        /* 语言切换 */
+        .lang-switch { margin-left: 50px; border: 1.5px solid var(--black); padding: 2px; background: transparent; transition: border-color 2s ease; display: flex; }
+        .lang-switch span { padding: 4px 12px; cursor: pointer; font-weight: 700; color: inherit; font-size: 0.9rem; }
+        .lang-switch .active { background: var(--fluo-yellow); color: #111111 !important; }
+
+
+        /* ==========================================================================
+           📱 移动端硬核响应式调校 (屏幕小于 768px 时自动启用)
+           ========================================================================== */
+        @media (max-width: 768px) {
+            body {
+                overflow-x: hidden;
+                overflow-y: auto; /* 1. 允许手机端顺畅上下滚动，防止内容被截断 */
+            }
+
+            /* 2. 顶部导航紧凑化：手机上隐藏冗长的顶部链接，只留 Logo 和中英文切换 */
+            .global-nav {
+                padding: 20px;
+            }
+            .nav-links {
+                display: none; /* 手机端隐藏复杂的下拉菜单，依靠底部直观的网格导航 */
+            }
+            .lang-switch {
+                margin-left: 0;
+            }
+
+            /* 3. 中间大字重构：防止撑破屏幕，改为安全合理的手机大字号 */
+            .hero-wrapper {
+                height: auto;
+                padding: 140px 20px 40px 20px; /* 拉开顶部距离，防止撞上 fixed 导航 */
+            }
+            .main-logo {
+                font-size: 24vw; /* 放大比例以适应窄屏 */
+                line-height: 0.9;
+            }
+            .center-statement {
+                margin-top: 20px;
+                padding: 8px 16px;
+            }
+            .center-statement span {
+                font-size: 0.85rem;
+                letter-spacing: 0.2em;
+            }
+
+            /* 4. 底部变流式布局：打破绝对定位，变成向下自然延展 */
+            .footer-nav {
+                position: static; 
+                margin-top: 60px;
+                padding: 0;
+                width: 100%;
+            }
+            /* 4列变2列：完美适配手机握持和阅读习惯 */
+            .nav-groups {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 40px 20px;
+                padding-top: 20px;
+            }
+            .group-label {
+                font-size: 0.85rem;
+                margin-bottom: 12px;
+            }
+            .sub-menu a {
+                font-size: 0.95rem;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body id="dynamic-body">
+
+    <nav class="global-nav">
+        <div class="nav-logo"><a href="index.html">EASIS</a></div>
+        <div style="display: flex; align-items: center;">
+            <ul class="nav-links">
+                <li class="dropdown">
+                    <a href="economics.html"><span class="lang-en">Researcher</span><span class="lang-zh hidden">项目研究</span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="economics.html"><span class="lang-en">Economics</span><span class="lang-zh hidden">经济学研究</span></a></li>
+                        <li><a href="#"><span class="lang-en">Innovation</span><span class="lang-zh hidden">创新学研究</span></a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="javascript:void(0)"><span class="lang-en">Observer</span><span class="lang-zh hidden">看世界</span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#"><span class="lang-en">Visual Archive</span><span class="lang-zh hidden">摄影辑录</span></a></li>
+                        <li><a href="#"><span class="lang-en">Curation Walk</span><span class="lang-zh hidden">看展日记</span></a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="javascript:void(0)"><span class="lang-en">Recorder</span><span class="lang-zh hidden">正在记录中</span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#"><span class="lang-en">Theatre & Scene</span><span class="lang-zh hidden">观演日记</span></a></li>
+                        <li><a href="#"><span class="lang-en">Readings & Dialectics</span><span class="lang-zh hidden">读书笔记</span></a></li>
+                    </ul>
+                </li>
+                <li><a href="about.html"><span class="lang-en">Me</span><span class="lang-zh hidden">个人</span></a></li>
+            </ul>
+            <div class="lang-switch">
+                <span id="btn-en" onclick="setLanguage('en')" class="active">EN</span>
+                <span id="btn-zh" onclick="setLanguage('zh')">中文</span>
+            </div>
+        </div>
+    </nav>
+
+    <main class="hero-wrapper">
+        <h1 class="main-logo">EASIS</h1>
+        <div class="center-statement">
+            <p style="margin: 0;">
+                <span class="lang-en">SYSTEMS / MEDIUM / ARCHIVE</span>
+                <span class="lang-zh hidden">系统 / 媒介 / 档案</span>
+            </p>
+        </div>
+
+        <nav class="footer-nav">
+            <ul class="nav-groups">
+                <li>
+                    <span class="group-label">
+                        <span class="lang-en">Personal</span><span class="lang-zh hidden">个人信息</span>
+                    </span>
+                    <div class="sub-menu">
+                        <a href="about.html"><span class="lang-en">Profile</span><span class="lang-zh hidden">关于我</span></a>
+                        <a href="about.html"><span class="lang-en">Contact</span><span class="lang-zh hidden">联系方式</span></a>
+                    </div>
+                </li>
+                <li>
+                    <span class="group-label">
+                        <span class="lang-en">Researcher</span><span class="lang-zh hidden">项目研究</span>
+                    </span>
+                    <div class="sub-menu">
+                        <a href="economics.html"><span class="lang-en">Economics</span><span class="lang-zh hidden">经济学研究</span></a>
+                        <a href="#"><span class="lang-en">Innovation</span><span class="lang-zh hidden">创新学研究</span></a>
+                    </div>
+                </li>
+                <li>
+                    <span class="group-label">
+                        <span class="lang-en">Observer</span><span class="lang-zh hidden">看世界</span>
+                    </span>
+                    <div class="sub-menu">
+                        <a href="#"><span class="lang-en">Visual Archive</span><span class="lang-zh hidden">影像档案</span></a>
+                        <a href="#"><span class="lang-en">Curation Walk</span><span class="lang-zh hidden">看展日记</span></a>
+                    </div>
+                </li>
+                <li>
+                    <span class="group-label">
+                        <span class="lang-en">Recorder</span><span class="lang-zh hidden">正在记录中</span>
+                    </span>
+                    <div class="sub-menu">
+                        <a href="#"><span class="lang-en">Theatre & Scene</span><span class="lang-zh hidden">走进剧场</span></a>
+                        <a href="#"><span class="lang-en">Readings & Dialectics</span><span class="lang-zh hidden">读书笔记</span></a>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </main>
+
+    <script>
+        const body = document.getElementById('dynamic-body');
+        
+        function runAnimation() {
+            setTimeout(() => { body.classList.add('is-active'); }, 15000); 
+            setTimeout(() => { body.classList.remove('is-active'); }, 30000); 
+            setTimeout(runAnimation, 35000); 
+        }
+        runAnimation();
+
+        function setLanguage(lang) {
+            document.querySelectorAll('.lang-en').forEach(el => lang === 'zh' ? el.classList.add('hidden') : el.classList.remove('hidden'));
+            document.querySelectorAll('.lang-zh').forEach(el => lang === 'zh' ? el.classList.remove('hidden') : el.classList.add('hidden'));
+            
+            document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+            document.getElementById('btn-zh').classList.toggle('active', lang === 'zh');
+        }
+    </script>
+</body>
+</html>
