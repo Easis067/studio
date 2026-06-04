@@ -46,7 +46,6 @@
             color: #F9F9F9 !important;
         }
         
-        /* 反转模式下的框体样式 */
         body.is-active .group-label, 
         body.is-active .about-box-link {
             background: transparent !important;
@@ -172,7 +171,7 @@
         }
         .nav-groups {
             display: grid; 
-            grid-template-columns: 1.2fr 1fr 1fr; /* 略微加宽第一列，给 About Me 留白框更完美的比例 */
+            grid-template-columns: 1.2fr 1fr 1fr; 
             border-top: 1.5px solid var(--black); 
             padding-top: 40px; 
             list-style: none; 
@@ -182,7 +181,7 @@
             align-items: flex-start;
         }
 
-        /* 🎨 统一改动：白底黑框，干净高级 */
+        /* 统一白底黑框 */
         .group-label {
             font-size: 1.15rem; 
             font-weight: 900; 
@@ -199,17 +198,17 @@
             transition: all 0.2s ease;
         }
 
-        /* 💡 特殊定制：ABOUT ME 巨型留白框 */
+        /* ABOUT ME 巨型留白框 */
         .about-box-link {
             display: flex;
-            flex-direction: column; /* 垂直排列，上下腾出空间 */
+            flex-direction: column; 
             justify-content: space-between;
             text-decoration: none;
             color: inherit;
             background: transparent;
             border: 1.5px solid var(--black);
             padding: 16px 24px;
-            min-height: 140px; /* 强制大框高度，形成大面积留白 */
+            min-height: 140px; 
             box-shadow: 4px 4px 0 var(--black);
             box-sizing: border-box;
             transition: all 0.2s ease;
@@ -235,7 +234,6 @@
             transition: transform 0.2s ease;
         }
 
-        /* 座右铭/签名占位区样式 */
         .motto-placeholder {
             font-size: 0.9rem;
             font-weight: 500;
@@ -247,7 +245,6 @@
             transition: color 0.2s ease;
         }
 
-        /* 悬停特效 */
         .group-label:hover, .about-box-link:hover {
             background: var(--fluo-yellow) !important;
             color: #111111 !important;
@@ -262,7 +259,7 @@
             color: #222222;
         }
 
-        /* 列表菜单美化 */
+        /* 列表菜单 */
         .sub-menu {
             padding-left: 4px; 
         }
@@ -270,7 +267,7 @@
             display: block; 
             text-decoration: none; 
             color: inherit; 
-            margin-bottom: 18px; /* 稍微拉大间距，舒缓视觉 */
+            margin-bottom: 18px; 
             font-size: 1.15rem; 
             font-weight: 600; 
             position: relative; 
@@ -291,7 +288,6 @@
         .lang-switch span { padding: 4px 12px; cursor: pointer; font-weight: 700; color: inherit; font-size: 0.9rem; }
         .lang-switch .active { background: var(--fluo-yellow); color: #111111 !important; }
 
-        /* 移动端响应式调整 */
         @media (max-width: 900px) {
             .global-nav { padding: 20px 40px; }
             .nav-links { display: none; }
@@ -315,8 +311,8 @@
                 <li class="dropdown">
                     <a href="javascript:void(0)"><span class="lang-en">Work</span><span class="lang-zh hidden">工作项目</span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="/economics.html"><span class="lang-en">Economics</span><span class="lang-zh hidden">经济学研究</span></a></li>
-                        <li><a href="/innovation.html"><span class="lang-en">Innovation</span><span class="lang-zh hidden">创新学研究</span></a></li>
+                        <!-- 💡 顶部导航同步精简为 Projects & Experience -->
+                        <li><a href="/projects.html"><span class="lang-en">Projects</span><span class="lang-zh hidden">研究项目</span></a></li>
                         <li><a href="#"><span class="lang-en">Experience</span><span class="lang-zh hidden">工作经历</span></a></li>
                     </ul>
                 </li>
@@ -348,7 +344,7 @@
         <nav class="footer-nav">
             <ul class="nav-groups">
                 
-                <!-- 1. ABOUT ME 列：高大的框，下方留白，支持之后写座右铭 -->
+                <!-- 1. ABOUT ME 列 -->
                 <li>
                     <a href="/about.html" class="about-box-link">
                         <div class="about-header">
@@ -358,7 +354,6 @@
                             </span>
                             <span class="about-arrow">→</span>
                         </div>
-                        <!-- 💡 座右铭占位区（已做留白处理） -->
                         <div class="motto-placeholder">
                             <span class="lang-en">"Motto or personal statement placeholder..."</span>
                             <span class="lang-zh hidden">“此处可填写你的个人座右铭或简介……”</span>
@@ -366,19 +361,18 @@
                     </a>
                 </li>
                 
-                <!-- 2. WORK 列 -->
+                <!-- 2. WORK 列：二合一极简结构，合并为 Projects -->
                 <li>
                     <span class="group-label">
                         <span class="lang-en">Work</span><span class="lang-zh hidden">工作 / 研究</span>
                     </span>
                     <div class="sub-menu">
-                        <a href="/economics.html"><span class="lang-en">Economics</span><span class="lang-zh hidden">经济学研究</span></a>
-                        <a href="/innovation.html"><span class="lang-en">Innovation</span><span class="lang-zh hidden">创新学研究</span></a>
+                        <a href="/projects.html"><span class="lang-en">Projects</span><span class="lang-zh hidden">研究项目</span></a>
                         <a href="#"><span class="lang-en">Experience</span><span class="lang-zh hidden">工作经历</span></a>
                     </div>
                 </li>
 
-                <!-- 3. LOGS 列：三合一降维合并，画面变干净 -->
+                <!-- 3. LOGS 列 -->
                 <li>
                     <span class="group-label">
                         <span class="lang-en">Logs</span><span class="lang-zh hidden">生活 / 记录</span>
@@ -393,7 +387,7 @@
         </nav>
     </main>
 
-    <script {__context__}>
+    <script>
         const body = document.getElementById('dynamic-body');
         
         function runAnimation() {
