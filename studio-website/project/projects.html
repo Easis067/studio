@@ -1,49 +1,285 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2113.4">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
-    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EASIS | PROJECTS</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesque:wght@500;700;900&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-black: #0A0A0A;       /* 深邃的展厅黑 */
+            --fluo-green: #00FF66;     /* 你的专属标志性荧光绿 */
+            --white: #F9F9F9;          
+        }
+
+        body {
+            background-color: var(--bg-black);
+            color: var(--fluo-green); /* 全局文字初始为荧光绿 */
+            margin: 0;
+            font-family: "Space Grotesque", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        .lang-zh.hidden, .lang-en.hidden { display: none !important; }
+
+        /* --- 顶部导航（配色反转适配） --- */
+        .global-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 30px 100px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1001;
+            box-sizing: border-box;
+            border-bottom: 1.5px solid var(--fluo-green);
+            background-color: var(--bg-black); 
+        }
+
+        .nav-logo a {
+            font-size: 2rem;
+            font-weight: 900;
+            text-decoration: none;
+            color: var(--fluo-green);
+            letter-spacing: -0.03em;
+        }
+
+        .nav-links { display: flex; list-style: none; gap: 30px; margin: 0; padding: 0; }
+        .nav-links > li { position: relative; }
+        .nav-links > li > a { 
+            text-decoration: none; color: var(--fluo-green); font-size: 1.05rem; font-weight: 700; 
+            text-transform: uppercase; padding: 6px 16px; border: 1.5px solid var(--fluo-green);
+            display: inline-block; transition: 0.2s ease-in-out;
+        }
+        
+        .nav-links > li > a:hover { 
+            background: var(--fluo-green) !important; 
+            color: var(--bg-black) !important; 
+            box-shadow: 4px 4px 0 var(--white);
+        }
+
+        .dropdown-menu {
+            position: absolute; top: 100%; left: 0; background: var(--fluo-green); min-width: 200px;
+            list-style: none; padding: 10px 0; margin: 0; opacity: 0; visibility: hidden;
+            border: 1.5px solid var(--fluo-green); transition: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .nav-links > li:hover .dropdown-menu { opacity: 1; visibility: visible; margin-top: 10px; }
+        .dropdown-menu li a { 
+            color: var(--bg-black) !important; padding: 12px 20px; display: block; 
+            text-decoration: none; font-weight: 700; font-size: 0.95rem;
+        }
+        .dropdown-menu li a:hover { color: var(--white) !important; background-color: var(--bg-black); }
+
+        /* 语言切换 */
+        .lang-switch { margin-left: 50px; border: 1.5px solid var(--fluo-green); padding: 2px; background: transparent; display: flex; }
+        .lang-switch span { padding: 4px 12px; cursor: pointer; font-weight: 700; color: inherit; font-size: 0.9rem; }
+        .lang-switch .active { background: var(--fluo-green); color: var(--bg-black) !important; }
+
+        /* --- 核心主体布局 --- */
+        .projects-wrapper {
+            min-height: 100vh;
+            padding: 180px 100px 80px 100px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .page-header {
+            margin-bottom: 60px;
+            border-bottom: 1.5px solid var(--fluo-green);
+            padding-bottom: 20px;
+        }
+
+        .page-title {
+            font-size: 4rem;
+            font-weight: 900;
+            margin: 0;
+            letter-spacing: -0.04em;
+            text-transform: uppercase;
+        }
+
+        /* --- 完美的双栏大卡片网格 --- */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr; /* 强悍对称的双列 */
+            gap: 50px;
+            width: 100%;
+        }
+
+        /* 延续首页线条感，但完全融入经济页面的荧光绿基因 */
+        .project-card {
+            border: 1.5px solid var(--fluo-green);
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            text-decoration: none;
+            color: inherit;
+            min-height: 350px; /* 给予宏大的高度空间 */
+            box-shadow: 6px 6px 0 transparent;
+            box-sizing: border-box;
+            background: transparent;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .project-num {
+            font-size: 1.2rem;
+            font-weight: 700;
+            opacity: 0.5;
+        }
+
+        .project-arrow {
+            font-size: 2rem;
+            font-weight: 900;
+            transition: transform 0.3s ease;
+        }
+
+        .card-bottom {
+            margin-top: auto;
+        }
+
+        .project-name {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin: 0 0 15px 0;
+            letter-spacing: -0.02em;
+        }
+
+        .project-desc {
+            font-size: 1.1rem;
+            line-height: 1.5;
+            opacity: 0.8;
+            font-weight: 500;
+            margin: 0;
+            max-width: 90%;
+        }
+
+        /* 💡 爆炸级的悬停特效：整个卡片瞬间变成荧光绿实体，击穿眼球 */
+        .project-card:hover {
+            background: var(--fluo-green) !important;
+            color: var(--bg-black) !important;
+            transform: translate(-4px, -4px);
+            box-shadow: 10px 10px 0 var(--white);
+        }
+
+        .project-card:hover .project-arrow {
+            transform: translate(6px, -6px);
+        }
+
+        /* --- 响应式 --- */
+        @media (max-width: 900px) {
+            .global-nav { padding: 20px 40px; }
+            .nav-links { display: none; }
+            .lang-switch { margin-left: 0; }
+            .projects-wrapper { padding: 140px 40px 40px 40px; }
+            .page-title { font-size: 2.8rem; }
+            .projects-grid { grid-template-columns: 1fr; gap: 30px; }
+            .project-card { min-height: 280px; padding: 25px; }
+            .project-name { font-size: 2rem; }
+        }
+    </style>
 </head>
 <body>
-<p class="p1">&lt;!DOCTYPE html&gt;</p>
-<p class="p1">&lt;html lang="en"&gt;</p>
-<p class="p1">&lt;head&gt;</p>
-<p class="p1">&lt;meta charset="UTF-8"&gt;</p>
-<p class="p1">&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</p>
-<p class="p1">&lt;title&gt;Labour Supply &amp; Incentives – Easis&lt;/title&gt;</p>
-<p class="p1">&lt;link rel="stylesheet" href="../css/style.css"&gt;</p>
-<p class="p1">&lt;/head&gt;</p>
-<p class="p1">&lt;body&gt;</p>
-<p class="p1">&lt;header&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;h1&gt;Labour Supply &amp; Incentives&lt;/h1&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;p&gt;2025 · Exploring incentive structures in labor markets.&lt;/p&gt;</p>
-<p class="p1">&lt;/header&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;main&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;section&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;h2&gt;Abstract&lt;/h2&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;p&gt;This project explores how labor supply responds to different incentive structures, using theoretical models and empirical data.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/section&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;section&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;h2&gt;Methodology&lt;/h2&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;p&gt;We apply a combination of microeconomic modeling and data analysis.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/section&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;section&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;h2&gt;Results&lt;/h2&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;p&gt;Key insights include how tax and subsidy policies shift labor participation.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/section&gt;</p>
-<p class="p1">&lt;/main&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;/body&gt;</p>
-<p class="p1">&lt;/html&gt;</p>
+
+    <!-- 顶部导航 -->
+    <nav class="global-nav">
+        <div class="nav-logo"><a href="/index.html">EASIS</a></div>
+        <div style="display: flex; align-items: center;">
+            <ul class="nav-links">
+                <li class="dropdown">
+                    <a href="javascript:void(0)"><span class="lang-en">Work</span><span class="lang-zh hidden">工作项目</span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/projects.html"><span class="lang-en">Projects</span><span class="lang-zh hidden">研究项目</span></a></li>
+                        <li><a href="#"><span class="lang-en">Experience</span><span class="lang-zh hidden">工作经历</span></a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="javascript:void(0)"><span class="lang-en">Logs</span><span class="lang-zh hidden">生活记录</span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#"><span class="lang-en">Visual Archive</span><span class="lang-zh hidden">摄影辑录</span></a></li>
+                        <li><a href="#"><span class="lang-en">Text Logs</span><span class="lang-zh hidden">文字记录</span></a></li>
+                    </ul>
+                </li>
+                <li><a href="/about.html"><span class="lang-en">About Me</span><span class="lang-zh hidden">关于我</span></a></li>
+            </ul>
+            <div class="lang-switch">
+                <span id="btn-en" onclick="setLanguage('en')" class="active">EN</span>
+                <span id="btn-zh" onclick="setLanguage('zh')">中文</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主体区域 -->
+    <main class="projects-wrapper">
+        <header class="page-header">
+            <h1 class="page-title">
+                <span class="lang-en">Selected Projects</span>
+                <span class="lang-zh hidden">精选研究项目</span>
+            </h1>
+        </header>
+
+        <!-- 💡 双栏巨幕卡片展示区 -->
+        <section class="projects-grid">
+            
+            <!-- 卡片 1: 经济学 -->
+            <a href="/economics.html" class="project-card">
+                <div class="card-top">
+                    <span class="project-num">01 / ARCHIVE</span>
+                    <span class="project-arrow">↗</span>
+                </div>
+                <div class="card-bottom">
+                    <h2 class="project-name">
+                        <span class="lang-en">Economics Research</span>
+                        <span class="lang-zh hidden">经济学研究</span>
+                    </h2>
+                    <p class="project-desc">
+                        <span class="lang-en">Exploring macroeconomic paradigms, systemic financial structures, and quantitative data modeling.</span>
+                        <span class="lang-zh hidden">探索宏观经济范式、系统性金融结构与量化数据建模。</span>
+                    </p>
+                </div>
+            </a>
+
+            <!-- 卡片 2: 创新学 -->
+            <a href="/innovation.html" class="project-card">
+                <div class="card-top">
+                    <span class="project-num">02 / ARCHIVE</span>
+                    <span class="project-arrow">↗</span>
+                </div>
+                <div class="card-bottom">
+                    <h2 class="project-name">
+                        <span class="lang-en">Innovation Studies</span>
+                        <span class="lang-zh hidden">创新学研究</span>
+                    </h2>
+                    <p class="project-desc">
+                        <span class="lang-en">Investigating technological mediums, ecosystem evolutions, and the future architectures of systems.</span>
+                        <span class="lang-zh hidden">研究技术媒介、生态系统演进以及系统的未来架构。</span>
+                    </p>
+                </div>
+            </a>
+
+        </section>
+    </main>
+
+    <script>
+        function setLanguage(lang) {
+            document.querySelectorAll('.lang-en').forEach(el => lang === 'zh' ? el.classList.add('hidden') : el.classList.remove('hidden'));
+            document.querySelectorAll('.lang-zh').forEach(el => lang === 'zh' ? el.classList.remove('hidden') : el.classList.remove('hidden'));
+            
+            document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+            document.getElementById('btn-zh').classList.toggle('active', lang === 'zh');
+        }
+    </script>
 </body>
 </html>
