@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Economics | EASIS</title>
+    <style>
+        :root {
+            --white: #F9F9F9;         
+            --fluo-yellow: #00E1D9;   
+            --black: #111111;         
+        }
+        
+        body {
+            background-color: var(--white); 
+            color: var(--black); 
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .lang-zh.hidden, .lang-en.hidden { display: none !important; }
+
+        /* --- 顶部导航栏 --- */
+        .global-nav {
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+            padding: 15px 80px !important; 
+            position: fixed; 
+            width: 100%; 
+            top: 0; 
+            z-index: 9999; 
+            box-sizing: border-box; 
+            border-bottom: 1.5px solid var(--black); 
+            background-color: var(--white);
+        }
+        
+        .nav-logo a { 
+            font-size: 2rem !important; 
+            font-weight: 900 !important; 
+            text-decoration: none !important; 
+            color: var(--black) !important; 
+            letter-spacing: -0.03em !important;
+            display: inline-block !important;
+            padding: 2px 10px !important; 
+            transition: all 0.2s ease !important;
+        }
+        
+        .nav-logo a:hover {
+            background-color: var(--fluo-yellow) !important;
+            box-shadow: 3px 3px 0 var(--black) !important; 
+            transform: translate(-1px, -1px) !important;
+        }
+
+        .nav-right-zone {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .nav-links { display: flex; list-style: none; gap: 20px; margin: 0; padding: 0; }
+        .nav-links a { 
+            text-decoration: none; 
+            color: var(--black); 
+            font-size: 1.05rem; 
+            font-weight: 700;   
+            text-transform: uppercase; 
+            padding: 6px 16px; 
+            border: 1.5px solid var(--black); 
+            background: var(--white);
+            transition: 0.2s ease-in-out; 
+            display: inline-block;
+        }
+
+        .nav-links a:hover {
+            background: var(--fluo-yellow) !important;
+            box-shadow: 3px 3px 0 var(--black);
+            transform: translate(-1px, -1px);
+        }
+
+        /* 语言切换器 */
+        .lang-switch { border: 1.5px solid var(--black); padding: 2px; display: flex; background: transparent; }
+        .lang-switch span { 
+            padding: 4px 12px; 
+            cursor: pointer; 
+            font-weight: 700; 
+            font-size: 0.9rem; 
+            color: var(--black); 
+        }
+        .lang-switch .active { background: var(--fluo-yellow); }
+
+        /* --- 主内容布局 --- */
+        .projects-container { 
+            padding: 160px 80px 100px; 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            box-sizing: border-box;
+        }
+        
+        .page-header { 
+            margin-bottom: 60px; 
+            padding-left: 0; 
+            display: inline-block; 
+        }
+        .page-header h1 { 
+            font-size: 4.5rem; 
+            font-weight: 900; 
+            margin: 0; 
+            letter-spacing: -0.04em;
+            position: relative;
+            padding-bottom: 15px; 
+        }
+        
+        .page-header h1::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%; 
+            height: 12px; 
+            background-color: var(--fluo-yellow);
+            z-index: -1; 
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            margin-top: 15px;
+            opacity: 0.6;
+            font-weight: 500;
+        }
+
+        /* --- 学术档案列表流 --- */
+        .papers-list {
+            display: flex;
+            flex-direction: column;
+            border-top: 1.5px solid var(--black); 
+        }
+
+        .paper-row {
+            display: grid;
+            grid-template-columns: 180px 1fr 160px; 
+            align-items: flex-start;
+            padding: 35px 15px;
+            border-bottom: 1.5px solid var(--black);
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .paper-row:hover {
+            background-color: var(--fluo-yellow);
+            transform: translateX(10px);
+        }
+
+        .paper-index {
+            font-size: 1.1rem;
+            font-weight: 900;
+            letter-spacing: 0.05em;
+            opacity: 0.5;
+        }
+        .paper-row:hover .paper-index { opacity: 1; }
+
+        .paper-content { padding-right: 40px; }
+        .paper-content h2 {
+            font-size: 1.7rem;
+            font-weight: 900;
+            margin: 0 0 12px 0;
+            letter-spacing: -0.02em;
+            line-height: 1.3;
+        }
+        .paper-content p {
+            font-size: 1.05rem;
+            line-height: 1.6;
+            margin: 0;
+            opacity: 0.7;
+            font-weight: 500;
+        }
+        .paper-row:hover .paper-content p { opacity: 0.9; }
+
+        .paper-tag-zone {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 15px;
+        }
+        .paper-category { 
+            font-size: 0.8rem; 
+            font-weight: 900; 
+            background: var(--black); 
+            color: var(--white) !important; 
+            padding: 4px 10px; 
+            width: fit-content; 
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+        .paper-arrow {
+            font-size: 1.2rem;
+            font-weight: 900;
+            transition: transform 0.2s ease;
+        }
+        .paper-row:hover .paper-arrow { transform: translateX(5px); }
+
+        /* --- 移动端完美适配 --- */
+        @media (max-width: 768px) {
+            .global-nav { padding: 12px 20px !important; } 
+            .nav-right-zone { gap: 15px; }
+            .nav-logo a { font-size: 1.6rem !important; }
+            
+            .projects-container { padding: 120px 24px 60px; }
+            .page-header { margin-bottom: 40px; }
+            .page-header h1 { font-size: 2.8rem; }
+            .page-header h1::after { height: 8px; } 
+            
+            .paper-row {
+                grid-template-columns: 1fr;
+                gap: 15px;
+                padding: 25px 5px;
+            }
+            .paper-row:hover { transform: none; }
+            .paper-content { padding-right: 0; }
+            .paper-tag-zone { flex-direction: row; justify-content: space-between; align-items: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="global-nav">
+        <!-- 💡 确定修改：返回主页全量使用统一的 /index.html -->
+        <div class="nav-logo"><a href="/index.html">EASIS</a></div>
+        
+        <div class="nav-right-zone">
+            <ul class="nav-links">
+                <li>
+                    <!-- 💡 确定修改：返回主页全量使用统一的 /index.html -->
+                    <a href="/index.html">
+                        <span class="lang-en">Home</span>
+                        <span class="lang-zh hidden">首页</span>
+                    </a>
+                </li>
+            </ul>
+            
+            <div class="lang-switch">
+                <span id="btn-en" onclick="setLanguage('en')" class="active">EN</span>
+                <span id="btn-zh" onclick="setLanguage('zh')">中文</span>
+            </div>
+        </div>
+    </nav>
+
+    <main class="projects-container">
+        <header class="page-header">
+            <h1>ECONOMICS</h1>
+            <p class="lang-en">Structural analysis of market mechanisms and systems.</p>
+            <p class="lang-zh hidden">市场机制与系统的结构性分析。</p>
+        </header>
+
+        <div class="papers-list">
+            
+            <!-- 💡 确定修改：PDF文件在根目录 project 文件夹内，使用绝对路径 /project/research-01.pdf -->
+            <a href="/project/research-01.pdf" target="_blank" class="paper-row">
+                <div class="paper-index">WP / 2026.04</div>
+                
+                <div class="paper-content">
+                    <div class="lang-en">
+                        <h2>Economic System Research Project Title</h2>
+                        <p>This is the research abstract for your first project. It presents clean data visualization and system analysis models on an institutional archive layer.</p>
+                    </div>
+                    
+                    <div class="lang-zh hidden">
+                        <h2>第一个经济系统研究项目标题</h2>
+                        <p>这里是第一个项目的中文研究摘要。去除了原本复杂的图片背景，现在在纯净的美术馆白底色下，完美且专注地呈现你的学术与思考成果。</p>
+                    </div>
+                </div>
+                
+                <div class="paper-tag-zone">
+                    <span class="paper-category">System Analysis</span>
+                    <span class="paper-arrow">→</span>
+                </div>
+            </a>
+
+            <a href="javascript:void(0)" class="paper-row">
+                <div class="paper-index">WP / 2026.02</div>
+                <div class="paper-content">
+                    <div class="lang-en">
+                        <h2>Market Mechanisms & Innovation Dialectics</h2>
+                        <p>This is the research abstract for your second project, exploring the structural relationships between emerging technologies and microeconomic changes.</p>
+                    </div>
+                    
+                    <div class="lang-zh hidden">
+                        <h2>第二个经济研究：市场机制与创新辩证</h2>
+                        <p>这里是第二个项目的中文研究摘要。可以用来写关于技术创新、微观经济变化或者市场结构演进的分析，保持高度一致的学术质感。</p>
+                    </div>
+                </div>
+                <div class="paper-tag-zone">
+                    <span class="paper-category">Innovation</span>
+                    <span class="paper-arrow">→</span>
+                </div>
+            </a>
+
+            <a href="javascript:void(0)" class="paper-row">
+                <div class="paper-index">ESSAY / 2025</div>
+                <div class="paper-content">
+                    <div class="lang-en">
+                        <h2>Asymmetric Information in Regional Supply Chains</h2>
+                        <p>An empirical review on information asymmetry and risk premium distribution channels among micro-market economic entities.</p>
+                    </div>
+                    
+                    <div class="lang-zh hidden">
+                        <h2>区域供应链中的信息不对称研究</h2>
+                        <p>这是一篇关于微观市场主体间信息不对称与风险溢价分销渠道的实证评述，采用严谨的分析框架。</p>
+                    </div>
+                </div>
+                <div class="paper-tag-zone">
+                    <span class="paper-category">Micro Theory</span>
+                    <span class="paper-arrow">→</span>
+                </div>
+            </a>
+
+        </div> 
+    </main>
+
+    <script>
+        function setLanguage(lang) {
+            document.querySelectorAll('.lang-en').forEach(el => lang === 'zh' ? el.classList.add('hidden') : el.classList.remove('hidden'));
+            document.querySelectorAll('.lang-zh').forEach(el => lang === 'zh' ? el.classList.remove('hidden') : el.classList.add('hidden'));
+            document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+            document.getElementById('btn-zh').classList.toggle('active', lang === 'zh');
+        }
+    </script>
+</body>
+</html>
