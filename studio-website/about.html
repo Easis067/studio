@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EASIS | ABOUT</title>
     
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesque:wght@500;700;900&display=swap" rel="stylesheet">
 
     <style>
@@ -18,15 +20,16 @@
             background-color: var(--white);
             color: var(--black);
             margin: 0;
-            font-family: "Space Grotesque", sans-serif;
+            font-family: "Space Grotesque", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+            min-height: 100vh;
         }
 
-        /* 强制隐藏逻辑：默认显示英文，隐藏中文 */
+        /* 强制切换逻辑：使用 .mode-zh 或 .mode-en 控制显示 */
         .lang-zh { display: none !important; }
         .lang-en { display: block !important; }
-
-        /* 切换后的状态 */
+        
         body.mode-zh .lang-zh { display: block !important; }
         body.mode-zh .lang-en { display: none !important; }
         body.mode-en .lang-en { display: block !important; }
@@ -44,48 +47,83 @@
         .nav-logo a { font-size: 2rem; font-weight: 900; text-decoration: none; color: var(--black); letter-spacing: -0.03em; }
 
         .nav-links { display: flex; list-style: none; gap: 30px; margin: 0; padding: 0; }
+        .nav-links > li { position: relative; }
         .nav-links > li > a { 
             text-decoration: none; color: var(--black); font-size: 1.05rem; font-weight: 700; 
             text-transform: uppercase; padding: 6px 16px; border: 1.5px solid var(--black);
             display: inline-block; transition: 0.2s ease-in-out;
         }
-        .nav-links > li > a:hover { background: var(--accent-blue) !important; box-shadow: 4px 4px 0 var(--black); }
+        
+        .nav-links > li > a:hover { 
+            background: var(--accent-blue) !important; 
+            color: var(--black) !important; 
+            box-shadow: 4px 4px 0 var(--black);
+        }
 
-        .lang-switch { margin-left: 50px; border: 1.5px solid var(--black); padding: 2px; display: flex; }
-        .lang-switch span { padding: 4px 12px; cursor: pointer; font-weight: 700; font-size: 0.9rem; }
-        .lang-switch .active { background: var(--accent-blue); }
+        .dropdown-menu {
+            position: absolute; top: 100%; left: 0; background: var(--black); min-width: 200px;
+            list-style: none; padding: 10px 0; margin: 0; opacity: 0; visibility: hidden;
+            border: 1.5px solid var(--black); transition: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .nav-links > li:hover .dropdown-menu { opacity: 1; visibility: visible; margin-top: 10px; }
+        .dropdown-menu li a { 
+            color: var(--white) !important; padding: 12px 20px; display: block; 
+            text-decoration: none; font-weight: 600; font-size: 0.95rem;
+        }
+        .dropdown-menu li a:hover { color: var(--accent-blue) !important; }
 
-        /* --- 布局 --- */
+        .lang-switch { margin-left: 50px; border: 1.5px solid var(--black); padding: 2px; background: transparent; display: flex; }
+        .lang-switch span { padding: 4px 12px; cursor: pointer; font-weight: 700; color: inherit; font-size: 0.9rem; }
+        .lang-switch .active { background: var(--accent-blue); color: var(--black) !important; }
+
+        /* --- 布局容器 --- */
         .about-container {
             display: grid;
             grid-template-columns: 1.1fr 1fr;
-            padding: 240px 100px 100px; gap: 120px; max-width: 1400px;
-            margin: 0 auto;
+            padding: 240px 100px 100px 100px; 
+            gap: 120px; max-width: 1400px;
+            margin: 0 auto; box-sizing: border-box; align-items: flex-start;
         }
 
-        .about-title { font-size: 9rem; font-weight: 900; margin: 0; line-height: 0.85; text-transform: uppercase; }
-        .about-title-wrapper::after { content: ''; display: block; width: 100%; height: 35px; background-color: var(--accent-blue); margin-top: 10px; }
+        .about-title-wrapper { position: relative; display: inline-block; }
+        .about-title {
+            font-size: 9rem; font-weight: 900; letter-spacing: -0.04em;
+            margin: 0; line-height: 0.85; text-transform: uppercase;
+            color: var(--black); position: relative; z-index: 1;
+        }
+        .about-title-wrapper::after {
+            content: ''; position: absolute; left: 0; bottom: -5px;
+            width: 100%; height: 35px; background-color: var(--accent-blue); z-index: 0;
+        }
 
-        .content-section { display: flex; flex-direction: column; gap: 100px; }
+        .content-section { display: flex; flex-direction: column; gap: 80px; }
         .about-section { border-top: 1.5px solid var(--black); padding-top: 30px; }
+        .label {
+            font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.15em;
+            color: var(--black); margin-bottom: 25px; font-weight: 900; display: block; opacity: 0.4;
+        }
+        .intro-text { font-size: 1.45rem; line-height: 1.7; font-weight: 500; margin: 0; color: var(--black); text-align: justify; }
 
-        .label { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.15em; font-weight: 900; margin-bottom: 25px; opacity: 0.5; }
-        
-        /* 放大正文与联系方式 */
-        .intro-text { font-size: 1.5rem; line-height: 1.6; font-weight: 500; margin: 0; }
-        
         .contact-box {
             display: inline-flex; align-items: center; justify-content: space-between;
             text-decoration: none; color: var(--black); padding: 20px 25px;
-            border: 1.5px solid var(--black); font-weight: 700; font-size: 1.6rem; /* 放大到 1.6rem */
-            transition: all 0.3s ease; width: 100%; box-sizing: border-box;
+            border: 1.5px solid var(--black); font-weight: 700; font-size: 1.6rem;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            width: 100%; box-sizing: border-box;
         }
-        .contact-box:hover { background-color: var(--accent-blue); transform: translateX(6px); box-shadow: -6px 6px 0 var(--black); }
+        .contact-box:hover {
+            background-color: var(--accent-blue);
+            transform: translateX(6px);
+            box-shadow: -6px 6px 0 var(--black);
+        }
 
         @media (max-width: 1024px) {
-            .about-container { grid-template-columns: 1fr; padding: 180px 40px 60px; }
-            .about-title { font-size: 5rem; }
-            .contact-box { font-size: 1.2rem; }
+            .global-nav { padding: 20px 40px; }
+            .nav-links { display: none; }
+            .lang-switch { margin-left: 0; }
+            .about-container { grid-template-columns: 1fr; padding: 180px 40px 60px; gap: 60px; }
+            .about-title { font-size: 5.5rem; }
+            .contact-box { font-size: 1.3rem; }
         }
     </style>
 </head>
@@ -95,9 +133,15 @@
         <div class="nav-logo"><a href="/index.html">EASIS</a></div>
         <div style="display: flex; align-items: center;">
             <ul class="nav-links">
-                <li><a href="#">Work</a></li>
+                <li class="dropdown">
+                    <a href="javascript:void(0)">Work</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/project/projects.html">Projects</a></li>
+                        <li><a href="#">Experience</a></li>
+                    </ul>
+                </li>
                 <li><a href="#">Logs</a></li>
-                <li><a href="/about.html">About</a></li>
+                <li><a href="/about.html">About Me</a></li>
             </ul>
             <div class="lang-switch">
                 <span id="btn-en" class="active" onclick="switchLang('en')">EN</span>
@@ -107,13 +151,16 @@
     </nav>
 
     <main class="about-container">
-        <div class="about-title-wrapper">
-            <h1 class="about-title">About</h1>
+        <div>
+            <div class="about-title-wrapper">
+                <h1 class="about-title">About</h1>
+            </div>
         </div>
 
         <div class="content-section">
             <section class="about-section">
-                <p class="label">Profile</p>
+                <span class="label lang-en">Hello</span>
+                <span class="label lang-zh">你好</span>
                 <p class="intro-text lang-en">
                     Easis. Here lie reflections on economics and innovation, alongside cities and journeys through my lens, notes in the margins of books, echoes after the theater curtain falls, and those quiet minutes spent standing before an exhibition. Backpack on, hitting the road as an observer of the world.
                 </p>
@@ -123,7 +170,8 @@
             </section>
 
             <section class="about-section">
-                <p class="label">Contact</p>
+                <span class="label lang-en">Connect</span>
+                <span class="label lang-zh">联系我</span>
                 <a href="mailto:Easis067@outlook.com" class="contact-box">
                     <span>Easis067@outlook.com</span>
                     <span>↗</span>
