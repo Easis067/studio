@@ -13,7 +13,7 @@
         :root {
             --white: #F9F9F9;          /* 回归干净的白色/轻灰底 */
             --black: #111111;          /* 统一硬朗的黑色框线与文字 */
-            --fluo-lime: #DFFF00;      /* 精准提取自你截图里的标志性亮荧光黄 */
+            --fluo-lime: #DFFF00;      /* 精准提取自 截屏2026-06-02 04.26.09_2.png 里的亮荧光黄 */
         }
 
         body {
@@ -27,7 +27,7 @@
 
         .lang-zh.hidden, .lang-en.hidden { display: none !important; }
 
-        /* --- 顶部导航栏（完美同步主页设计） --- */
+        /* --- 顶部导航栏 --- */
         .global-nav {
             display: flex;
             justify-content: space-between;
@@ -59,7 +59,7 @@
         }
         
         .nav-links > li > a:hover { 
-            background: var(--fluo-lime) !important; /* 悬停变为截图中的亮黄 */
+            background: var(--fluo-lime) !important; 
             color: var(--black) !important; 
             box-shadow: 4px 4px 0 var(--black);
         }
@@ -104,7 +104,7 @@
             text-transform: uppercase;
         }
 
-        /* --- 工业级对称大双栏 --- */
+        /* --- 双栏卡片网格 --- */
         .projects-grid {
             display: grid;
             grid-template-columns: 1fr 1fr; 
@@ -112,7 +112,6 @@
             width: 100%;
         }
 
-        /* 延续主页的黑框黑字立体阴影结构 */
         .project-card {
             border: 1.5px solid var(--black);
             padding: 40px;
@@ -122,7 +121,7 @@
             text-decoration: none;
             color: inherit;
             min-height: 350px; 
-            box-shadow: 4px 4px 0 var(--black); /* 与首页保持一致的硬投影 */
+            box-shadow: 4px 4px 0 var(--black); 
             box-sizing: border-box;
             background: transparent;
             transition: all 0.2s ease-in-out;
@@ -166,7 +165,7 @@
             max-width: 90%;
         }
 
-        /* 💡 悬停激活动效：卡片瞬间注入标志性的荧光黄底色，完美与经济页建立视觉联系 */
+        /* 💡 悬停激活动效：注入亮黄色底色 */
         .project-card:hover {
             background: var(--fluo-lime) !important;
             transform: translate(-2px, -2px);
@@ -192,6 +191,7 @@
 </head>
 <body>
 
+    <!-- 顶部导航栏 -->
     <nav class="global-nav">
         <div class="nav-logo"><a href="/index.html">EASIS</a></div>
         <div style="display: flex; align-items: center;">
@@ -199,7 +199,7 @@
                 <li class="dropdown">
                     <a href="javascript:void(0)"><span class="lang-en">Work</span><span class="lang-zh hidden">工作项目</span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="/project/projects.html"><span class="lang-en">Projects</span><span class="lang-zh hidden">研究项目</span></a></li>
+                        <li><a href="projects.html"><span class="lang-en">Projects</span><span class="lang-zh hidden">研究项目</span></a></li>
                         <li><a href="#"><span class="lang-en">Experience</span><span class="lang-zh hidden">工作经历</span></a></li>
                     </ul>
                 </li>
@@ -219,6 +219,7 @@
         </div>
     </nav>
 
+    <!-- 主体内容 -->
     <main class="projects-wrapper">
         <header class="page-header">
             <h1 class="page-title">
@@ -229,7 +230,8 @@
 
         <section class="projects-grid">
             
-            <a href="/project/economics.html" class="project-card">
+            <!-- 卡片 1: 经济学 (同级目录下，直接href="economics.html") -->
+            <a href="economics.html" class="project-card">
                 <div class="card-top">
                     <span class="project-num">01 / SYSTEM</span>
                     <span class="project-arrow">↗</span>
@@ -246,7 +248,8 @@
                 </div>
             </a>
 
-            <a href="/project/innovation.html" class="project-card">
+            <!-- 卡片 2: 创新学 (同级目录下，直接href="innovation.html") -->
+            <a href="innovation.html" class="project-card">
                 <div class="card-top">
                     <span class="project-num">02 / MEDIUM</span>
                     <span class="project-arrow">↗</span>
@@ -269,7 +272,7 @@
     <script>
         function setLanguage(lang) {
             document.querySelectorAll('.lang-en').forEach(el => lang === 'zh' ? el.classList.add('hidden') : el.classList.remove('hidden'));
-            document.querySelectorAll('.lang-zh').forEach(el => lang === 'zh' ? el.classList.remove('hidden') : el.classList.add('hidden'));
+            document.querySelectorAll('.lang-zh').forEach(el => lang === 'zh' ? el.remove('hidden') : el.classList.add('hidden'));
             
             document.getElementById('btn-en').classList.toggle('active', lang === 'en');
             document.getElementById('btn-zh').classList.toggle('active', lang === 'zh');
