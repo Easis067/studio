@@ -113,17 +113,7 @@
             text-transform: uppercase;
         }
         
-        /* 💡 注入高质感荧光黄底块强调层 */
-        .page-header h1::after {
-            content: '';
-            position: absolute;
-            left: 0;
-            bottom: 4px;
-            width: 100%; 
-            height: 15px; 
-            background-color: var(--fluo-lime);
-            z-index: -1; 
-        }
+        /* 💡 已经根据要求删除了之前的 h1::after 荧光黄/黑色装饰底线，避免与下方线条重复 */
 
         .page-header p {
             font-size: 1.1rem;
@@ -132,7 +122,7 @@
             font-weight: 500;
         }
 
-        /* 💡 对齐加入：右上角功能快捷切换按钮组 */
+        /* 右上角功能快捷切换按钮组 */
         .header-buttons {
             display: flex;
             gap: 15px;
@@ -255,6 +245,7 @@
 </head>
 <body>
 
+    <!-- 主菜单 -->
     <nav class="global-nav">
         <div class="nav-logo"><a href="/index.html">EASIS</a></div>
         <div style="display: flex; align-items: center;">
@@ -282,6 +273,7 @@
         </div>
     </nav>
 
+    <!-- 主体学术列表区 -->
     <main class="projects-container">
         
         <header class="page-header">
@@ -298,6 +290,7 @@
 
         <div class="papers-list">
             
+            <!-- 项目 01 -->
             <a href="/project/research-01.pdf" target="_blank" class="paper-row">
                 <div class="paper-index">WP / 2026.04</div>
                 
@@ -319,6 +312,7 @@
                 </div>
             </a>
 
+            <!-- 项目 02 -->
             <a href="javascript:void(0)" class="paper-row">
                 <div class="paper-index">WP / 2026.02</div>
                 <div class="paper-content">
@@ -338,6 +332,7 @@
                 </div>
             </a>
 
+            <!-- 项目 03 -->
             <a href="javascript:void(0)" class="paper-row">
                 <div class="paper-index">ESSAY / 2025</div>
                 <div class="paper-content">
@@ -363,7 +358,7 @@
     <script>
         function setLanguage(lang) {
             document.querySelectorAll('.lang-en').forEach(el => lang === 'zh' ? el.classList.add('hidden') : el.classList.remove('hidden'));
-            document.querySelectorAll('.lang-zh').forEach(el => lang === 'zh' ? el.classList.remove('hidden') : el.classList.add('hidden'));
+            document.querySelectorAll('.lang-zh').forEach(el => lang === 'zh' ? el.remove('hidden') : el.classList.add('hidden'));
             document.getElementById('btn-en').classList.toggle('active', lang === 'en');
             document.getElementById('btn-zh').classList.toggle('active', lang === 'zh');
         }
