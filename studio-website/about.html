@@ -5,192 +5,92 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EASIS | ABOUT</title>
     
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesque:wght@500;700;900&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            --white: #F9F9F9;          /* 统一干净的白色/轻灰底 */
-            --black: #111111;          /* 统一硬朗的黑色框线与文字 */
-            --fluo-lime: #DFFF00;      /* 精准对接全站亮青柠荧光黄，色值不改变 */
+            --white: #F9F9F9;
+            --black: #111111;
+            /* 替换为你的标志性蓝色 */
+            --accent: #00E1D9; 
         }
 
         body {
             background-color: var(--white);
             color: var(--black);
             margin: 0;
-            font-family: "Space Grotesque", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-family: "Space Grotesque", sans-serif;
             -webkit-font-smoothing: antialiased;
-            overflow-x: hidden;
-            min-height: 100vh;
         }
 
         .lang-zh.hidden, .lang-en.hidden { display: none !important; }
 
-        /* --- 🥇 统一更换为全站同步的主导航栏 --- */
+        /* 统一导航栏 */
         .global-nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 30px 100px;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1001;
-            box-sizing: border-box;
-            border-bottom: 1.5px solid var(--black);
-            background-color: var(--white); 
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 30px 100px; position: fixed; width: 100%; top: 0;
+            box-sizing: border-box; border-bottom: 1.5px solid var(--black);
+            background: var(--white); z-index: 1000;
         }
+        .nav-logo a { font-size: 2rem; font-weight: 900; text-decoration: none; color: var(--black); }
 
-        .nav-logo a {
-            font-size: 2rem;
-            font-weight: 900;
-            text-decoration: none;
-            color: var(--black);
-            letter-spacing: -0.03em;
-        }
-
-        .nav-links { display: flex; list-style: none; gap: 30px; margin: 0; padding: 0; }
-        .nav-links > li { position: relative; }
-        .nav-links > li > a { 
-            text-decoration: none; color: var(--black); font-size: 1.05rem; font-weight: 700; 
-            text-transform: uppercase; padding: 6px 16px; border: 1.5px solid var(--black);
-            display: inline-block; transition: 0.2s ease-in-out;
-        }
-        
-        .nav-links > li > a:hover { 
-            background: var(--fluo-lime) !important; 
-            color: var(--black) !important; 
-            box-shadow: 4px 4px 0 var(--black);
-        }
-
-        .dropdown-menu {
-            position: absolute; top: 100%; left: 0; background: var(--black); min-width: 200px;
-            list-style: none; padding: 10px 0; margin: 0; opacity: 0; visibility: hidden;
-            border: 1.5px solid var(--black); transition: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .nav-links > li:hover .dropdown-menu { opacity: 1; visibility: visible; margin-top: 10px; }
-        .dropdown-menu li a { 
-            color: var(--white) !important; padding: 12px 20px; display: block; 
-            text-decoration: none; font-weight: 600; font-size: 0.95rem;
-        }
-        .dropdown-menu li a:hover { color: var(--fluo-lime) !important; }
-
-        .lang-switch { margin-left: 50px; border: 1.5px solid var(--black); padding: 2px; background: transparent; display: flex; }
-        .lang-switch span { padding: 4px 12px; cursor: pointer; font-weight: 700; color: inherit; font-size: 0.9rem; }
-        .lang-switch .active { background: var(--fluo-lime); color: var(--black) !important; }
-
-        /* --- 🧱 完美适配的左右双栏布局容器 --- */
+        /* 布局：左侧大字 About，右侧介绍 */
         .about-container {
             display: grid;
-            grid-template-columns: 1.1fr 1fr; /* 精准控制左右黄金比例 */
-            padding: 240px 100px 100px 100px; 
-            gap: 120px;
+            grid-template-columns: 350px 1fr;
+            padding: 220px 100px 100px;
             max-width: 1400px;
             margin: 0 auto;
-            box-sizing: border-box;
-            align-items: flex-start;
-        }
-
-        /* 左侧：完美统一学术厚重感的大字 */
-        .about-title-wrapper {
-            position: relative;
-            display: inline-block;
+            gap: 50px;
         }
 
         .about-title {
-            font-size: 9rem;
+            font-size: 8rem;
             font-weight: 900;
-            letter-spacing: -0.04em;
+            line-height: 0.9;
             margin: 0;
-            line-height: 0.85;
             text-transform: uppercase;
-            color: var(--black);
-            position: relative;
-            z-index: 1;
         }
 
-        /* 💡 注入高质感荧光黄底块强调层，让 About 与主页、学术页完美 Match */
-        .about-title-wrapper::after {
+        /* 使用蓝色装饰 */
+        .about-title::after {
             content: '';
-            position: absolute;
-            left: 0;
-            bottom: -5px;
-            width: 100%;
-            height: 35px;
-            background-color: var(--fluo-lime);
-            z-index: 0;
-        }
-
-        /* 右侧：文案极简现代主义秩序区 */
-        .content-section {
-            display: flex;
-            flex-direction: column;
-            gap: 80px;
-        }
-
-        .about-section {
-            border-top: 1.5px solid var(--black);
-            padding-top: 30px;
-        }
-
-        .label {
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-            color: var(--black);
-            margin-bottom: 25px;
-            font-weight: 900;
             display: block;
-            opacity: 0.4;
+            width: 80px;
+            height: 15px;
+            background-color: var(--accent);
+            margin-top: 20px;
+        }
+
+        .content-section {
+            padding-top: 20px;
         }
 
         .intro-text {
-            font-size: 1.35rem;
-            line-height: 1.75; 
-            font-weight: 500;
-            margin: 0;
-            color: var(--black);
-            text-align: justify;
+            font-size: 1.6rem;
+            line-height: 1.6;
+            margin-bottom: 60px;
+            max-width: 600px;
         }
 
-        /* 联系方式：采用列表悬停注入荧光黄高级感写法 */
-        .contact-box {
-            display: inline-flex;
-            align-items: center;
-            justify-content: space-between;
+        .contact-link {
+            display: inline-block;
+            padding: 15px 30px;
+            border: 2px solid var(--black);
+            font-weight: 700;
             text-decoration: none;
             color: var(--black);
-            padding: 15px 20px;
-            border: 1.5px solid var(--black);
-            font-weight: 700;
-            font-size: 1.2rem;
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            width: 100%;
-            box-sizing: border-box;
+            transition: 0.2s;
         }
 
-        .contact-box:hover {
-            background-color: var(--fluo-lime);
-            transform: translateX(6px);
-            box-shadow: -6px 6px 0 var(--black);
+        .contact-link:hover {
+            background-color: var(--accent);
+            border-color: var(--black);
         }
 
-        .contact-arrow {
-            font-size: 1.4rem;
-            font-weight: 900;
-        }
-
-        /* --- 移动端响应式完美降维 --- */
         @media (max-width: 1024px) {
-            .global-nav { padding: 20px 40px; }
-            .nav-links { display: none; }
-            .lang-switch { margin-left: 0; }
-            .about-container { grid-template-columns: 1fr; padding: 180px 40px 60px; gap: 60px; }
-            .about-title { font-size: 5.5rem; }
-            .about-title-wrapper::after { height: 20px; }
-            .content-section { gap: 50px; }
+            .about-container { grid-template-columns: 1fr; padding: 180px 40px 60px; }
+            .about-title { font-size: 4rem; }
         }
     </style>
 </head>
@@ -198,59 +98,20 @@
 
     <nav class="global-nav">
         <div class="nav-logo"><a href="/index.html">EASIS</a></div>
-        <div style="display: flex; align-items: center;">
-            <ul class="nav-links">
-                <li class="dropdown">
-                    <a href="javascript:void(0)"><span class="lang-en">Work</span><span class="lang-zh hidden">工作项目</span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="/project/projects.html"><span class="lang-en">Projects</span><span class="lang-zh hidden">研究项目</span></a></li>
-                        <li><a href="#"><span class="lang-en">Experience</span><span class="lang-zh hidden">工作经历</span></a></li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="javascript:void(0)"><span class="lang-en">Logs</span><span class="lang-zh hidden">生活记录</span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#"><span class="lang-en">Visual Archive</span><span class="lang-zh hidden">摄影辑录</span></a></li>
-                        <li><a href="#"><span class="lang-en">Text Logs</span><span class="lang-zh hidden">文字记录</span></a></li>
-                    </ul>
-                </li>
-                <li><a href="/about.html"><span class="lang-en">About Me</span><span class="lang-zh hidden">关于我</span></a></li>
-            </ul>
-            <div class="lang-switch">
-                <span id="btn-en" onclick="setLanguage('en')" class="active">EN</span>
-                <span id="btn-zh" onclick="setLanguage('zh')">中文</span>
-            </div>
-        </div>
     </nav>
 
     <main class="about-container">
-        
-        <div>
-            <div class="about-title-wrapper">
-                <h1 class="about-title">About</h1>
-            </div>
-        </div>
+        <h1 class="about-title">About</h1>
 
         <div class="content-section">
+            <p class="intro-text lang-en">
+                Easis. Here lie reflections on economics and innovation, alongside cities and journeys through my lens, notes in the margins of books, echoes after the theater curtain falls, and those quiet minutes spent standing before an exhibition. Backpack on, hitting the road as an observer of the world.
+            </p>
+            <p class="intro-text lang-zh hidden">
+                我是 Easis。这里有潜心研究的经济问题与创新的思考，也有镜头里的城市与旅途、书页边的笔记、散场后的回响，和展览里停下来的那几分钟。背包上路，做世界的观察者。
+            </p>
             
-            <section class="about-section">
-                <span class="label">The Observer / 观察者说</span>
-                <p class="intro-text lang-en">
-                    Easis. Here lie reflections on economics and innovation, alongside cities and journeys through my lens, notes in the margins of books, echoes after the theater curtain falls, and those quiet minutes spent standing before an exhibition. Backpack on, hitting the road as an observer of the world.
-                </p>
-                <p class="intro-text lang-zh hidden">
-                    我是 Easis。这里有潜心研究的经济问题与创新的思考，也有镜头里的城市与旅途、书页边的笔记、散场后的回响，和展览里停下来的那几分钟。背包上路，做世界的观察者。
-                </p>
-            </section>
-
-            <section class="about-section">
-                <span class="label">Connect / 联络通道</span>
-                <a href="mailto:Easis067@outlook.com" class="contact-box">
-                    <span>Easis067@outlook.com</span>
-                    <span class="contact-arrow">↗</span>
-                </a>
-            </section>
-
+            <a href="mailto:Easis067@outlook.com" class="contact-link">Easis067@outlook.com</a>
         </div>
     </main>
 
@@ -258,9 +119,6 @@
         function setLanguage(lang) {
             document.querySelectorAll('.lang-en').forEach(el => lang === 'zh' ? el.classList.add('hidden') : el.classList.remove('hidden'));
             document.querySelectorAll('.lang-zh').forEach(el => lang === 'zh' ? el.classList.remove('hidden') : el.classList.add('hidden'));
-            
-            document.getElementById('btn-en').classList.toggle('active', lang === 'en');
-            document.getElementById('btn-zh').classList.toggle('active', lang === 'zh');
         }
     </script>
 </body>
