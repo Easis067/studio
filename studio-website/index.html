@@ -24,7 +24,7 @@
             font-family: "Space Grotesque", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             transition: background-color 4s cubic-bezier(0.4, 0, 0.2, 1), color 4s ease, border-color 4s ease; 
             -webkit-font-smoothing: antialiased;
-            overflow: hidden; 
+            overflow-x: hidden; 
         }
 
         /* 🌙 核心反转逻辑 */
@@ -126,11 +126,11 @@
 
         /* --- 主内容 --- */
         .hero-wrapper {
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            padding: 0 100px;
+            padding: 140px 100px 80px 100px; /* 增加了底部留白留给大组件 */
             box-sizing: border-box;
         }
 
@@ -152,6 +152,7 @@
 
         .center-statement {
             margin-top: 30px;
+            margin-bottom: 60px; /* 拉开与下方大栏目的距离 */
             padding: 10px 24px;
             background-color: var(--black);
             display: inline-block;
@@ -164,17 +165,22 @@
             transition: color 2s ease;
         }
 
-        /* --- 底部导航 --- */
+        /* --- 底部全新升级的大导航栏 --- */
         .footer-nav {
-            position: absolute; bottom: 50px; left: 100px; right: 100px;
+            width: 100%;
         }
         .nav-groups {
-            display: grid; grid-template-columns: repeat(4, 1fr);
-            border-top: 1.5px solid var(--black); padding-top: 25px; list-style: none; margin: 0;
+            display: grid; 
+            grid-template-columns: 1fr 1.8fr 1.8fr; /* 1:1.8:1.8 的比例，让WORK和LOGS栏目更大 */
+            border-top: 1.5px solid var(--black); 
+            padding-top: 40px; 
+            list-style: none; 
+            margin: 0;
+            gap: 50px;
             align-items: flex-start;
         }
 
-        /* About 框样式 */
+        /* About 框样式保持不动 */
         .about-box-link {
             display: flex;
             align-items: center;
@@ -182,50 +188,63 @@
             text-decoration: none;
             color: var(--black);
             border: 1.5px solid var(--black);
-            padding: 14px 20px;
-            width: 80%; 
+            padding: 18px 24px;
+            width: 100%; 
             box-sizing: border-box;
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .about-box-link .about-text {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             font-weight: 900;
             letter-spacing: -0.01em;
             text-transform: uppercase;
         }
         .about-box-link .about-arrow {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             font-weight: 900;
             transition: transform 0.2s ease;
         }
         .about-box-link:hover {
             background: var(--fluo-yellow) !important;
             color: #111111 !important;
-            box-shadow: 4px 4px 0 var(--black);
+            box-shadow: 5px 5px 0 var(--black);
             transform: translate(-2px, -2px);
         }
         .about-box-link:hover .about-arrow {
             transform: translateX(4px);
         }
 
+        /* 放大后的新栏目标签 */
         .group-label {
-            font-size: 0.95rem; font-weight: 700; background: var(--white); 
-            color: var(--black); padding: 5px 12px; display: inline-block;
-            margin-bottom: 20px; border: 1.5px solid var(--black);
-            box-shadow: 2px 2px 0 var(--black);
+            font-size: 1.2rem; /* 字号放大 */
+            font-weight: 900; 
+            background: var(--white); 
+            color: var(--black); 
+            padding: 8px 20px; /* 框体放大 */
+            display: inline-block;
+            margin-bottom: 25px; 
+            border: 1.5px solid var(--black);
+            box-shadow: 3px 3px 0 var(--black);
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
             transition: all 0.2s ease, background-color 2s ease, border-color 2s ease;
         }
         .group-label:hover {
             background: var(--fluo-yellow) !important;
             transform: translate(-1px, -1px);
-            box-shadow: 3px 3px 0 var(--black);
+            box-shadow: 4px 4px 0 var(--black);
         }
 
+        /* 列表间距优化 */
         .sub-menu a {
-            display: block; text-decoration: none; 
+            display: block; 
+            text-decoration: none; 
             color: inherit; 
-            margin-bottom: 12px; font-size: 1.05rem; font-weight: 600; 
-            position: relative; width: fit-content;
+            margin-bottom: 16px; /* 间距稍微拉开，更大气 */
+            font-size: 1.15rem; /* 字号略微放大 */
+            font-weight: 600; 
+            position: relative; 
+            width: fit-content;
             opacity: 0.8;
             transition: 0.2s;
         }
@@ -242,21 +261,18 @@
         .lang-switch span { padding: 4px 12px; cursor: pointer; font-weight: 700; color: inherit; font-size: 0.9rem; }
         .lang-switch .active { background: var(--fluo-yellow); color: #111111 !important; }
 
-        @media (max-width: 768px) {
-            body { overflow-x: hidden; overflow-y: auto; }
+        /* 移动端适配 */
+        @media (max-width: 900px) {
             .global-nav { padding: 20px; }
             .nav-links { display: none; }
             .lang-switch { margin-left: 0; }
-            .hero-wrapper { height: auto; padding: 140px 20px 40px 20px; }
+            .hero-wrapper { padding: 140px 20px 40px 20px; }
             .main-logo { font-size: 24vw; line-height: 0.9; }
-            .center-statement { margin-top: 20px; padding: 8px 16px; }
-            .center-statement span { font-size: 0.85rem; letter-spacing: 0.2em; }
-            .footer-nav { position: static; margin-top: 60px; padding: 0; width: 100%; }
-            .nav-groups { grid-template-columns: repeat(2, 1fr); gap: 40px 20px; padding-top: 20px; }
-            .about-box-link { width: 100%; padding: 10px 14px; }
-            .about-box-link .about-text { font-size: 1rem; }
-            .group-label { font-size: 0.85rem; margin-bottom: 12px; }
-            .sub-menu a { font-size: 0.95rem; margin-bottom: 10px; }
+            .center-statement { margin-top: 20px; padding: 8px 16px; margin-bottom: 40px; }
+            .nav-groups { grid-template-columns: 1fr; gap: 40px; padding-top: 20px; }
+            .about-box-link { width: 100%; }
+            .group-label { font-size: 1.05rem; margin-bottom: 15px; }
+            .sub-menu a { font-size: 1.05rem; margin-bottom: 12px; }
         }
     </style>
 </head>
@@ -266,34 +282,30 @@
         <div class="nav-logo"><a href="/index.html">EASIS</a></div>
         <div style="display: flex; align-items: center;">
             <ul class="nav-links">
+                <!-- 顶部菜单同步调整 -->
                 <li class="dropdown">
-                    <!-- 💡 确定修改：指向根目录 economics.html -->
-                    <a href="/economics.html"><span class="lang-en">Researcher</span><span class="lang-zh hidden">项目研究</span></a>
+                    <a href="javascript:void(0)"><span class="lang-en">Work</span><span class="lang-zh hidden">工作项目</span></a>
                     <ul class="dropdown-menu">
-                        <!-- 💡 确定修改：指向根目录 economics.html -->
                         <li><a href="/economics.html"><span class="lang-en">Economics</span><span class="lang-zh hidden">经济学研究</span></a></li>
                         <li><a href="/innovation.html"><span class="lang-en">Innovation</span><span class="lang-zh hidden">创新学研究</span></a></li>
+                        <li><a href="#"><span class="lang-en">Experience</span><span class="lang-zh hidden">工作经历</span></a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
-                    <a href="javascript:void(0)"><span class="lang-en">Observer</span><span class="lang-zh hidden">看世界</span></a>
+                    <a href="javascript:void(0)"><span class="lang-en">Logs</span><span class="lang-zh hidden">生活记录</span></a>
                     <ul class="dropdown-menu">
                         <li><a href="#"><span class="lang-en">Visual Archive</span><span class="lang-zh hidden">摄影辑录</span></a></li>
                         <li><a href="#"><span class="lang-en">Curation Walk</span><span class="lang-zh hidden">看展日记</span></a></li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="javascript:void(0)"><span class="lang-en">Recorder</span><span class="lang-zh hidden">正在记录中</span></a>
-                    <ul class="dropdown-menu">
                         <li><a href="#"><span class="lang-en">Theatre & Scene</span><span class="lang-zh hidden">观演日记</span></a></li>
                         <li><a href="#"><span class="lang-en">Readings & Dialectics</span><span class="lang-zh hidden">读书笔记</span></a></li>
                     </ul>
                 </li>
-                <li><a href="/about.html"><span class="lang-en">Me</span><span class="lang-zh hidden">个人</span></a></li>
+                <!-- 💡 细节微调：Me 变成 About Me -->
+                <li><a href="/about.html"><span class="lang-en">About Me</span><span class="lang-zh hidden">关于我</span></a></li>
             </ul>
             <div class="lang-switch">
                 <span id="btn-en" onclick="setLanguage('en')" class="active">EN</span>
-                <span id="btn-zh" onclick="setLanguage('zh')">中文</span>
+                <span id="btn-zh" onclick="setLanguage('zh') text">中文</span>
             </div>
         </div>
     </nav>
@@ -310,44 +322,43 @@
         <nav class="footer-nav">
             <ul class="nav-groups">
                 
+                <!-- 1. ABOUT 栏：保持不动，微调文字 -->
                 <li>
                     <a href="/about.html" class="about-box-link">
                         <span class="about-text">
-                            <span class="lang-en">About</span>
-                            <span class="lang-zh hidden">关于</span>
+                            <span class="lang-en">About Me</span>
+                            <span class="lang-zh hidden">关于我</span>
                         </span>
                         <span class="about-arrow">→</span>
                     </a>
                 </li>
                 
+                <!-- 2. WORK 栏（大框）：合并了 Researcher 与工作经历 -->
                 <li>
                     <span class="group-label">
-                        <span class="lang-en">Researcher</span><span class="lang-zh hidden">项目研究</span>
+                        <span class="lang-en">Work</span><span class="lang-zh hidden">工作 / 研究</span>
                     </span>
                     <div class="sub-menu">
-                        <!-- 💡 确定修改：指向根目录 economics.html -->
                         <a href="/economics.html"><span class="lang-en">Economics</span><span class="lang-zh hidden">经济学研究</span></a>
                         <a href="/innovation.html"><span class="lang-en">Innovation</span><span class="lang-zh hidden">创新学研究</span></a>
+                        <!-- 新增工作经历占位，链接可后续自行替换 -->
+                        <a href="#"><span class="lang-en">Experience</span><span class="lang-zh hidden">工作经历</span></a>
                     </div>
                 </li>
+
+                <!-- 3. LOGS 栏（大框）：合并了 Observer 与 Recorder -->
                 <li>
                     <span class="group-label">
-                        <span class="lang-en">Observer</span><span class="lang-zh hidden">看世界</span>
+                        <span class="lang-en">Logs</span><span class="lang-zh hidden">生活 / 记录</span>
                     </span>
                     <div class="sub-menu">
                         <a href="#"><span class="lang-en">Visual Archive</span><span class="lang-zh hidden">影像档案</span></a>
                         <a href="#"><span class="lang-en">Curation Walk</span><span class="lang-zh hidden">看展日记</span></a>
-                    </div>
-                </li>
-                <li>
-                    <span class="group-label">
-                        <span class="lang-en">Recorder</span><span class="lang-zh hidden">正在记录中</span>
-                    </span>
-                    <div class="sub-menu">
                         <a href="#"><span class="lang-en">Theatre & Scene</span><span class="lang-zh hidden">走进剧场</span></a>
                         <a href="#"><span class="lang-en">Readings & Dialectics</span><span class="lang-zh hidden">读书笔记</span></a>
                     </div>
                 </li>
+
             </ul>
         </nav>
     </main>
