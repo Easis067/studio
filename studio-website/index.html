@@ -175,7 +175,7 @@
             align-items: flex-start;
         }
 
-        /* 🆕 专属定制：About 框样式 */
+        /* About 框样式 */
         .about-box-link {
             display: flex;
             align-items: center;
@@ -184,7 +184,7 @@
             color: var(--black);
             border: 1.5px solid var(--black);
             padding: 14px 20px;
-            width: 80%; /* 让它比普通的网格列稍微收紧一点，比例更高级 */
+            width: 80%; 
             box-sizing: border-box;
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
@@ -245,7 +245,7 @@
 
 
         /* ==========================================================================
-           📱 移动端硬核响应式调校
+           📱 移动端响应式调校
            ========================================================================== */
         @media (max-width: 768px) {
             body {
@@ -292,7 +292,6 @@
                 padding-top: 20px;
             }
             
-            /* 移动端下的 About 框适应宽度 */
             .about-box-link {
                 width: 100%;
                 padding: 10px 14px;
@@ -319,9 +318,9 @@
         <div style="display: flex; align-items: center;">
             <ul class="nav-links">
                 <li class="dropdown">
-                    <a href="papers/economics.html"><span class="lang-en">Researcher</span><span class="lang-zh hidden">项目研究</span></a>
+                    <a href="/papers/economics.html"><span class="lang-en">Researcher</span><span class="lang-zh hidden">项目研究</span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="papers/economics.html"><span class="lang-en">Economics</span><span class="lang-zh hidden">经济学研究</span></a></li>
+                        <li><a href="/papers/economics.html"><span class="lang-en">Economics</span><span class="lang-zh hidden">经济学研究</span></a></li>
                         <li><a href="#"><span class="lang-en">Innovation</span><span class="lang-zh hidden">创新学研究</span></a></li>
                     </ul>
                 </li>
@@ -339,7 +338,7 @@
                         <li><a href="#"><span class="lang-en">Readings & Dialectics</span><span class="lang-zh hidden">读书笔记</span></a></li>
                     </ul>
                 </li>
-                <li><a href="about.html"><span class="lang-en">Me</span><span class="lang-zh hidden">个人</span></a></li>
+                <li><a href="/about.html"><span class="lang-en">Me</span><span class="lang-zh hidden">个人</span></a></li>
             </ul>
             <div class="lang-switch">
                 <span id="btn-en" onclick="setLanguage('en')" class="active">EN</span>
@@ -361,7 +360,7 @@
             <ul class="nav-groups">
                 
                 <li>
-                    <a href="about.html" class="about-box-link">
+                    <a href="/about.html" class="about-box-link">
                         <span class="about-text">
                             <span class="lang-en">About</span>
                             <span class="lang-zh hidden">关于</span>
@@ -375,7 +374,7 @@
                         <span class="lang-en">Researcher</span><span class="lang-zh hidden">项目研究</span>
                     </span>
                     <div class="sub-menu">
-                        <a href="papers/economics.html"><span class="lang-en">Economics</span><span class="lang-zh hidden">经济学研究</span></a>
+                        <a href="/papers/economics.html"><span class="lang-en">Economics</span><span class="lang-zh hidden">经济学研究</span></a>
                         <a href="#"><span class="lang-en">Innovation</span><span class="lang-zh hidden">创新学研究</span></a>
                     </div>
                 </li>
