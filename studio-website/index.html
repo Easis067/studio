@@ -27,7 +27,6 @@
             overflow-x: hidden; 
         }
 
-        /* 🌙 核心反转逻辑 */
         body.is-active {
             background-color: var(--periwinkle);
             color: #F9F9F9;
@@ -74,7 +73,6 @@
 
         .lang-zh.hidden, .lang-en.hidden { display: none !important; }
 
-        /* --- 顶部导航 --- */
         .global-nav {
             display: flex;
             justify-content: space-between;
@@ -124,7 +122,6 @@
         }
         .dropdown-menu li a:hover { color: var(--fluo-yellow) !important; }
 
-        /* --- 主内容包装器 --- */
         .hero-wrapper {
             min-height: 100vh;
             display: flex;
@@ -165,7 +162,6 @@
             transition: color 2s ease;
         }
 
-        /* --- 底部三大列导航 --- */
         .footer-nav {
             width: 100%;
         }
@@ -181,7 +177,6 @@
             align-items: flex-start;
         }
 
-        /* 统一白底黑框 */
         .group-label {
             font-size: 1.15rem; 
             font-weight: 900; 
@@ -198,7 +193,6 @@
             transition: all 0.2s ease;
         }
 
-        /* ABOUT ME 巨型留白框 */
         .about-box-link {
             display: flex;
             flex-direction: column; 
@@ -259,7 +253,6 @@
             color: #222222;
         }
 
-        /* 列表菜单 */
         .sub-menu {
             padding-left: 4px; 
         }
@@ -283,7 +276,6 @@
         }
         .sub-menu a:hover::after { width: 100%; }
 
-        /* 语言切换 */
         .lang-switch { margin-left: 50px; border: 1.5px solid var(--black); padding: 2px; background: transparent; transition: border-color 2s ease; display: flex; }
         .lang-switch span { padding: 4px 12px; cursor: pointer; font-weight: 700; color: inherit; font-size: 0.9rem; }
         .lang-switch .active { background: var(--fluo-yellow); color: #111111 !important; }
@@ -311,8 +303,7 @@
                 <li class="dropdown">
                     <a href="javascript:void(0)"><span class="lang-en">Work</span><span class="lang-zh hidden">工作项目</span></a>
                     <ul class="dropdown-menu">
-                        <!-- 💡 顶部导航同步精简为 Projects & Experience -->
-                        <li><a href="/projects.html"><span class="lang-en">Projects</span><span class="lang-zh hidden">研究项目</span></a></li>
+                        <li><a href="/project/projects.html"><span class="lang-en">Projects</span><span class="lang-zh hidden">研究项目</span></a></li>
                         <li><a href="#"><span class="lang-en">Experience</span><span class="lang-zh hidden">工作经历</span></a></li>
                     </ul>
                 </li>
@@ -344,7 +335,6 @@
         <nav class="footer-nav">
             <ul class="nav-groups">
                 
-                <!-- 1. ABOUT ME 列 -->
                 <li>
                     <a href="/about.html" class="about-box-link">
                         <div class="about-header">
@@ -361,18 +351,16 @@
                     </a>
                 </li>
                 
-                <!-- 2. WORK 列：二合一极简结构，合并为 Projects -->
                 <li>
                     <span class="group-label">
                         <span class="lang-en">Work</span><span class="lang-zh hidden">工作 / 研究</span>
                     </span>
                     <div class="sub-menu">
-                        <a href="/projects.html"><span class="lang-en">Projects</span><span class="lang-zh hidden">研究项目</span></a>
+                        <a href="/project/projects.html"><span class="lang-en">Projects</span><span class="lang-zh hidden">研究项目</span></a>
                         <a href="#"><span class="lang-en">Experience</span><span class="lang-zh hidden">工作经历</span></a>
                     </div>
                 </li>
 
-                <!-- 3. LOGS 列 -->
                 <li>
                     <span class="group-label">
                         <span class="lang-en">Logs</span><span class="lang-zh hidden">生活 / 记录</span>
@@ -399,7 +387,7 @@
 
         function setLanguage(lang) {
             document.querySelectorAll('.lang-en').forEach(el => lang === 'zh' ? el.classList.add('hidden') : el.classList.remove('hidden'));
-            document.querySelectorAll('.lang-zh').forEach(el => lang === 'zh' ? el.classList.remove('hidden') : el.classList.add('hidden'));
+            document.querySelectorAll('.lang-zh').forEach(el => lang === 'zh' ? el.remove('hidden') : el.classList.add('hidden'));
             
             document.getElementById('btn-en').classList.toggle('active', lang === 'en');
             document.getElementById('btn-zh').classList.toggle('active', lang === 'zh');
