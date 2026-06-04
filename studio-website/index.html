@@ -45,24 +45,17 @@
         body.is-active .main-logo {
             color: #F9F9F9 !important;
         }
-        body.is-active .group-label {
+        body.is-active .group-label,
+        body.is-active .about-box-link {
             background: #F9F9F9 !important;
             color: #111111 !important;
             border-color: #F9F9F9 !important;
         }
-        body.is-active .group-label:hover {
+        body.is-active .group-label:hover,
+        body.is-active .about-box-link:hover {
             background: var(--fluo-yellow) !important;
             border-color: #111111 !important;
             color: #111111 !important;
-        }
-        body.is-active .about-box-link {
-            border-color: #F9F9F9 !important;
-            color: #F9F9F9 !important;
-        }
-        body.is-active .about-box-link:hover {
-            background: var(--fluo-yellow) !important;
-            color: #111111 !important;
-            border-color: #F9F9F9 !important;
         }
 
         body.is-active .center-statement {
@@ -79,7 +72,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 30px 80px;
+            padding: 30px 100px; /* 统一全局左右边距 100px */
             position: fixed;
             width: 100%;
             top: 0;
@@ -124,13 +117,13 @@
         }
         .dropdown-menu li a:hover { color: var(--fluo-yellow) !important; }
 
-        /* --- 主内容 --- */
+        /* --- 主内容包装器 --- */
         .hero-wrapper {
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            padding: 140px 100px 80px 100px; /* 增加了底部留白留给大组件 */
+            padding: 140px 100px 60px 100px; /* 强制左右 100px 对齐边缘 */
             box-sizing: border-box;
         }
 
@@ -152,7 +145,7 @@
 
         .center-statement {
             margin-top: 30px;
-            margin-bottom: 60px; /* 拉开与下方大栏目的距离 */
+            margin-bottom: 60px; 
             padding: 10px 24px;
             background-color: var(--black);
             display: inline-block;
@@ -165,83 +158,76 @@
             transition: color 2s ease;
         }
 
-        /* --- 底部全新升级的大导航栏 --- */
+        /* --- 底部三大列导航 --- */
         .footer-nav {
             width: 100%;
         }
         .nav-groups {
             display: grid; 
-            grid-template-columns: 1fr 1.8fr 1.8fr; /* 1:1.8:1.8 的比例，让WORK和LOGS栏目更大 */
+            grid-template-columns: 1fr 1fr 1fr; /* 均分三列，保证左中右间距极度舒适 */
             border-top: 1.5px solid var(--black); 
             padding-top: 40px; 
             list-style: none; 
             margin: 0;
-            gap: 50px;
+            padding-left: 0; /* 消除 ul 自带的左内边距，达成强对齐 */
+            gap: 40px;
             align-items: flex-start;
         }
 
-        /* About 框样式保持不动 */
-        .about-box-link {
-            display: flex;
+        /* 💡 核心改动：框比字大！统一 ABOUT ME、WORK、LOGS 的标签样式 */
+        .group-label, .about-box-link {
+            font-size: 1.15rem; 
+            font-weight: 900; 
+            background: var(--black); 
+            color: var(--white); 
+            padding: 10px 24px; /* 增大内边距，撑出高街宽幅框 */
+            display: inline-flex;
             align-items: center;
             justify-content: space-between;
-            text-decoration: none;
-            color: var(--black);
-            border: 1.5px solid var(--black);
-            padding: 18px 24px;
-            width: 100%; 
-            box-sizing: border-box;
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .about-box-link .about-text {
-            font-size: 1.3rem;
-            font-weight: 900;
-            letter-spacing: -0.01em;
-            text-transform: uppercase;
-        }
-        .about-box-link .about-arrow {
-            font-size: 1.3rem;
-            font-weight: 900;
-            transition: transform 0.2s ease;
-        }
-        .about-box-link:hover {
-            background: var(--fluo-yellow) !important;
-            color: #111111 !important;
-            box-shadow: 5px 5px 0 var(--black);
-            transform: translate(-2px, -2px);
-        }
-        .about-box-link:hover .about-arrow {
-            transform: translateX(4px);
-        }
-
-        /* 放大后的新栏目标签 */
-        .group-label {
-            font-size: 1.2rem; /* 字号放大 */
-            font-weight: 900; 
-            background: var(--white); 
-            color: var(--black); 
-            padding: 8px 20px; /* 框体放大 */
-            display: inline-block;
             margin-bottom: 25px; 
             border: 1.5px solid var(--black);
             box-shadow: 3px 3px 0 var(--black);
             letter-spacing: 0.05em;
             text-transform: uppercase;
-            transition: all 0.2s ease, background-color 2s ease, border-color 2s ease;
-        }
-        .group-label:hover {
-            background: var(--fluo-yellow) !important;
-            transform: translate(-1px, -1px);
-            box-shadow: 4px 4px 0 var(--black);
+            white-space: nowrap; /* 绝对禁止文本换行 */
+            box-sizing: border-box;
+            text-decoration: none;
+            width: fit-content; /* 紧贴内容扩展，但通过 padding 保持留白 */
+            transition: all 0.2s ease;
         }
 
-        /* 列表间距优化 */
+        /* 给 About Me 的大框设定一个舒适的固定或最小宽度，让箭头呆得更漂亮 */
+        .about-box-link {
+            min-width: 170px; 
+        }
+
+        .about-arrow {
+            margin-left: 15px;
+            font-weight: 900;
+            transition: transform 0.2s ease;
+        }
+
+        /* 悬停特效统一 */
+        .group-label:hover, .about-box-link:hover {
+            background: var(--fluo-yellow) !important;
+            color: #111111 !important;
+            transform: translate(-2px, -2px);
+            box-shadow: 5px 5px 0 var(--black);
+        }
+        .about-box-link:hover .about-arrow {
+            transform: translateX(4px);
+        }
+
+        /* 列表菜单 */
+        .sub-menu {
+            padding-left: 5px; /* 让文本对齐大框的内边缘起点 */
+        }
         .sub-menu a {
             display: block; 
             text-decoration: none; 
             color: inherit; 
-            margin-bottom: 16px; /* 间距稍微拉开，更大气 */
-            font-size: 1.15rem; /* 字号略微放大 */
+            margin-bottom: 16px; 
+            font-size: 1.15rem; 
             font-weight: 600; 
             position: relative; 
             width: fit-content;
@@ -261,17 +247,16 @@
         .lang-switch span { padding: 4px 12px; cursor: pointer; font-weight: 700; color: inherit; font-size: 0.9rem; }
         .lang-switch .active { background: var(--fluo-yellow); color: #111111 !important; }
 
-        /* 移动端适配 */
+        /* 移动端响应式调整 */
         @media (max-width: 900px) {
-            .global-nav { padding: 20px; }
+            .global-nav { padding: 20px 40px; }
             .nav-links { display: none; }
             .lang-switch { margin-left: 0; }
-            .hero-wrapper { padding: 140px 20px 40px 20px; }
+            .hero-wrapper { padding: 140px 40px 40px 40px; }
             .main-logo { font-size: 24vw; line-height: 0.9; }
             .center-statement { margin-top: 20px; padding: 8px 16px; margin-bottom: 40px; }
             .nav-groups { grid-template-columns: 1fr; gap: 40px; padding-top: 20px; }
-            .about-box-link { width: 100%; }
-            .group-label { font-size: 1.05rem; margin-bottom: 15px; }
+            .group-label, .about-box-link { font-size: 1.05rem; margin-bottom: 15px; padding: 8px 20px; }
             .sub-menu a { font-size: 1.05rem; margin-bottom: 12px; }
         }
     </style>
@@ -282,7 +267,6 @@
         <div class="nav-logo"><a href="/index.html">EASIS</a></div>
         <div style="display: flex; align-items: center;">
             <ul class="nav-links">
-                <!-- 顶部菜单同步调整 -->
                 <li class="dropdown">
                     <a href="javascript:void(0)"><span class="lang-en">Work</span><span class="lang-zh hidden">工作项目</span></a>
                     <ul class="dropdown-menu">
@@ -300,12 +284,11 @@
                         <li><a href="#"><span class="lang-en">Readings & Dialectics</span><span class="lang-zh hidden">读书笔记</span></a></li>
                     </ul>
                 </li>
-                <!-- 💡 细节微调：Me 变成 About Me -->
                 <li><a href="/about.html"><span class="lang-en">About Me</span><span class="lang-zh hidden">关于我</span></a></li>
             </ul>
             <div class="lang-switch">
                 <span id="btn-en" onclick="setLanguage('en')" class="active">EN</span>
-                <span id="btn-zh" onclick="setLanguage('zh') text">中文</span>
+                <span id="btn-zh" onclick="setLanguage('zh')">中文</span>
             </div>
         </div>
     </nav>
@@ -322,7 +305,7 @@
         <nav class="footer-nav">
             <ul class="nav-groups">
                 
-                <!-- 1. ABOUT 栏：保持不动，微调文字 -->
+                <!-- 1. ABOUT ME 列：强对齐第一列，大尺寸实体框 -->
                 <li>
                     <a href="/about.html" class="about-box-link">
                         <span class="about-text">
@@ -333,7 +316,7 @@
                     </a>
                 </li>
                 
-                <!-- 2. WORK 栏（大框）：合并了 Researcher 与工作经历 -->
+                <!-- 2. WORK 列 -->
                 <li>
                     <span class="group-label">
                         <span class="lang-en">Work</span><span class="lang-zh hidden">工作 / 研究</span>
@@ -341,12 +324,11 @@
                     <div class="sub-menu">
                         <a href="/economics.html"><span class="lang-en">Economics</span><span class="lang-zh hidden">经济学研究</span></a>
                         <a href="/innovation.html"><span class="lang-en">Innovation</span><span class="lang-zh hidden">创新学研究</span></a>
-                        <!-- 新增工作经历占位，链接可后续自行替换 -->
                         <a href="#"><span class="lang-en">Experience</span><span class="lang-zh hidden">工作经历</span></a>
                     </div>
                 </li>
 
-                <!-- 3. LOGS 栏（大框）：合并了 Observer 与 Recorder -->
+                <!-- 3. LOGS 列 -->
                 <li>
                     <span class="group-label">
                         <span class="lang-en">Logs</span><span class="lang-zh hidden">生活 / 记录</span>
