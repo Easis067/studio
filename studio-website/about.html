@@ -26,16 +26,15 @@
             min-height: 100vh;
         }
 
-        /* 强制切换逻辑：使用 .mode-zh 或 .mode-en 控制显示 */
+        /* 强制语言切换逻辑 */
         .lang-zh { display: none !important; }
         .lang-en { display: block !important; }
-        
         body.mode-zh .lang-zh { display: block !important; }
         body.mode-zh .lang-en { display: none !important; }
         body.mode-en .lang-en { display: block !important; }
         body.mode-en .lang-zh { display: none !important; }
 
-        /* --- 导航栏 --- */
+        /* 导航栏 */
         .global-nav {
             display: flex; justify-content: space-between; align-items: center;
             padding: 30px 100px; position: fixed; width: 100%; top: 0;
@@ -43,84 +42,51 @@
             border-bottom: 1.5px solid var(--black);
             background-color: var(--white); 
         }
-
         .nav-logo a { font-size: 2rem; font-weight: 900; text-decoration: none; color: var(--black); letter-spacing: -0.03em; }
-
         .nav-links { display: flex; list-style: none; gap: 30px; margin: 0; padding: 0; }
-        .nav-links > li { position: relative; }
         .nav-links > li > a { 
             text-decoration: none; color: var(--black); font-size: 1.05rem; font-weight: 700; 
             text-transform: uppercase; padding: 6px 16px; border: 1.5px solid var(--black);
             display: inline-block; transition: 0.2s ease-in-out;
         }
-        
-        .nav-links > li > a:hover { 
-            background: var(--accent-blue) !important; 
-            color: var(--black) !important; 
-            box-shadow: 4px 4px 0 var(--black);
-        }
-
-        .dropdown-menu {
-            position: absolute; top: 100%; left: 0; background: var(--black); min-width: 200px;
-            list-style: none; padding: 10px 0; margin: 0; opacity: 0; visibility: hidden;
-            border: 1.5px solid var(--black); transition: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .nav-links > li:hover .dropdown-menu { opacity: 1; visibility: visible; margin-top: 10px; }
-        .dropdown-menu li a { 
-            color: var(--white) !important; padding: 12px 20px; display: block; 
-            text-decoration: none; font-weight: 600; font-size: 0.95rem;
-        }
-        .dropdown-menu li a:hover { color: var(--accent-blue) !important; }
+        .nav-links > li > a:hover { background: var(--accent-blue) !important; color: var(--black) !important; box-shadow: 4px 4px 0 var(--black); }
 
         .lang-switch { margin-left: 50px; border: 1.5px solid var(--black); padding: 2px; background: transparent; display: flex; }
         .lang-switch span { padding: 4px 12px; cursor: pointer; font-weight: 700; color: inherit; font-size: 0.9rem; }
         .lang-switch .active { background: var(--accent-blue); color: var(--black) !important; }
 
-        /* --- 布局容器 --- */
+        /* 布局容器 */
         .about-container {
-            display: grid;
-            grid-template-columns: 1.1fr 1fr;
-            padding: 240px 100px 100px 100px; 
-            gap: 120px; max-width: 1400px;
+            display: grid; grid-template-columns: 1.1fr 1fr;
+            padding: 240px 100px 100px 100px; gap: 120px; max-width: 1400px;
             margin: 0 auto; box-sizing: border-box; align-items: flex-start;
         }
-
-        .about-title-wrapper { position: relative; display: inline-block; }
-        .about-title {
-            font-size: 9rem; font-weight: 900; letter-spacing: -0.04em;
-            margin: 0; line-height: 0.85; text-transform: uppercase;
-            color: var(--black); position: relative; z-index: 1;
-        }
-        .about-title-wrapper::after {
-            content: ''; position: absolute; left: 0; bottom: -5px;
-            width: 100%; height: 35px; background-color: var(--accent-blue); z-index: 0;
-        }
+        .about-title { font-size: 9rem; font-weight: 900; margin: 0; line-height: 0.85; text-transform: uppercase; position: relative; z-index: 1; }
+        .about-title-wrapper::after { content: ''; display: block; width: 100%; height: 35px; background-color: var(--accent-blue); margin-top: 10px; }
 
         .content-section { display: flex; flex-direction: column; gap: 80px; }
         .about-section { border-top: 1.5px solid var(--black); padding-top: 30px; }
-        .label {
-            font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.15em;
-            color: var(--black); margin-bottom: 25px; font-weight: 900; display: block; opacity: 0.4;
-        }
+        .label { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.15em; color: var(--black); margin-bottom: 25px; font-weight: 900; opacity: 0.4; }
         .intro-text { font-size: 1.45rem; line-height: 1.7; font-weight: 500; margin: 0; color: var(--black); text-align: justify; }
 
+        /* 复制交互邮箱框 */
         .contact-box {
             display: inline-flex; align-items: center; justify-content: space-between;
-            text-decoration: none; color: var(--black); padding: 20px 25px;
+            cursor: pointer; color: var(--black); padding: 20px 25px;
             border: 1.5px solid var(--black); font-weight: 700; font-size: 1.6rem;
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            width: 100%; box-sizing: border-box;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); width: 100%; box-sizing: border-box;
         }
-        .contact-box:hover {
-            background-color: var(--accent-blue);
-            transform: translateX(6px);
-            box-shadow: -6px 6px 0 var(--black);
+        .contact-box:hover { background-color: var(--accent-blue); transform: translateX(6px); box-shadow: -6px 6px 0 var(--black); }
+
+        /* 弹窗提示 */
+        .toast {
+            position: fixed; bottom: 30px; right: 30px; background: var(--black); color: var(--white);
+            padding: 15px 25px; font-weight: 700; opacity: 0; visibility: hidden;
+            transition: 0.3s; z-index: 9999; border: 1.5px solid var(--accent-blue);
         }
+        .toast.show { opacity: 1; visibility: visible; }
 
         @media (max-width: 1024px) {
-            .global-nav { padding: 20px 40px; }
-            .nav-links { display: none; }
-            .lang-switch { margin-left: 0; }
             .about-container { grid-template-columns: 1fr; padding: 180px 40px 60px; gap: 60px; }
             .about-title { font-size: 5.5rem; }
             .contact-box { font-size: 1.3rem; }
@@ -133,13 +99,7 @@
         <div class="nav-logo"><a href="/index.html">EASIS</a></div>
         <div style="display: flex; align-items: center;">
             <ul class="nav-links">
-                <li class="dropdown">
-                    <a href="javascript:void(0)">Work</a>
-                    <ul class="dropdown-menu">
-                        <li><a href="/project/projects.html">Projects</a></li>
-                        <li><a href="#">Experience</a></li>
-                    </ul>
-                </li>
+                <li><a href="#">Work</a></li>
                 <li><a href="#">Logs</a></li>
                 <li><a href="/about.html">About Me</a></li>
             </ul>
@@ -151,10 +111,8 @@
     </nav>
 
     <main class="about-container">
-        <div>
-            <div class="about-title-wrapper">
-                <h1 class="about-title">About</h1>
-            </div>
+        <div class="about-title-wrapper">
+            <h1 class="about-title">About</h1>
         </div>
 
         <div class="content-section">
@@ -172,19 +130,33 @@
             <section class="about-section">
                 <span class="label lang-en">Connect</span>
                 <span class="label lang-zh">联系我</span>
-                <a href="mailto:Easis067@outlook.com" class="contact-box">
+                <div class="contact-box" onclick="copyEmail()">
                     <span>Easis067@outlook.com</span>
-                    <span>↗</span>
-                </a>
+                    <span>📋</span>
+                </div>
             </section>
         </div>
     </main>
+
+    <div id="toast" class="toast">
+        <span class="lang-en">Email address copied!</span>
+        <span class="lang-zh">邮箱地址已复制！</span>
+    </div>
 
     <script>
         function switchLang(lang) {
             document.body.className = 'mode-' + lang;
             document.getElementById('btn-en').classList.toggle('active', lang === 'en');
             document.getElementById('btn-zh').classList.toggle('active', lang === 'zh');
+        }
+
+        function copyEmail() {
+            const email = "Easis067@outlook.com";
+            navigator.clipboard.writeText(email).then(() => {
+                const toast = document.getElementById('toast');
+                toast.classList.add('show');
+                setTimeout(() => toast.classList.remove('show'), 2000);
+            });
         }
     </script>
 </body>
