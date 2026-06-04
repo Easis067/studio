@@ -11,14 +11,14 @@
 
     <style>
         :root {
-            --bg-black: #0A0A0A;       
-            --fluo-green: #00FF66;     
-            --white: #F9F9F9;          
+            --white: #F9F9F9;          /* 回归干净的白色/轻灰底 */
+            --black: #111111;          /* 统一硬朗的黑色框线与文字 */
+            --fluo-lime: #DFFF00;      /* 精准提取自你截图里的标志性亮荧光黄 */
         }
 
         body {
-            background-color: var(--bg-black);
-            color: var(--fluo-green); 
+            background-color: var(--white);
+            color: var(--black); 
             margin: 0;
             font-family: "Space Grotesque", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             -webkit-font-smoothing: antialiased;
@@ -27,6 +27,7 @@
 
         .lang-zh.hidden, .lang-en.hidden { display: none !important; }
 
+        /* --- 顶部导航栏（完美同步主页设计） --- */
         .global-nav {
             display: flex;
             justify-content: space-between;
@@ -37,48 +38,50 @@
             top: 0;
             z-index: 1001;
             box-sizing: border-box;
-            border-bottom: 1.5px solid var(--fluo-green);
-            background-color: var(--bg-black); 
+            border-bottom: 1.5px solid var(--black);
+            background-color: var(--white); 
         }
 
         .nav-logo a {
             font-size: 2rem;
             font-weight: 900;
             text-decoration: none;
-            color: var(--fluo-green);
+            color: var(--black);
             letter-spacing: -0.03em;
         }
 
         .nav-links { display: flex; list-style: none; gap: 30px; margin: 0; padding: 0; }
         .nav-links > li { position: relative; }
         .nav-links > li > a { 
-            text-decoration: none; color: var(--fluo-green); font-size: 1.05rem; font-weight: 700; 
-            text-transform: uppercase; padding: 6px 16px; border: 1.5px solid var(--fluo-green);
+            text-decoration: none; color: var(--black); font-size: 1.05rem; font-weight: 700; 
+            text-transform: uppercase; padding: 6px 16px; border: 1.5px solid var(--black);
             display: inline-block; transition: 0.2s ease-in-out;
         }
         
         .nav-links > li > a:hover { 
-            background: var(--fluo-green) !important; 
-            color: var(--bg-black) !important; 
-            box-shadow: 4px 4px 0 var(--white);
+            background: var(--fluo-lime) !important; /* 悬停变为截图中的亮黄 */
+            color: var(--black) !important; 
+            box-shadow: 4px 4px 0 var(--black);
         }
 
         .dropdown-menu {
-            position: absolute; top: 100%; left: 0; background: var(--fluo-green); min-width: 200px;
+            position: absolute; top: 100%; left: 0; background: var(--black); min-width: 200px;
             list-style: none; padding: 10px 0; margin: 0; opacity: 0; visibility: hidden;
-            border: 1.5px solid var(--fluo-green); transition: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            border: 1.5px solid var(--black); transition: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .nav-links > li:hover .dropdown-menu { opacity: 1; visibility: visible; margin-top: 10px; }
         .dropdown-menu li a { 
-            color: var(--bg-black) !important; padding: 12px 20px; display: block; 
-            text-decoration: none; font-weight: 700; font-size: 0.95rem;
+            color: var(--white) !important; padding: 12px 20px; display: block; 
+            text-decoration: none; font-weight: 600; font-size: 0.95rem;
         }
-        .dropdown-menu li a:hover { color: var(--white) !important; background-color: var(--bg-black); }
+        .dropdown-menu li a:hover { color: var(--fluo-lime) !important; }
 
-        .lang-switch { margin-left: 50px; border: 1.5px solid var(--fluo-green); padding: 2px; background: transparent; display: flex; }
+        /* 语言切换 */
+        .lang-switch { margin-left: 50px; border: 1.5px solid var(--black); padding: 2px; background: transparent; display: flex; }
         .lang-switch span { padding: 4px 12px; cursor: pointer; font-weight: 700; color: inherit; font-size: 0.9rem; }
-        .lang-switch .active { background: var(--fluo-green); color: var(--bg-black) !important; }
+        .lang-switch .active { background: var(--fluo-lime); color: var(--black) !important; }
 
+        /* --- 主体框架 --- */
         .projects-wrapper {
             min-height: 100vh;
             padding: 180px 100px 80px 100px;
@@ -89,7 +92,7 @@
 
         .page-header {
             margin-bottom: 60px;
-            border-bottom: 1.5px solid var(--fluo-green);
+            border-bottom: 1.5px solid var(--black);
             padding-bottom: 20px;
         }
 
@@ -101,6 +104,7 @@
             text-transform: uppercase;
         }
 
+        /* --- 工业级对称大双栏 --- */
         .projects-grid {
             display: grid;
             grid-template-columns: 1fr 1fr; 
@@ -108,8 +112,9 @@
             width: 100%;
         }
 
+        /* 延续主页的黑框黑字立体阴影结构 */
         .project-card {
-            border: 1.5px solid var(--fluo-green);
+            border: 1.5px solid var(--black);
             padding: 40px;
             display: flex;
             flex-direction: column;
@@ -117,10 +122,10 @@
             text-decoration: none;
             color: inherit;
             min-height: 350px; 
-            box-shadow: 6px 6px 0 transparent;
+            box-shadow: 4px 4px 0 var(--black); /* 与首页保持一致的硬投影 */
             box-sizing: border-box;
             background: transparent;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: all 0.2s ease-in-out;
         }
 
         .card-top {
@@ -132,13 +137,13 @@
         .project-num {
             font-size: 1.2rem;
             font-weight: 700;
-            opacity: 0.5;
+            opacity: 0.4;
         }
 
         .project-arrow {
             font-size: 2rem;
             font-weight: 900;
-            transition: transform 0.3s ease;
+            transition: transform 0.2s ease;
         }
 
         .card-bottom {
@@ -155,23 +160,24 @@
         .project-desc {
             font-size: 1.1rem;
             line-height: 1.5;
-            opacity: 0.8;
+            opacity: 0.7;
             font-weight: 500;
             margin: 0;
             max-width: 90%;
         }
 
+        /* 💡 悬停激活动效：卡片瞬间注入标志性的荧光黄底色，完美与经济页建立视觉联系 */
         .project-card:hover {
-            background: var(--fluo-green) !important;
-            color: var(--bg-black) !important;
-            transform: translate(-4px, -4px);
-            box-shadow: 10px 10px 0 var(--white);
+            background: var(--fluo-lime) !important;
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0 var(--black);
         }
 
         .project-card:hover .project-arrow {
-            transform: translate(6px, -6px);
+            transform: translate(4px, -4px);
         }
 
+        /* --- 移动端响应式 --- */
         @media (max-width: 900px) {
             .global-nav { padding: 20px 40px; }
             .nav-links { display: none; }
@@ -223,10 +229,9 @@
 
         <section class="projects-grid">
             
-            <!-- 卡片 1: 经济学 -->
             <a href="/project/economics.html" class="project-card">
                 <div class="card-top">
-                    <span class="project-num">01 / ARCHIVE</span>
+                    <span class="project-num">01 / SYSTEM</span>
                     <span class="project-arrow">↗</span>
                 </div>
                 <div class="card-bottom">
@@ -235,16 +240,15 @@
                         <span class="lang-zh hidden">经济学研究</span>
                     </h2>
                     <p class="project-desc">
-                        <span class="lang-en">Exploring macroeconomic paradigms, systemic financial structures, and quantitative data modeling.</span>
-                        <span class="lang-zh hidden">探索宏观经济范式、系统性金融结构与量化数据建模。</span>
+                        <span class="lang-en">Structural analysis of market mechanisms, systemic financial flows, and quantitative modeling.</span>
+                        <span class="lang-zh hidden">市场机制、系统性金融流向与量化建模的结构化分析。</span>
                     </p>
                 </div>
             </a>
 
-            <!-- 卡片 2: 创新学 -->
             <a href="/project/innovation.html" class="project-card">
                 <div class="card-top">
-                    <span class="project-num">02 / ARCHIVE</span>
+                    <span class="project-num">02 / MEDIUM</span>
                     <span class="project-arrow">↗</span>
                 </div>
                 <div class="card-bottom">
@@ -253,8 +257,8 @@
                         <span class="lang-zh hidden">创新学研究</span>
                     </h2>
                     <p class="project-desc">
-                        <span class="lang-en">Investigating technological mediums, ecosystem evolutions, and the future architectures of systems.</span>
-                        <span class="lang-zh hidden">研究技术媒介、生态系统演进以及系统的未来架构。</span>
+                        <span class="lang-en">Investigating technological mediums, systemic ecosystem evolutions, and future institutional frameworks.</span>
+                        <span class="lang-zh hidden">研究技术媒介、系统性生态演进以及未来制度框架。</span>
                     </p>
                 </div>
             </a>
