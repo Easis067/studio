@@ -10,24 +10,26 @@
         body { background-color: var(--white); color: var(--black); margin: 0; font-family: "Space Grotesque", sans-serif; padding-top: 150px; }
         .lang-zh.hidden, .lang-en.hidden { display: none !important; }
 
-        /* 导航栏 */
+        /* 导航栏 (保持首页一致) */
         .global-nav { display: flex; justify-content: space-between; align-items: center; padding: 30px 100px; position: fixed; width: 100%; top: 0; z-index: 1001; border-bottom: 1.5px solid var(--black); background: var(--white); box-sizing: border-box; }
         .nav-logo a { font-size: 2rem; font-weight: 900; text-decoration: none; color: var(--black); }
         .nav-links { display: flex; list-style: none; gap: 30px; }
         .nav-links > li > a { text-decoration: none; color: var(--black); font-weight: 700; text-transform: uppercase; padding: 6px 16px; border: 1.5px solid var(--black); }
 
-        /* 内容区 */
-        .main-container { padding: 0 100px; }
-        .btn-projects { display: inline-block; background: var(--fluo-yellow); color: var(--black); padding: 15px 30px; font-weight: 900; border: 1.5px solid var(--black); box-shadow: 4px 4px 0 var(--black); text-decoration: none; margin-bottom: 50px; }
+        .main-container { padding: 0 100px 100px 100px; }
+        .page-title { font-size: 4rem; font-weight: 900; margin-bottom: 50px; text-transform: uppercase; }
+
+        /* 布局 */
+        .experience-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; margin-bottom: 60px; }
+        .section-header { font-weight: 900; font-size: 1.5rem; margin-bottom: 30px; text-transform: uppercase; border-left: 5px solid var(--fluo-yellow); padding-left: 15px; }
         
-        /* 时间轴样式 */
-        .experience-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; }
-        .section-header { font-weight: 900; border-bottom: 3px solid var(--fluo-yellow); padding-bottom: 10px; margin-bottom: 30px; display: inline-block; }
         .timeline-item { position: relative; padding-left: 20px; margin-bottom: 40px; border-left: 2px solid var(--fluo-yellow); }
         .timeline-item::before { content: ''; position: absolute; left: -6px; top: 0; width: 10px; height: 10px; background: var(--fluo-yellow); border-radius: 50%; }
         
-        .bottom-section { border-top: 1.5px solid var(--black); margin-top: 60px; padding-top: 40px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
-        
+        /* 底部项目跳转 */
+        .project-link-box { margin-top: 50px; border-top: 2px solid var(--black); padding-top: 50px; }
+        .btn-projects { display: inline-block; background: var(--fluo-yellow); color: var(--black); padding: 15px 30px; font-weight: 900; border: 1.5px solid var(--black); box-shadow: 4px 4px 0 var(--black); text-decoration: none; text-transform: uppercase; }
+
         /* 语言切换 */
         .lang-switch { border: 1.5px solid var(--black); display: flex; padding: 2px; }
         .lang-switch span { padding: 4px 12px; cursor: pointer; font-weight: 700; }
@@ -52,37 +54,30 @@
 
     <main class="main-container">
         <h1 class="page-title"><span class="lang-en">Experience</span><span class="lang-zh hidden">工作经历</span></h1>
-        <a href="project/projects.html" class="btn-projects"><span class="lang-en">VIEW PROJECTS →</span><span class="lang-zh hidden">查看项目 →</span></a>
 
         <div class="experience-grid">
             <div>
                 <div class="section-header"><span class="lang-en">Professional Work</span><span class="lang-zh hidden">专业工作</span></div>
-                <div class="timeline-item">
-                    <h3>KYC Analyst</h3>
-                    <p><span class="lang-en">Risk assessment & compliance.</span><span class="lang-zh hidden">风险评估与合规审查。</span></p>
-                </div>
-                <div class="timeline-item">
-                    <h3>Compliance Assistant</h3>
-                    <p><span class="lang-en">Policy audit & monitoring.</span><span class="lang-zh hidden">政策审计与流程监控。</span></p>
-                </div>
+                <div class="timeline-item"><h3>KYC Analyst</h3><p>Compliance & Risk</p></div>
+                <div class="timeline-item"><h3>Compliance Assistant</h3><p>Audit & Monitoring</p></div>
             </div>
             <div>
                 <div class="section-header"><span class="lang-en">Social Engagement</span><span class="lang-zh hidden">社会实践</span></div>
-                <div class="timeline-item">
-                    <h3>Event Organizer</h3>
-                    <p><span class="lang-en">Event planning & execution.</span><span class="lang-zh hidden">活动策划与执行。</span></p>
-                </div>
-                <div class="timeline-item">
-                    <h3>Volunteer</h3>
-                    <p><span class="lang-en">Community service.</span><span class="lang-zh hidden">社区志愿服务。</span></p>
-                </div>
+                <div class="timeline-item"><h3>Event Organizer</h3><p>Planning & Execution</p></div>
+                <div class="timeline-item"><h3>Volunteer</h3><p>Community Service</p></div>
             </div>
         </div>
 
-        <div class="bottom-section">
-            <div><div class="section-header">Education</div><p><strong>University</strong><br>Degree</p></div>
-            <div><div class="section-header">Awards</div><p>• Excellence Award</p></div>
-            <div><div class="section-header">Skills</div><p>KYC/AML, Compliance</p></div>
+        <!-- 将 Education/Awards/Skills 放在最后 -->
+        <div class="section-header"><span class="lang-en">Background & Skills</span><span class="lang-zh hidden">教育与背景</span></div>
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px;">
+            <div><h3>Education</h3><p>University Name</p></div>
+            <div><h3>Awards</h3><p>Excellence Award</p></div>
+            <div><h3>Skills</h3><p>KYC/AML, Compliance</p></div>
+        </div>
+
+        <div class="project-link-box">
+            <a href="project/projects.html" class="btn-projects"><span class="lang-en">VIEW PROJECTS →</span><span class="lang-zh hidden">查看项目 →</span></a>
         </div>
     </main>
 
