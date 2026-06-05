@@ -9,31 +9,34 @@
         :root { --white: #F9F9F9; --black: #111111; --accent-blue: #00E1D9; }
         body { background-color: var(--white); color: var(--black); margin: 0; font-family: "Space Grotesque", sans-serif; }
 
-        /* 菜单栏保持一致 */
-        .global-nav { display: flex; justify-content: space-between; align-items: center; padding: 30px 100px; border-bottom: 1.5px solid var(--black); position: sticky; top: 0; background: var(--white); z-index: 1000; }
+        /* 1. 全局导航栏 - 严格对齐 Index 风格 */
+        .global-nav { display: flex; justify-content: space-between; align-items: center; padding: 30px 100px; border-bottom: 1.5px solid var(--black); background: var(--white); position: sticky; top: 0; z-index: 1000; }
         .nav-logo a { font-size: 2rem; font-weight: 900; text-decoration: none; color: var(--black); }
         .nav-links { display: flex; list-style: none; gap: 30px; }
-        .nav-links li a { text-decoration: none; color: var(--black); font-weight: 700; text-transform: uppercase; padding: 6px 16px; border: 1.5px solid var(--black); }
-        .nav-links li a:hover { background: var(--accent-blue); box-shadow: 4px 4px 0 var(--black); }
+        .nav-links > li > a { text-decoration: none; color: var(--black); font-weight: 700; text-transform: uppercase; padding: 6px 16px; border: 1.5px solid var(--black); }
+        .nav-links > li > a:hover { background: var(--accent-blue); box-shadow: 4px 4px 0 var(--black); }
+        .lang-switch { border: 1.5px solid var(--black); padding: 4px 12px; cursor: pointer; font-weight: 700; }
 
-        /* 左右分栏容器 */
-        .main-wrapper { display: grid; grid-template-columns: 300px 1fr; gap: 80px; max-width: 1200px; margin: 100px auto; padding: 0 40px; }
+        /* 2. 主页面结构：左侧 About 固定，右侧内容流 */
+        .main-container { display: grid; grid-template-columns: 350px 1fr; gap: 100px; max-width: 1200px; margin: 100px auto; padding: 0 40px; }
         
-        /* 左侧：About 固定 */
-        .left-col { position: sticky; top: 150px; height: fit-content; }
-        .about-title { font-size: 5rem; margin: 0; text-transform: uppercase; }
-        .about-title::after { content: ''; display: block; width: 80px; height: 12px; background: var(--accent-blue); margin-top: 15px; }
+        .left-side { position: sticky; top: 150px; height: fit-content; }
+        .about-title { font-size: 8rem; margin: 0; line-height: 0.8; text-transform: uppercase; }
+        .about-title::after { content: ''; display: block; width: 150px; height: 15px; background: var(--accent-blue); margin-top: 20px; transform: rotate(-1deg); }
 
-        /* 右侧：内容 */
-        .label { font-size: 0.85rem; text-transform: uppercase; font-weight: 900; opacity: 0.4; margin-bottom: 20px; display: block; }
-        .intro-text { font-size: 1.45rem; line-height: 1.7; font-weight: 500; margin-bottom: 60px; }
+        .right-side { display: flex; flex-direction: column; gap: 60px; }
+        .intro-text { font-size: 1.45rem; line-height: 1.7; font-weight: 500; }
         
-        .contact-box { display: inline-flex; justify-content: space-between; cursor: pointer; padding: 20px; border: 1.5px solid var(--black); font-weight: 700; width: 100%; box-sizing: border-box; }
-        .contact-box:hover { background: var(--accent-blue); transform: translateX(6px); box-shadow: -6px 6px 0 var(--black); }
-
-        .archive-wall { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; margin-top: 30px; }
-        .note-card { padding: 20px; border: 1.5px solid var(--black); background: #fff; transform: rotate(-1deg); }
-        .note-input { background: var(--accent-blue); padding: 20px; border: 1.5px solid var(--black); }
+        /* 3. 档案感留言交互 */
+        .contact-box { cursor: pointer; padding: 20px; border: 1.5px solid var(--black); font-weight: 700; transition: 0.2s; }
+        .contact-box:hover { background: var(--accent-blue); transform: translateX(5px); }
+        
+        .note-input { background: #fff; border: 2px solid var(--black); padding: 20px; }
+        input, textarea { width: 100%; border: none; border-bottom: 1.5px solid #ccc; background: transparent; padding: 10px 0; margin-bottom: 10px; font-family: inherit; }
+        button { background: var(--black); color: white; padding: 10px 20px; cursor: pointer; font-weight: 900; }
+        
+        .archive-wall { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 30px; }
+        .note-card { padding: 20px; border: 1.5px solid var(--black); background: #fff; transform: rotate(-0.5deg); box-shadow: 4px 4px 0 rgba(0,0,0,0.1); }
     </style>
 </head>
 <body class="mode-en">
@@ -45,53 +48,45 @@
             <li><a href="#">Logs</a></li>
             <li><a href="/about.html">About</a></li>
         </ul>
-        <div class="lang-switch" onclick="switchLang(document.body.classList.contains('mode-en') ? 'zh' : 'en')" style="border: 1.5px solid #111; padding: 4px 12px; cursor: pointer; font-weight: 700;">
-            EN / 中文
-        </div>
+        <div class="lang-switch" onclick="switchLang()">EN / 中文</div>
     </nav>
 
-    <main class="main-wrapper">
-        <div class="left-col">
+    <main class="main-container">
+        <!-- 左侧索引 -->
+        <div class="left-side">
             <h1 class="about-title">About</h1>
         </div>
 
-        <div class="right-col">
+        <!-- 右侧流式内容 -->
+        <div class="right-side">
             <section>
-                <span class="label lang-en">Hello</span>
-                <span class="label lang-zh">你好</span>
-                <p class="intro-text lang-en">Easis. Here lie reflections on economics and innovation... [你的文字]</p>
-                <p class="intro-text lang-zh">我是 Easis... [你的文字]</p>
+                <p class="intro-text">Easis. Here lie reflections on economics and innovation, alongside cities and journeys through my lens, notes in the margins of books, echoes after the theater curtain falls, and those quiet minutes spent standing before an exhibition. Backpack on, hitting the road as an observer of the world.</p>
+                <div class="contact-box" onclick="alert('Copied!')">Easis067@outlook.com 📋</div>
             </section>
 
-            <section style="margin-bottom: 80px;">
-                <span class="label">Connect</span>
-                <div class="contact-box" onclick="copyEmail()"><span>Easis067@outlook.com</span> <span>📋</span></div>
-            </section>
-
-            <section>
-                <span class="label">Leave a Trace</span>
+            <section class="guestbook-section">
+                <h3>Guestbook</h3>
                 <div class="note-input">
-                    <input type="text" id="guest-name" placeholder="Name...">
-                    <textarea id="guest-msg" placeholder="Note..."></textarea>
-                    <button onclick="postNote()">Pin it</button>
+                    <input type="text" id="name" placeholder="Name">
+                    <textarea id="msg" placeholder="Leave a trace..."></textarea>
+                    <button onclick="post()">Pin it</button>
                 </div>
-                <div class="archive-wall" id="archive-wall"></div>
+                <div class="archive-wall" id="wall"></div>
             </section>
         </div>
     </main>
 
     <script>
-        function switchLang(lang) { document.body.className = 'mode-' + lang; }
-        function copyEmail() { navigator.clipboard.writeText("Easis067@outlook.com"); alert("Copied!"); }
-        function postNote() {
-            const name = document.getElementById('guest-name').value || "Guest";
-            const msg = document.getElementById('guest-msg').value;
+        function switchLang() { document.body.className = document.body.className === 'mode-en' ? 'mode-zh' : 'mode-en'; }
+        function post() {
+            const name = document.getElementById('name').value;
+            const msg = document.getElementById('msg').value;
             if(!msg) return;
             const div = document.createElement('div');
             div.className = 'note-card';
-            div.innerHTML = `<p>"${msg}"</p><small>— ${name}</small>`;
-            document.getElementById('archive-wall').appendChild(div);
-            document.getElementById('guest-msg').value = '';
+            div.innerHTML = `<strong>${name || 'Guest'}</strong><p>${msg}</p>`;
+            document.getElementById('wall').prepend(div);
+            document.getElementById('msg').value = '';
         }
     </script>
 </body>
