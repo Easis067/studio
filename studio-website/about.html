@@ -10,38 +10,43 @@
 
     <style>
         :root { --white: #F9F9F9; --black: #111111; --accent-blue: #00E1D9; }
-        body { background-color: var(--white); color: var(--black); margin: 0; font-family: "Space Grotesque", sans-serif; -webkit-font-smoothing: antialiased; }
+        body { background-color: var(--white); color: var(--black); margin: 0; font-family: "Space Grotesque", sans-serif; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
 
-        /* 导航栏 (保持与主页面一致) */
+        /* 导航栏 */
         .global-nav { display: flex; justify-content: space-between; align-items: center; padding: 30px 100px; position: fixed; width: 100%; top: 0; z-index: 1001; box-sizing: border-box; border-bottom: 1.5px solid var(--black); background-color: var(--white); }
         .nav-logo a { font-size: 2rem; font-weight: 900; text-decoration: none; color: var(--black); }
         .nav-links { display: flex; list-style: none; gap: 30px; margin: 0; padding: 0; }
-        .nav-links > li > a { text-decoration: none; color: var(--black); font-size: 1.05rem; font-weight: 700; text-transform: uppercase; padding: 6px 16px; border: 1.5px solid var(--black); transition: 0.2s ease-in-out; }
+        .nav-links > li > a { text-decoration: none; color: var(--black); font-size: 1.05rem; font-weight: 700; text-transform: uppercase; padding: 6px 16px; border: 1.5px solid var(--black); transition: 0.2s; }
         .nav-links > li > a:hover { background: var(--accent-blue); box-shadow: 4px 4px 0 var(--black); }
 
         /* 内容布局 */
         .about-container { padding: 240px 100px 100px 100px; max-width: 1400px; margin: 0 auto; }
         .about-title { font-size: 9rem; font-weight: 900; margin: 0; line-height: 0.85; text-transform: uppercase; }
         .about-title-wrapper::after { content: ''; display: block; width: 100%; height: 35px; background-color: var(--accent-blue); margin-top: 10px; }
-
-        /* 档案装置部分 */
-        .shelf-container { margin-top: 100px; max-width: 900px; }
         .label { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.15em; font-weight: 900; opacity: 0.4; margin-bottom: 25px; display: block; }
-        .bookshelf-line { border-bottom: 8px solid var(--black); display: flex; align-items: flex-end; gap: 15px; min-height: 220px; padding-bottom: 10px; }
-        
-        .library-card { 
-            width: 120px; height: 160px; background: white; border: 1.5px solid var(--black); 
-            padding: 15px; display: flex; flex-direction: column; justify-content: space-between;
-            transform: translateY(50px); opacity: 0; transition: 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .library-card.landed { transform: translateY(0); opacity: 1; }
-        
-        .contact-box { cursor: pointer; padding: 20px 25px; border: 1.5px solid var(--black); font-weight: 700; font-size: 1.6rem; transition: 0.3s; display: inline-flex; width: 100%; box-sizing: border-box; }
+
+        /* 邮箱交互 */
+        .contact-box { cursor: pointer; padding: 20px 25px; border: 1.5px solid var(--black); font-weight: 700; font-size: 1.6rem; transition: 0.3s; display: inline-flex; width: 100%; max-width: 600px; box-sizing: border-box; }
         .contact-box:hover { background-color: var(--accent-blue); transform: translateX(6px); box-shadow: -6px 6px 0 var(--black); }
+
+        /* 留言装置区域 (Shelf Canvas) */
+        .shelf-canvas { position: relative; height: 500px; margin-top: 80px; border-bottom: 8px solid var(--black); overflow: hidden; }
+        .note { 
+            position: absolute; width: 180px; height: 130px; background: #fff; border: 1.5px solid #111; 
+            padding: 20px; box-shadow: 8px 8px 0 rgba(0,0,0,0.1); transition: 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+            cursor: pointer; display: flex; flex-direction: column; justify-content: space-between;
+        }
+        .note:hover { transform: scale(1.1) rotate(0deg) !important; z-index: 99; box-shadow: 12px 12px 0 rgba(0,0,0,0.2); }
+        .note-name { font-weight: 900; font-size: 0.75rem; border-bottom: 1px solid #eee; padding-bottom: 5px; }
+        .note-msg { font-size: 0.9rem; font-style: italic; }
+
+        /* 输入区 */
+        .input-form { margin-top: 60px; max-width: 600px; padding: 30px; border: 2px dashed #ccc; }
+        input, textarea { width: 100%; border: none; border-bottom: 2px solid #111; background: transparent; padding: 10px 0; margin-bottom: 15px; font-family: inherit; font-size: 1.1rem; }
+        button { background: #111; color: white; padding: 15px 30px; cursor: pointer; font-weight: 900; }
         
-        .input-form { margin-top: 40px; padding: 30px; border: 2px dashed #ccc; }
-        input, textarea { width: 100%; border: none; border-bottom: 1px solid #000; background: transparent; padding: 10px 0; margin-bottom: 10px; font-family: inherit; }
-        button { background: var(--black); color: white; padding: 10px 25px; cursor: pointer; font-weight: 900; }
+        .toast { position: fixed; bottom: 30px; right: 30px; background: #111; color: #fff; padding: 15px 25px; opacity: 0; transition: 0.3s; }
+        .toast.show { opacity: 1; }
     </style>
 </head>
 <body>
@@ -62,43 +67,59 @@
 
         <section style="margin-top: 80px; max-width: 800px;">
             <span class="label">Hello</span>
-            <p style="font-size: 1.45rem; line-height: 1.7;">
+            <p style="font-size: 1.45rem; line-height: 1.7; font-weight: 500;">
                 Easis. Here lie reflections on economics and innovation, alongside cities and journeys through my lens, notes in the margins of books, echoes after the theater curtain falls, and those quiet minutes spent standing before an exhibition. Backpack on, hitting the road as an observer of the world.
             </p>
         </section>
 
-        <section style="margin-top: 60px; max-width: 800px;">
+        <section style="margin-top: 60px;">
             <span class="label">Connect</span>
             <div class="contact-box" onclick="copyEmail()">Easis067@outlook.com 📋</div>
         </section>
 
-        <section class="shelf-container">
-            <span class="label">Guestbook — Leave a Book</span>
-            <div class="bookshelf-line" id="shelf">
-                <div class="library-card landed" style="background: var(--accent-blue);"><strong>Projects</strong></div>
-                <div class="library-card landed"><strong>Logs</strong></div>
-            </div>
+        <section style="margin-top: 80px;">
+            <span class="label">Leave a Trace</span>
+            <div class="shelf-canvas" id="shelf"></div>
 
             <div class="input-form">
-                <input type="text" id="visitor" placeholder="Name">
-                <textarea id="note" placeholder="Leave a trace..."></textarea>
-                <button onclick="addCard()">Return to Shelf</button>
+                <input type="text" id="visitor" placeholder="Your name...">
+                <textarea id="note" placeholder="Leave a note here..."></textarea>
+                <button onclick="throwNote()">Pin it to the archive</button>
             </div>
         </section>
     </main>
 
+    <div id="toast" class="toast">Email Copied!</div>
+
     <script>
-        function copyEmail() { navigator.clipboard.writeText("Easis067@outlook.com"); alert("Copied!"); }
-        function addCard() {
-            const name = document.getElementById('visitor').value || "Visitor";
-            const note = document.getElementById('note').value;
-            if(!note) return;
-            const card = document.createElement('div');
-            card.className = 'library-card';
-            card.innerHTML = `<div style="font-weight:700">${name}</div><div style="border-bottom: 1px solid #ddd; height:20px"></div><div style="font-size:0.8rem">${note}</div>`;
-            document.getElementById('shelf').appendChild(card);
-            setTimeout(() => card.classList.add('landed'), 50);
+        function copyEmail() { 
+            navigator.clipboard.writeText("Easis067@outlook.com");
+            const t = document.getElementById('toast');
+            t.classList.add('show');
+            setTimeout(() => t.classList.remove('show'), 2000);
+        }
+
+        function throwNote() {
+            const name = document.getElementById('visitor').value || "Guest";
+            const msg = document.getElementById('note').value;
+            if(!msg) return;
+
+            const note = document.createElement('div');
+            note.className = 'note';
+            // 随机坐标与旋转角度
+            const x = Math.random() * (document.getElementById('shelf').offsetWidth - 220);
+            const y = Math.random() * (300);
+            const rot = Math.random() * 30 - 15;
+            
+            note.style.left = x + 'px';
+            note.style.top = y + 'px';
+            note.style.transform = `rotate(${rot}deg)`;
+            
+            note.innerHTML = `<div class="note-name">${name}</div><div class="note-msg">"${msg}"</div>`;
+            document.getElementById('shelf').appendChild(note);
+            
             document.getElementById('note').value = '';
+            document.getElementById('visitor').value = '';
         }
     </script>
 </body>
