@@ -6,55 +6,45 @@
     <title>EASIS | EXPERIENCE</title>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesque:wght@500;700;900&display=swap" rel="stylesheet">
     <style>
-        /* 复用你首页的全部核心样式，确保视觉统一 */
+        /* 这里复用了你首页的 CSS 变量和基础样式 */
         :root { --white: #F9F9F9; --black: #111111; --fluo-yellow: #00E1D9; }
         body { background-color: var(--white); color: var(--black); margin: 0; font-family: "Space Grotesque", sans-serif; }
         
+        /* 经历页面的内容容器 */
+        .content-container { max-width: 800px; margin: 150px auto; padding: 40px; }
+        .page-title { font-size: 4rem; font-weight: 900; margin-bottom: 50px; text-transform: uppercase; }
+        
+        .exp-item { border-left: 3px solid var(--black); padding-left: 30px; margin-bottom: 60px; }
+        .exp-item h2 { margin: 0 0 10px 0; font-size: 1.8rem; }
+        .exp-meta { font-weight: 700; opacity: 0.6; margin-bottom: 15px; }
+        
+        /* 为了保持一致性，复用导航样式 */
         .global-nav { display: flex; justify-content: space-between; align-items: center; padding: 30px 100px; border-bottom: 1.5px solid var(--black); }
         .nav-logo a { font-size: 2rem; font-weight: 900; text-decoration: none; color: var(--black); }
-        
-        /* 经历页面的内容布局 */
-        .content-wrapper { max-width: 900px; margin: 150px auto; padding: 0 40px; }
-        .page-title { font-size: 6rem; font-weight: 900; text-transform: uppercase; margin-bottom: 80px; }
-        
-        .exp-section { margin-bottom: 60px; }
-        .exp-label { font-size: 0.9rem; font-weight: 900; opacity: 0.5; text-transform: uppercase; margin-bottom: 30px; display: block; }
-        .item { border-left: 2px solid var(--black); padding-left: 30px; margin-bottom: 50px; }
-        .title { font-size: 1.6rem; font-weight: 900; }
-        .meta { font-weight: 700; opacity: 0.7; margin: 5px 0 10px 0; }
     </style>
 </head>
 <body>
 
     <nav class="global-nav">
         <div class="nav-logo"><a href="index.html">EASIS</a></div>
-        <a href="index.html" style="font-weight:700; color:#111; text-decoration:none; border:1.5px solid #111; padding:5px 15px;">BACK</a>
+        <a href="index.html" style="text-decoration:none; color:#111; font-weight:900; border: 1.5px solid #111; padding: 5px 15px;">BACK</a>
     </nav>
 
-    <main class="content-wrapper">
+    <main class="content-container">
         <h1 class="page-title">Experience</h1>
-
-        <section class="exp-section">
-            <span class="exp-label">Work Experience</span>
-            <div class="item">
-                <div class="title">Lead Researcher</div>
-                <div class="meta">Company Name | 2024 - Present</div>
-                <p>这里填入你的工作内容描述。</p>
-            </div>
-            <div class="item">
-                <div class="title">Project Manager</div>
-                <div class="meta">Organization | 2021 - 2023</div>
-                <p>这里填入你的工作内容描述。</p>
-            </div>
+        
+        <section class="exp-item">
+            <h2>Lead Designer</h2>
+            <div class="exp-meta">Company Name | 2024 - Present</div>
+            <p>这里描述你的职责和成就。</p>
         </section>
 
-        <section class="exp-section">
-            <span class="exp-label">Education</span>
-            <div class="item">
-                <div class="title">Master of Economics</div>
-                <div class="meta">University Name | 2019 - 2021</div>
-            </div>
+        <section class="exp-item">
+            <h2>Researcher</h2>
+            <div class="exp-meta">University | 2021 - 2023</div>
+            <p>这里描述你的科研经历。</p>
         </section>
     </main>
+
 </body>
 </html>
