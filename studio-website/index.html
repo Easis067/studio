@@ -3,395 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EASIS | ARCHIVE</title>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <title>EASIS | EXPERIENCE</title>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesque:wght@500;700;900&display=swap" rel="stylesheet">
-
     <style>
-        :root {
-            --white: #F9F9F9;         
-            --periwinkle: #111111;    
-            --fluo-yellow: #00E1D9;   
-            --black: #111111;         
-        }
-
-        body {
-            background-color: var(--white);
-            color: var(--black);
-            margin: 0;
-            font-family: "Space Grotesque", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            transition: background-color 4s cubic-bezier(0.4, 0, 0.2, 1), color 4s ease, border-color 4s ease; 
-            -webkit-font-smoothing: antialiased;
-            overflow-x: hidden; 
-        }
-
-        body.is-active {
-            background-color: var(--periwinkle);
-            color: #F9F9F9;
-        }
-        body.is-active .global-nav,
-        body.is-active .nav-links > li > a,
-        body.is-active .nav-groups,
-        body.is-active .lang-switch {
-            border-color: #F9F9F9 !important;
-        }
-        body.is-active .nav-logo a,
-        body.is-active .nav-links > li > a,
-        body.is-active .sub-menu a,
-        body.is-active .lang-switch span,
-        body.is-active .main-logo {
-            color: #F9F9F9 !important;
-        }
+        /* 复用你首页的全部核心样式，确保视觉统一 */
+        :root { --white: #F9F9F9; --black: #111111; --fluo-yellow: #00E1D9; }
+        body { background-color: var(--white); color: var(--black); margin: 0; font-family: "Space Grotesque", sans-serif; }
         
-        body.is-active .group-label, 
-        body.is-active .about-box-link {
-            background: transparent !important;
-            color: #F9F9F9 !important;
-            border-color: #F9F9F9 !important;
-        }
-        body.is-active .about-box-link .motto-placeholder {
-            color: #A0A0A0;
-        }
-        body.is-active .group-label:hover,
-        body.is-active .about-box-link:hover {
-            background: var(--fluo-yellow) !important;
-            border-color: #111111 !important;
-            color: #111111 !important;
-        }
-        body.is-active .about-box-link:hover .motto-placeholder {
-            color: #555555;
-        }
-
-        body.is-active .center-statement {
-            background-color: #F9F9F9;
-        }
-        body.is-active .center-statement span {
-            color: #111111;
-        }
-
-        .lang-zh.hidden, .lang-en.hidden { display: none !important; }
-
-        .global-nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 30px 100px; 
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1001;
-            box-sizing: border-box;
-            border-bottom: 1.5px solid var(--black);
-            background-color: inherit; 
-        }
-
-        .nav-logo a {
-            font-size: 2rem;
-            font-weight: 900;
-            text-decoration: none;
-            color: var(--black);
-            letter-spacing: -0.03em;
-        }
-
-        .nav-links { display: flex; list-style: none; gap: 30px; margin: 0; padding: 0; }
-        .nav-links > li { position: relative; }
-        .nav-links > li > a { 
-            text-decoration: none; color: var(--black); font-size: 1.05rem; font-weight: 700; 
-            text-transform: uppercase; padding: 6px 16px; border: 1.5px solid var(--black);
-            display: inline-block; transition: 0.2s ease-in-out;
-        }
+        .global-nav { display: flex; justify-content: space-between; align-items: center; padding: 30px 100px; border-bottom: 1.5px solid var(--black); }
+        .nav-logo a { font-size: 2rem; font-weight: 900; text-decoration: none; color: var(--black); }
         
-        .nav-links > li > a:hover { 
-            background: var(--fluo-yellow) !important; 
-            color: #111111 !important; 
-            border-color: var(--black); 
-            box-shadow: 4px 4px 0 var(--black);
-        }
-
-        .dropdown-menu {
-            position: absolute; top: 100%; left: 0; background: var(--black); min-width: 200px;
-            list-style: none; padding: 10px 0; margin: 0; opacity: 0; visibility: hidden;
-            border: 1.5px solid var(--black); transition: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .nav-links > li:hover .dropdown-menu { opacity: 1; visibility: visible; margin-top: 10px; }
-        .dropdown-menu li a { 
-            color: var(--white) !important; padding: 12px 20px; display: block; 
-            text-decoration: none; font-weight: 600; font-size: 0.95rem;
-        }
-        .dropdown-menu li a:hover { color: var(--fluo-yellow) !important; }
-
-        .hero-wrapper {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding: 140px 100px 60px 100px; 
-            box-sizing: border-box;
-        }
-
-        .main-logo {
-            font-size: 15vw;
-            font-weight: 900;
-            margin: 0;
-            letter-spacing: -0.06em;
-            line-height: 0.8;
-            color: var(--black); 
-            cursor: default;
-            transition: color 0.2s ease;
-        }
+        /* 经历页面的内容布局 */
+        .content-wrapper { max-width: 900px; margin: 150px auto; padding: 0 40px; }
+        .page-title { font-size: 6rem; font-weight: 900; text-transform: uppercase; margin-bottom: 80px; }
         
-        .main-logo:hover {
-            color: transparent !important;
-            -webkit-text-stroke: 3px var(--fluo-yellow); 
-        }
-
-        .center-statement {
-            margin-top: 30px;
-            margin-bottom: 60px; 
-            padding: 10px 24px;
-            background-color: var(--black);
-            display: inline-block;
-            width: fit-content;
-            transition: background-color 2s ease;
-        }
-        .center-statement span {
-            font-weight: 700; letter-spacing: 0.4em; font-size: 1rem;
-            color: var(--white);
-            transition: color 2s ease;
-        }
-
-        .footer-nav {
-            width: 100%;
-        }
-        .nav-groups {
-            display: grid; 
-            grid-template-columns: 1.2fr 1fr 1fr; 
-            border-top: 1.5px solid var(--black); 
-            padding-top: 40px; 
-            list-style: none; 
-            margin: 0;
-            padding-left: 0; 
-            gap: 50px;
-            align-items: flex-start;
-        }
-
-        .group-label {
-            font-size: 1.15rem; 
-            font-weight: 900; 
-            background: transparent; 
-            color: inherit; 
-            padding: 10px 24px; 
-            display: inline-block;
-            margin-bottom: 25px; 
-            border: 1.5px solid var(--black);
-            box-shadow: 4px 4px 0 var(--black);
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
-            white-space: nowrap; 
-            transition: all 0.2s ease;
-        }
-
-        .about-box-link {
-            display: flex;
-            flex-direction: column; 
-            justify-content: space-between;
-            text-decoration: none;
-            color: inherit;
-            background: transparent;
-            border: 1.5px solid var(--black);
-            padding: 16px 24px;
-            min-height: 140px; 
-            box-shadow: 4px 4px 0 var(--black);
-            box-sizing: border-box;
-            transition: all 0.2s ease;
-        }
-
-        .about-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-        }
-
-        .about-text {
-            font-size: 1.15rem;
-            font-weight: 900;
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
-        }
-
-        .about-arrow {
-            font-size: 1.15rem;
-            font-weight: 900;
-            transition: transform 0.2s ease;
-        }
-
-        .motto-placeholder {
-            font-size: 0.9rem;
-            font-weight: 500;
-            line-height: 1.4;
-            color: #666666;
-            margin-top: 20px;
-            font-style: italic;
-            letter-spacing: 0.02em;
-            transition: color 0.2s ease;
-        }
-
-        .group-label:hover, .about-box-link:hover {
-            background: var(--fluo-yellow) !important;
-            color: #111111 !important;
-            border-color: var(--black) !important;
-            transform: translate(-2px, -2px);
-            box-shadow: 6px 6px 0 var(--black);
-        }
-        .about-box-link:hover .about-arrow {
-            transform: translateX(4px);
-        }
-        .about-box-link:hover .motto-placeholder {
-            color: #222222;
-        }
-
-        .sub-menu {
-            padding-left: 4px; 
-        }
-        .sub-menu a {
-            display: block; 
-            text-decoration: none; 
-            color: inherit; 
-            margin-bottom: 18px; 
-            font-size: 1.15rem; 
-            font-weight: 600; 
-            position: relative; 
-            width: fit-content;
-            opacity: 0.85;
-            transition: 0.2s;
-        }
-        .sub-menu a:hover { opacity: 1; }
-        .sub-menu a::after {
-            content: ''; position: absolute; width: 0; height: 3px; 
-            bottom: -4px; left: 0; background-color: var(--fluo-yellow); 
-            transition: width 0.2s ease;
-        }
-        .sub-menu a:hover::after { width: 100%; }
-
-        .lang-switch { margin-left: 50px; border: 1.5px solid var(--black); padding: 2px; background: transparent; transition: border-color 2s ease; display: flex; }
-        .lang-switch span { padding: 4px 12px; cursor: pointer; font-weight: 700; color: inherit; font-size: 0.9rem; }
-        .lang-switch .active { background: var(--fluo-yellow); color: #111111 !important; }
-
-        @media (max-width: 900px) {
-            .global-nav { padding: 20px 40px; }
-            .nav-links { display: none; }
-            .lang-switch { margin-left: 0; }
-            .hero-wrapper { padding: 140px 40px 40px 40px; }
-            .main-logo { font-size: 24vw; line-height: 0.9; }
-            .center-statement { margin-top: 20px; padding: 8px 16px; margin-bottom: 40px; }
-            .nav-groups { grid-template-columns: 1fr; gap: 40px; padding-top: 20px; }
-            .group-label, .about-box-link { font-size: 1.05rem; margin-bottom: 15px; }
-            .about-box-link { min-height: 110px; }
-            .sub-menu a { font-size: 1.05rem; margin-bottom: 14px; }
-        }
+        .exp-section { margin-bottom: 60px; }
+        .exp-label { font-size: 0.9rem; font-weight: 900; opacity: 0.5; text-transform: uppercase; margin-bottom: 30px; display: block; }
+        .item { border-left: 2px solid var(--black); padding-left: 30px; margin-bottom: 50px; }
+        .title { font-size: 1.6rem; font-weight: 900; }
+        .meta { font-weight: 700; opacity: 0.7; margin: 5px 0 10px 0; }
     </style>
 </head>
-<body id="dynamic-body">
+<body>
 
     <nav class="global-nav">
-        <div class="nav-logo"><a href="/index.html">EASIS</a></div>
-        <div style="display: flex; align-items: center;">
-            <ul class="nav-links">
-                <li class="dropdown">
-                    <a href="javascript:void(0)"><span class="lang-en">Work</span><span class="lang-zh hidden">工作项目</span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="/project/projects.html"><span class="lang-en">Projects</span><span class="lang-zh hidden">研究项目</span></a></li>
-                        <li><a href="#"><span class="lang-en">Experience</span><span class="lang-zh hidden">工作经历</span></a></li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="javascript:void(0)"><span class="lang-en">Logs</span><span class="lang-zh hidden">生活记录</span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#"><span class="lang-en">Visual Archive</span><span class="lang-zh hidden">摄影辑录</span></a></li>
-                        <li><a href="#"><span class="lang-en">Text Logs</span><span class="lang-zh hidden">文字记录</span></a></li>
-                    </ul>
-                </li>
-                <li><a href="/about.html"><span class="lang-en">About Me</span><span class="lang-zh hidden">关于我</span></a></li>
-            </ul>
-            <div class="lang-switch">
-                <span id="btn-en" onclick="setLanguage('en')" class="active">EN</span>
-                <span id="btn-zh" onclick="setLanguage('zh')">中文</span>
-            </div>
-        </div>
+        <div class="nav-logo"><a href="index.html">EASIS</a></div>
+        <a href="index.html" style="font-weight:700; color:#111; text-decoration:none; border:1.5px solid #111; padding:5px 15px;">BACK</a>
     </nav>
 
-    <main class="hero-wrapper">
-        <h1 class="main-logo">EASIS</h1>
-        <div class="center-statement">
-            <p style="margin: 0;">
-                <span class="lang-en">SYSTEMS / MEDIUM / ARCHIVE</span>
-                <span class="lang-zh hidden">系统 / 媒介 / 档案</span>
-            </p>
-        </div>
+    <main class="content-wrapper">
+        <h1 class="page-title">Experience</h1>
 
-        <nav class="footer-nav">
-            <ul class="nav-groups">
-                
-                <li>
-                    <a href="/about.html" class="about-box-link">
-                        <div class="about-header">
-                            <span class="about-text">
-                                <span class="lang-en">About Me</span>
-                                <span class="lang-zh hidden">关于我</span>
-                            </span>
-                            <span class="about-arrow">→</span>
-                        </div>
-                        <div class="motto-placeholder">
-                            <span class="lang-en">"Motto or personal statement placeholder..."</span>
-                            <span class="lang-zh hidden">“此处可填写你的个人座右铭或简介……”</span>
-                        </div>
-                    </a>
-                </li>
-                
-                <li>
-                    <span class="group-label">
-                        <span class="lang-en">Work</span><span class="lang-zh hidden">工作 / 研究</span>
-                    </span>
-                    <div class="sub-menu">
-                        <a href="/project/projects.html"><span class="lang-en">Projects</span><span class="lang-zh hidden">研究项目</span></a>
-                        <a href="#"><span class="lang-en">Experience</span><span class="lang-zh hidden">工作经历</span></a>
-                    </div>
-                </li>
+        <section class="exp-section">
+            <span class="exp-label">Work Experience</span>
+            <div class="item">
+                <div class="title">Lead Researcher</div>
+                <div class="meta">Company Name | 2024 - Present</div>
+                <p>这里填入你的工作内容描述。</p>
+            </div>
+            <div class="item">
+                <div class="title">Project Manager</div>
+                <div class="meta">Organization | 2021 - 2023</div>
+                <p>这里填入你的工作内容描述。</p>
+            </div>
+        </section>
 
-                <li>
-                    <span class="group-label">
-                        <span class="lang-en">Logs</span><span class="lang-zh hidden">生活 / 记录</span>
-                    </span>
-                    <div class="sub-menu">
-                        <a href="#"><span class="lang-en">Visual Archive</span><span class="lang-zh hidden">影像档案</span></a>
-                        <a href="#"><span class="lang-en">Text Logs</span><span class="lang-zh hidden">文字记录</span></a>
-                    </div>
-                </li>
-
-            </ul>
-        </nav>
+        <section class="exp-section">
+            <span class="exp-label">Education</span>
+            <div class="item">
+                <div class="title">Master of Economics</div>
+                <div class="meta">University Name | 2019 - 2021</div>
+            </div>
+        </section>
     </main>
-
-    <script>
-        const body = document.getElementById('dynamic-body');
-        
-        function runAnimation() {
-            setTimeout(() => { body.classList.add('is-active'); }, 15000); 
-            setTimeout(() => { body.classList.remove('is-active'); }, 30000); 
-            setTimeout(runAnimation, 35000); 
-        }
-        runAnimation();
-
-        function setLanguage(lang) {
-            document.querySelectorAll('.lang-en').forEach(el => lang === 'zh' ? el.classList.add('hidden') : el.classList.remove('hidden'));
-            document.querySelectorAll('.lang-zh').forEach(el => lang === 'zh' ? el.remove('hidden') : el.classList.add('hidden'));
-            
-            document.getElementById('btn-en').classList.toggle('active', lang === 'en');
-            document.getElementById('btn-zh').classList.toggle('active', lang === 'zh');
-        }
-    </script>
 </body>
 </html>
