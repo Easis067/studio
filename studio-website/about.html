@@ -7,61 +7,50 @@
     <style>
         :root { --white: #F9F9F9; --black: #111111; --accent-blue: #00E1D9; }
         body { background-color: var(--white); color: var(--black); margin: 0; font-family: "Space Grotesque", sans-serif; }
-        
-        /* 导航栏一致性 */
-        .global-nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 100px; border-bottom: 1.5px solid var(--black); background: var(--white); }
-        .nav-logo { font-size: 1.5rem; font-weight: 900; }
-        .nav-links { display: flex; list-style: none; gap: 20px; }
-        .nav-links a { text-decoration: none; color: var(--black); font-weight: 700; border: 1.5px solid var(--black); padding: 5px 15px; }
 
-        /* 左右分栏布局 */
         .page-wrapper { display: grid; grid-template-columns: 350px 1fr; gap: 100px; padding: 100px; max-width: 1400px; margin: 0 auto; }
         
-        /* 左侧：固定索引 */
+        /* 左侧：About, Hello, Contact 固定 */
         .left-col { position: sticky; top: 100px; height: 80vh; display: flex; flex-direction: column; justify-content: space-between; }
         .about-title { font-size: 8rem; line-height: 0.8; text-transform: uppercase; margin: 0; }
-        .about-title::after { content: ''; display: block; width: 120px; height: 20px; background: var(--accent-blue); margin-top: 20px; }
-        .contact-box { padding: 15px; border: 1.5px solid var(--black); font-weight: 700; cursor: pointer; transition: 0.2s; }
-        .contact-box:hover { background: var(--accent-blue); }
+        .about-title::after { content: ''; display: block; width: 120px; height: 15px; background: var(--accent-blue); transform: rotate(-1deg); margin-top: 20px; }
+        .label { font-size: 0.8rem; text-transform: uppercase; font-weight: 900; opacity: 0.4; margin-bottom: 10px; }
+        .contact-box { padding: 20px; border: 2px solid var(--black); font-weight: 700; cursor: pointer; transition: 0.3s; }
+        .contact-box:hover { background: var(--accent-blue); transform: translateX(5px); }
 
-        /* 右侧：流式内容 */
-        .intro-text { font-size: 1.4rem; line-height: 1.6; margin-bottom: 80px; }
-        .guestbook-section { border-top: 1.5px solid #eee; padding-top: 40px; }
+        /* 右侧：介绍 + Guestbook */
+        .intro-text { font-size: 1.4rem; line-height: 1.7; margin-bottom: 80px; }
         
-        /* 留言装置 */
-        #note-input { width: 100%; height: 100px; border: 2px dashed #ccc; padding: 15px; box-sizing: border-box; font-family: inherit; margin-bottom: 10px; }
-        .note-card { border: 1.5px solid #111; padding: 15px; margin-top: 20px; display: inline-block; background: #fff; box-shadow: 4px 4px 0 #eee; }
+        /* 艺术化的 Guestbook */
+        .guestbook-section { border-top: 2px solid #eee; padding-top: 40px; }
+        #note-input { width: 100%; border: 2px solid #111; border-radius: 20px 20px 5px 20px; padding: 20px; box-sizing: border-box; font-family: 'Courier New', monospace; background: #fdfdfd; margin-bottom: 15px; }
+        .note-card { border: 2px solid #111; padding: 20px; margin-top: 20px; display: inline-block; background: #fff; border-radius: 255px 15px 225px 15px/15px 225px 15px 255px; box-shadow: 4px 6px 0 rgba(0,0,0,0.15); transform: rotate(-0.5deg); font-family: 'Courier New', monospace; }
     </style>
 </head>
 <body>
 
-    <nav class="global-nav">
-        <div class="nav-logo">EASIS</div>
-        <div style="display:flex; align-items:center; gap:20px;">
-            <ul class="nav-links">
-                <li><a href="#">WORK</a></li>
-                <li><a href="#">LOGS</a></li>
-                <li><a href="#">ABOUT</a></li>
-            </ul>
-            <div style="border:1.5px solid #111; padding: 5px 10px; cursor:pointer; font-weight:700;">EN / 中文</div>
-        </div>
-    </nav>
-
     <main class="page-wrapper">
+        <!-- 左侧索引区 -->
         <div class="left-col">
-            <h1 class="about-title">About</h1>
-            <div class="contact-box" onclick="alert('Copied!')">Easis067@outlook.com 📋</div>
+            <div>
+                <h1 class="about-title">About</h1>
+            </div>
+            <div>
+                <div class="label">Hello</div>
+                <div class="contact-box" onclick="alert('Copied!')">Easis067@outlook.com 📋</div>
+            </div>
         </div>
 
+        <!-- 右侧内容区 -->
         <div class="right-col">
             <p class="intro-text">
                 Easis. Here lie reflections on economics and innovation, alongside cities and journeys through my lens, notes in the margins of books, echoes after the theater curtain falls, and those quiet minutes spent standing before an exhibition. Backpack on, hitting the road as an observer of the world.
             </p>
             
             <section class="guestbook-section">
-                <h3>Guestbook</h3>
-                <textarea id="note-input" placeholder="Write something..."></textarea>
-                <button onclick="postNote()" style="background:#111; color:#fff; padding:10px 20px; cursor:pointer;">Pin it</button>
+                <div class="label">Guestbook</div>
+                <textarea id="note-input" placeholder="Leave a trace..."></textarea>
+                <button onclick="postNote()" style="background:#111; color:#fff; padding:10px 25px; cursor:pointer; font-weight:900;">Pin it</button>
                 <div id="archive-list"></div>
             </section>
         </div>
