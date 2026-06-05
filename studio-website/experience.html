@@ -6,44 +6,85 @@
     <title>EASIS | EXPERIENCE</title>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesque:wght@500;700;900&display=swap" rel="stylesheet">
     <style>
-        /* 这里复用了你首页的 CSS 变量和基础样式 */
         :root { --white: #F9F9F9; --black: #111111; --fluo-yellow: #00E1D9; }
-        body { background-color: var(--white); color: var(--black); margin: 0; font-family: "Space Grotesque", sans-serif; }
+        body { background-color: var(--white); color: var(--black); margin: 0; font-family: "Space Grotesque", sans-serif; padding: 100px; }
         
-        /* 经历页面的内容容器 */
-        .content-container { max-width: 800px; margin: 150px auto; padding: 40px; }
+        /* 导航 */
+        .back-nav { margin-bottom: 50px; }
+        .back-nav a { text-decoration: none; color: var(--black); font-weight: 900; border: 1.5px solid var(--black); padding: 5px 15px; text-transform: uppercase; }
+        
         .page-title { font-size: 4rem; font-weight: 900; margin-bottom: 50px; text-transform: uppercase; }
         
-        .exp-item { border-left: 3px solid var(--black); padding-left: 30px; margin-bottom: 60px; }
-        .exp-item h2 { margin: 0 0 10px 0; font-size: 1.8rem; }
-        .exp-meta { font-weight: 700; opacity: 0.6; margin-bottom: 15px; }
+        /* 两栏布局 */
+        .experience-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; margin-bottom: 80px; }
+        .section-header { font-weight: 900; border-bottom: 2px solid var(--black); margin-bottom: 20px; padding-bottom: 10px; text-transform: uppercase; }
         
-        /* 为了保持一致性，复用导航样式 */
-        .global-nav { display: flex; justify-content: space-between; align-items: center; padding: 30px 100px; border-bottom: 1.5px solid var(--black); }
-        .nav-logo a { font-size: 2rem; font-weight: 900; text-decoration: none; color: var(--black); }
+        /* 条目样式 */
+        .item { margin-bottom: 30px; }
+        .item h3 { margin: 0; font-size: 1.2rem; }
+        .item p { margin: 5px 0; opacity: 0.7; }
+        
+        /* 教育、奖励、技能区 */
+        .bottom-section { border-top: 1.5px solid var(--black); padding-top: 40px; }
+        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
+        
+        @media (max-width: 900px) { .experience-grid, .grid-3 { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
 
-    <nav class="global-nav">
-        <div class="nav-logo"><a href="index.html">EASIS</a></div>
-        <a href="index.html" style="text-decoration:none; color:#111; font-weight:900; border: 1.5px solid #111; padding: 5px 15px;">BACK</a>
-    </nav>
+    <nav class="back-nav"><a href="index.html">← Back Home</a></nav>
 
-    <main class="content-container">
+    <main>
         <h1 class="page-title">Experience</h1>
-        
-        <section class="exp-item">
-            <h2>Lead Designer</h2>
-            <div class="exp-meta">Company Name | 2024 - Present</div>
-            <p>这里描述你的职责和成就。</p>
-        </section>
 
-        <section class="exp-item">
-            <h2>Researcher</h2>
-            <div class="exp-meta">University | 2021 - 2023</div>
-            <p>这里描述你的科研经历。</p>
-        </section>
+        <!-- 第一部分：工作与实践 -->
+        <div class="experience-grid">
+            <!-- 左栏：专业经历 -->
+            <div>
+                <div class="section-header">Professional Work</div>
+                <div class="item">
+                    <h3>KYC Analyst</h3>
+                    <p>Company Name | Date</p>
+                    <small>负责客户身份识别流程，风险评估及合规文档审核。</small>
+                </div>
+                <div class="item">
+                    <h3>Compliance Assistant</h3>
+                    <p>Company Name | Date</p>
+                    <small>协助合规部门进行政策更新监测与内部流程审计。</small>
+                </div>
+            </div>
+            <!-- 右栏：社会实践 -->
+            <div>
+                <div class="section-header">Social Engagement</div>
+                <div class="item">
+                    <h3>Event Organizer</h3>
+                    <p>Organization | Date</p>
+                    <small>策划并主办活动，负责协调人员、物料与现场执行。</small>
+                </div>
+                <div class="item">
+                    <h3>Volunteer</h3>
+                    <p>NGO/Event | Date</p>
+                    <small>积极参与志愿者服务，提供现场支持与沟通协助。</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- 第二部分：教育、奖励、技能 -->
+        <div class="bottom-section grid-3">
+            <div>
+                <div class="section-header">Education</div>
+                <p><strong>University Name</strong><br>Degree Name | Year</p>
+            </div>
+            <div>
+                <div class="section-header">Awards</div>
+                <p>• Award Name 2025<br>• Scholarship 2024</p>
+            </div>
+            <div>
+                <div class="section-header">Skills</div>
+                <p>KYC/AML Compliance, Project Management, Event Planning, Data Analysis</p>
+            </div>
+        </div>
     </main>
 
 </body>
