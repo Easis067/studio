@@ -4,46 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EASIS | ABOUT</title>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesque:wght@500;700;900&display=swap" rel="stylesheet">
-
     <style>
         :root { --white: #F9F9F9; --black: #111111; --accent-blue: #00E1D9; }
-        body { background-color: var(--white); color: var(--black); margin: 0; font-family: "Space Grotesque", sans-serif; -webkit-font-smoothing: antialiased; }
+        body { background-color: var(--white); color: var(--black); margin: 0; font-family: "Space Grotesque", sans-serif; }
 
-        /* 语言逻辑保持不变 */
-        .lang-zh { display: none !important; }
-        .lang-en { display: block !important; }
-        body.mode-zh .lang-zh { display: block !important; }
-        body.mode-zh .lang-en { display: none !important; }
-        body.mode-en .lang-en { display: block !important; }
-        body.mode-en .lang-zh { display: none !important; }
-
-        .global-nav { display: flex; justify-content: space-between; align-items: center; padding: 30px 100px; border-bottom: 1.5px solid var(--black); background: var(--white); position: sticky; top: 0; z-index: 1000; }
+        /* 菜单栏保持一致 */
+        .global-nav { display: flex; justify-content: space-between; align-items: center; padding: 30px 100px; border-bottom: 1.5px solid var(--black); position: sticky; top: 0; background: var(--white); z-index: 1000; }
         .nav-logo a { font-size: 2rem; font-weight: 900; text-decoration: none; color: var(--black); }
         .nav-links { display: flex; list-style: none; gap: 30px; }
-        .nav-links > li > a { text-decoration: none; color: var(--black); font-size: 1.05rem; font-weight: 700; text-transform: uppercase; padding: 6px 16px; border: 1.5px solid var(--black); transition: 0.2s; }
-        .nav-links > li > a:hover { background: var(--accent-blue); box-shadow: 4px 4px 0 var(--black); }
+        .nav-links li a { text-decoration: none; color: var(--black); font-weight: 700; text-transform: uppercase; padding: 6px 16px; border: 1.5px solid var(--black); }
+        .nav-links li a:hover { background: var(--accent-blue); box-shadow: 4px 4px 0 var(--black); }
 
-        .about-container { max-width: 1000px; margin: 100px auto; padding: 0 40px; }
-        .about-title { font-size: 9rem; font-weight: 900; margin: 0; text-transform: uppercase; }
-        .label { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.15em; font-weight: 900; opacity: 0.4; margin-bottom: 20px; display: block; }
+        /* 左右分栏容器 */
+        .main-wrapper { display: grid; grid-template-columns: 300px 1fr; gap: 80px; max-width: 1200px; margin: 100px auto; padding: 0 40px; }
+        
+        /* 左侧：About 固定 */
+        .left-col { position: sticky; top: 150px; height: fit-content; }
+        .about-title { font-size: 5rem; margin: 0; text-transform: uppercase; }
+        .about-title::after { content: ''; display: block; width: 80px; height: 12px; background: var(--accent-blue); margin-top: 15px; }
+
+        /* 右侧：内容 */
+        .label { font-size: 0.85rem; text-transform: uppercase; font-weight: 900; opacity: 0.4; margin-bottom: 20px; display: block; }
         .intro-text { font-size: 1.45rem; line-height: 1.7; font-weight: 500; margin-bottom: 60px; }
+        
+        .contact-box { display: inline-flex; justify-content: space-between; cursor: pointer; padding: 20px; border: 1.5px solid var(--black); font-weight: 700; width: 100%; box-sizing: border-box; }
+        .contact-box:hover { background: var(--accent-blue); transform: translateX(6px); box-shadow: -6px 6px 0 var(--black); }
 
-        /* 邮箱交互部分 (保留原样) */
-        .contact-box { display: inline-flex; align-items: center; justify-content: space-between; cursor: pointer; padding: 20px 25px; border: 1.5px solid var(--black); font-weight: 700; font-size: 1.6rem; transition: 0.3s; width: 100%; box-sizing: border-box; }
-        .contact-box:hover { background-color: var(--accent-blue); transform: translateX(6px); box-shadow: -6px 6px 0 var(--black); }
-
-        /* 档案墙部分 (新装置) */
-        .archive-wall { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 30px; margin-top: 50px; }
-        .note-card { padding: 25px; border: 1.5px solid var(--black); background: #fff; transform: rotate(-1deg); box-shadow: 4px 4px 0 rgba(0,0,0,0.1); }
-        .note-input { background: var(--accent-blue); padding: 30px; border: 1.5px solid var(--black); }
-        input, textarea { width: 100%; border: none; border-bottom: 1.5px solid var(--black); background: transparent; padding: 5px; font-family: inherit; font-weight: 700; margin-bottom: 15px; }
-        button { background: var(--black); color: var(--white); border: none; padding: 10px 20px; font-weight: 900; cursor: pointer; }
-        .toast { position: fixed; bottom: 30px; right: 30px; background: var(--black); color: var(--white); padding: 15px 25px; opacity: 0; transition: 0.3s; }
-        .toast.show { opacity: 1; }
+        .archive-wall { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; margin-top: 30px; }
+        .note-card { padding: 20px; border: 1.5px solid var(--black); background: #fff; transform: rotate(-1deg); }
+        .note-input { background: var(--accent-blue); padding: 20px; border: 1.5px solid var(--black); }
     </style>
 </head>
 <body class="mode-en">
@@ -55,59 +45,44 @@
             <li><a href="#">Logs</a></li>
             <li><a href="/about.html">About</a></li>
         </ul>
-        <div class="lang-switch" onclick="switchLang(document.body.classList.contains('mode-en') ? 'zh' : 'en')" style="border: 1.5px solid #111; padding: 4px 12px; cursor: pointer;">
-            <span id="btn-en">EN</span> / <span id="btn-zh">中文</span>
+        <div class="lang-switch" onclick="switchLang(document.body.classList.contains('mode-en') ? 'zh' : 'en')" style="border: 1.5px solid #111; padding: 4px 12px; cursor: pointer; font-weight: 700;">
+            EN / 中文
         </div>
     </nav>
 
-    <main class="about-container">
-        <h1 class="about-title">About</h1>
+    <main class="main-wrapper">
+        <div class="left-col">
+            <h1 class="about-title">About</h1>
+        </div>
 
-        <section>
-            <span class="label lang-en">Hello</span>
-            <span class="label lang-zh">你好</span>
-            <p class="intro-text lang-en">
-                Easis. Here lie reflections on economics and innovation, alongside cities and journeys through my lens, notes in the margins of books, echoes after the theater curtain falls, and those quiet minutes spent standing before an exhibition. Backpack on, hitting the road as an observer of the world.
-            </p>
-            <p class="intro-text lang-zh">
-                我是 Easis。这里有潜心研究的经济问题与创新的思考，也有镜头里的城市与旅途、书页边的笔记、散场后的回响，和展览里停下来的那几分钟。背包上路，做世界的观察者。
-            </p>
-        </section>
+        <div class="right-col">
+            <section>
+                <span class="label lang-en">Hello</span>
+                <span class="label lang-zh">你好</span>
+                <p class="intro-text lang-en">Easis. Here lie reflections on economics and innovation... [你的文字]</p>
+                <p class="intro-text lang-zh">我是 Easis... [你的文字]</p>
+            </section>
 
-        <section style="margin-bottom: 80px;">
-            <span class="label">Connect</span>
-            <div class="contact-box" onclick="copyEmail()">
-                <span>Easis067@outlook.com</span>
-                <span>📋</span>
-            </div>
-        </section>
+            <section style="margin-bottom: 80px;">
+                <span class="label">Connect</span>
+                <div class="contact-box" onclick="copyEmail()"><span>Easis067@outlook.com</span> <span>📋</span></div>
+            </section>
 
-        <section>
-            <span class="label">Leave a Trace</span>
-            <div class="note-input">
-                <input type="text" id="guest-name" placeholder="Your name...">
-                <textarea id="guest-msg" placeholder="Leave a note here..."></textarea>
-                <button onclick="postNote()">Pin it to the wall</button>
-            </div>
-            <div class="archive-wall" id="archive-wall"></div>
-        </section>
+            <section>
+                <span class="label">Leave a Trace</span>
+                <div class="note-input">
+                    <input type="text" id="guest-name" placeholder="Name...">
+                    <textarea id="guest-msg" placeholder="Note..."></textarea>
+                    <button onclick="postNote()">Pin it</button>
+                </div>
+                <div class="archive-wall" id="archive-wall"></div>
+            </section>
+        </div>
     </main>
 
-    <div id="toast" class="toast">Copied!</div>
-
     <script>
-        function switchLang(lang) {
-            document.body.className = 'mode-' + lang;
-        }
-
-        function copyEmail() {
-            navigator.clipboard.writeText("Easis067@outlook.com").then(() => {
-                const t = document.getElementById('toast');
-                t.classList.add('show');
-                setTimeout(() => t.classList.remove('show'), 2000);
-            });
-        }
-
+        function switchLang(lang) { document.body.className = 'mode-' + lang; }
+        function copyEmail() { navigator.clipboard.writeText("Easis067@outlook.com"); alert("Copied!"); }
         function postNote() {
             const name = document.getElementById('guest-name').value || "Guest";
             const msg = document.getElementById('guest-msg').value;
