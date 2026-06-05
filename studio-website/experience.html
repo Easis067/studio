@@ -6,115 +6,93 @@
     <title>EASIS | EXPERIENCE</title>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesque:wght@500;700;900&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --white: #F9F9F9;
-            --black: #111111;
-            --fluo-yellow: #00E1D9;
-        }
-
-        body {
-            background-color: var(--fluo-yellow); /* 页面主色调改为荧光绿 */
-            color: var(--black);
-            margin: 0;
-            font-family: "Space Grotesque", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            padding-top: 140px; /* 避开固定导航栏 */
-        }
-
+        :root { --white: #F9F9F9; --black: #111111; --fluo-yellow: #00E1D9; }
+        body { background-color: var(--white); color: var(--black); margin: 0; font-family: "Space Grotesque", sans-serif; padding-top: 150px; }
         .lang-zh.hidden, .lang-en.hidden { display: none !important; }
 
-        /* 复用首页导航栏样式 */
-        .global-nav { display: flex; justify-content: space-between; align-items: center; padding: 30px 100px; position: fixed; width: 100%; top: 0; z-index: 1001; box-sizing: border-box; border-bottom: 1.5px solid var(--black); background-color: var(--fluo-yellow); }
-        .nav-logo a { font-size: 2rem; font-weight: 900; text-decoration: none; color: var(--black); letter-spacing: -0.03em; }
-        .nav-links { display: flex; list-style: none; gap: 30px; margin: 0; padding: 0; }
-        .nav-links > li > a { text-decoration: none; color: var(--black); font-size: 1.05rem; font-weight: 700; text-transform: uppercase; padding: 6px 16px; border: 1.5px solid var(--black); display: inline-block; transition: 0.2s; }
-        
-        .main-content { padding: 0 100px 100px 100px; }
-        .page-title { font-size: 5rem; font-weight: 900; margin-bottom: 50px; text-transform: uppercase; letter-spacing: -0.03em; }
-        
-        /* 布局网格 */
-        .experience-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; margin-bottom: 80px; }
-        .section-header { font-size: 1.5rem; font-weight: 900; border-bottom: 2px solid var(--black); margin-bottom: 25px; padding-bottom: 10px; text-transform: uppercase; }
-        .item { margin-bottom: 35px; }
-        .item h3 { margin: 0 0 5px 0; font-size: 1.3rem; }
-        .item p { margin: 0 0 10px 0; font-weight: 700; opacity: 0.8; }
-        
-        /* 按钮样式 */
-        .project-link-btn { display: inline-block; padding: 15px 30px; background: var(--black); color: var(--fluo-yellow); text-decoration: none; font-weight: 900; font-size: 1.1rem; text-transform: uppercase; border: 1.5px solid var(--black); box-shadow: 4px 4px 0 var(--black); transition: 0.2s; }
-        .project-link-btn:hover { background: transparent; color: var(--black); transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--black); }
+        /* 导航栏 */
+        .global-nav { display: flex; justify-content: space-between; align-items: center; padding: 30px 100px; position: fixed; width: 100%; top: 0; z-index: 1001; border-bottom: 1.5px solid var(--black); background: var(--white); box-sizing: border-box; }
+        .nav-logo a { font-size: 2rem; font-weight: 900; text-decoration: none; color: var(--black); }
+        .nav-links { display: flex; list-style: none; gap: 30px; }
+        .nav-links > li > a { text-decoration: none; color: var(--black); font-weight: 700; text-transform: uppercase; padding: 6px 16px; border: 1.5px solid var(--black); }
 
-        .bottom-section { border-top: 1.5px solid var(--black); padding-top: 40px; }
-        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
+        /* 内容区 */
+        .main-container { padding: 0 100px; }
+        .btn-projects { display: inline-block; background: var(--fluo-yellow); color: var(--black); padding: 15px 30px; font-weight: 900; border: 1.5px solid var(--black); box-shadow: 4px 4px 0 var(--black); text-decoration: none; margin-bottom: 50px; }
         
-        @media (max-width: 900px) {
-            .global-nav { padding: 20px 40px; }
-            .main-content { padding: 40px; }
-            .experience-grid, .grid-3 { grid-template-columns: 1fr; }
-        }
+        /* 时间轴样式 */
+        .experience-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; }
+        .section-header { font-weight: 900; border-bottom: 3px solid var(--fluo-yellow); padding-bottom: 10px; margin-bottom: 30px; display: inline-block; }
+        .timeline-item { position: relative; padding-left: 20px; margin-bottom: 40px; border-left: 2px solid var(--fluo-yellow); }
+        .timeline-item::before { content: ''; position: absolute; left: -6px; top: 0; width: 10px; height: 10px; background: var(--fluo-yellow); border-radius: 50%; }
+        
+        .bottom-section { border-top: 1.5px solid var(--black); margin-top: 60px; padding-top: 40px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
+        
+        /* 语言切换 */
+        .lang-switch { border: 1.5px solid var(--black); display: flex; padding: 2px; }
+        .lang-switch span { padding: 4px 12px; cursor: pointer; font-weight: 700; }
+        .lang-switch .active { background: var(--fluo-yellow); }
     </style>
 </head>
 <body>
 
     <nav class="global-nav">
         <div class="nav-logo"><a href="index.html">EASIS</a></div>
-        <ul class="nav-links">
-            <li><a href="project/projects.html">Projects</a></li>
-            <li><a href="experience.html" style="background: var(--black); color: var(--fluo-yellow);">Experience</a></li>
-        </ul>
+        <div style="display: flex; align-items: center; gap: 20px;">
+            <ul class="nav-links">
+                <li><a href="project/projects.html">Work</a></li>
+                <li><a href="experience.html" style="background: var(--fluo-yellow);">Experience</a></li>
+            </ul>
+            <div class="lang-switch">
+                <span id="btn-en" onclick="setLanguage('en')" class="active">EN</span>
+                <span id="btn-zh" onclick="setLanguage('zh')">中文</span>
+            </div>
+        </div>
     </nav>
 
-    <main class="main-content">
-        <h1 class="page-title">
-            <span class="lang-en">Experience</span><span class="lang-zh hidden">工作经历</span>
-        </h1>
+    <main class="main-container">
+        <h1 class="page-title"><span class="lang-en">Experience</span><span class="lang-zh hidden">工作经历</span></h1>
+        <a href="project/projects.html" class="btn-projects"><span class="lang-en">VIEW PROJECTS →</span><span class="lang-zh hidden">查看项目 →</span></a>
 
         <div class="experience-grid">
             <div>
-                <div class="section-header">Professional Work</div>
-                <div class="item">
+                <div class="section-header"><span class="lang-en">Professional Work</span><span class="lang-zh hidden">专业工作</span></div>
+                <div class="timeline-item">
                     <h3>KYC Analyst</h3>
-                    <p>Company Name | Date</p>
-                    <small>详细内容：负责客户身份识别流程，风险评估及合规文档审核。</small>
+                    <p><span class="lang-en">Risk assessment & compliance.</span><span class="lang-zh hidden">风险评估与合规审查。</span></p>
                 </div>
-                <div class="item">
+                <div class="timeline-item">
                     <h3>Compliance Assistant</h3>
-                    <p>Company Name | Date</p>
-                    <small>详细内容：协助合规部门进行政策更新监测与内部流程审计。</small>
+                    <p><span class="lang-en">Policy audit & monitoring.</span><span class="lang-zh hidden">政策审计与流程监控。</span></p>
                 </div>
             </div>
             <div>
-                <div class="section-header">Social Engagement</div>
-                <div class="item">
+                <div class="section-header"><span class="lang-en">Social Engagement</span><span class="lang-zh hidden">社会实践</span></div>
+                <div class="timeline-item">
                     <h3>Event Organizer</h3>
-                    <p>Organization | Date</p>
-                    <small>详细内容：策划并主办活动，负责协调人员、物料与现场执行。</small>
+                    <p><span class="lang-en">Event planning & execution.</span><span class="lang-zh hidden">活动策划与执行。</span></p>
                 </div>
-                <div class="item">
+                <div class="timeline-item">
                     <h3>Volunteer</h3>
-                    <p>NGO/Event | Date</p>
-                    <small>详细内容：积极参与志愿者服务，提供现场支持与沟通协助。</small>
+                    <p><span class="lang-en">Community service.</span><span class="lang-zh hidden">社区志愿服务。</span></p>
                 </div>
             </div>
         </div>
 
-        <div class="bottom-section grid-3">
-            <div>
-                <div class="section-header">Education</div>
-                <p>University Name<br>Degree Name | Year</p>
-            </div>
-            <div>
-                <div class="section-header">Awards</div>
-                <p>• Award Name 2025<br>• Scholarship 2024</p>
-            </div>
-            <div>
-                <div class="section-header">Skills</div>
-                <p>KYC/AML Compliance, Project Management, Event Planning, Data Analysis</p>
-            </div>
-        </div>
-
-        <div style="margin-top: 60px;">
-            <a href="project/projects.html" class="project-link-btn">View Projects →</a>
+        <div class="bottom-section">
+            <div><div class="section-header">Education</div><p><strong>University</strong><br>Degree</p></div>
+            <div><div class="section-header">Awards</div><p>• Excellence Award</p></div>
+            <div><div class="section-header">Skills</div><p>KYC/AML, Compliance</p></div>
         </div>
     </main>
 
+    <script>
+        function setLanguage(lang) {
+            document.querySelectorAll('.lang-en').forEach(el => lang === 'zh' ? el.classList.add('hidden') : el.classList.remove('hidden'));
+            document.querySelectorAll('.lang-zh').forEach(el => lang === 'zh' ? el.classList.remove('hidden') : el.classList.add('hidden'));
+            document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+            document.getElementById('btn-zh').classList.toggle('active', lang === 'zh');
+        }
+    </script>
 </body>
 </html>
