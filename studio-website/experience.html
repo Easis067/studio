@@ -3,68 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EASIS | ABOUT</title>
+    <title>EASIS | EXPERIENCE</title>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesque:wght@500;700;900&display=swap" rel="stylesheet">
     <style>
-        :root { --white: #F9F9F9; --black: #111111; --accent-blue: #00E1D9; }
+        /* 复用你首页的全部核心样式，确保视觉统一 */
+        :root { --white: #F9F9F9; --black: #111111; --fluo-yellow: #00E1D9; }
         body { background-color: var(--white); color: var(--black); margin: 0; font-family: "Space Grotesque", sans-serif; }
-
-        /* 导航栏 */
-        .global-nav { display: flex; justify-content: space-between; align-items: center; padding: 30px 100px; border-bottom: 1.5px solid var(--black); position: sticky; top: 0; background: var(--white); z-index: 1000; }
-        .nav-logo a { font-size: 2rem; font-weight: 900; text-decoration: none; color: var(--black); }
-        .nav-links { display: flex; list-style: none; gap: 30px; }
-        .nav-links a { text-decoration: none; color: var(--black); font-weight: 700; border: 1.5px solid var(--black); padding: 6px 16px; }
-        .nav-links a:hover { background: var(--accent-blue); box-shadow: 4px 4px 0 var(--black); }
-
-        /* 网格布局：左侧固定，右侧流式 */
-        .about-container { max-width: 1200px; margin: 100px auto; padding: 0 40px; display: grid; grid-template-columns: 250px 1fr; gap: 80px; align-items: start; }
         
-        .about-title { font-size: 5rem; font-weight: 900; margin: 0; text-transform: uppercase; position: sticky; top: 150px; }
-        .about-title::after { content: ''; display: block; width: 60px; height: 10px; background: var(--accent-blue); margin-top: 10px; }
-
-        .label { font-size: 0.85rem; font-weight: 900; opacity: 0.4; margin-bottom: 20px; display: block; }
-        .intro-text { font-size: 1.45rem; line-height: 1.7; font-weight: 500; margin-bottom: 60px; }
-
-        .contact-box { display: inline-flex; align-items: center; justify-content: space-between; cursor: pointer; padding: 20px; border: 1.5px solid var(--black); font-weight: 700; width: 100%; box-sizing: border-box; }
-        .contact-box:hover { background: var(--accent-blue); transform: translateX(6px); }
-
-        .note-input { background: var(--accent-blue); padding: 20px; border: 1.5px solid var(--black); margin-bottom: 20px; }
-        textarea { width: 100%; border: none; border-bottom: 1.5px solid var(--black); background: transparent; padding: 5px; font-family: inherit; font-weight: 700; }
-        button { background: var(--black); color: white; padding: 10px 20px; border: none; font-weight: 900; cursor: pointer; }
+        .global-nav { display: flex; justify-content: space-between; align-items: center; padding: 30px 100px; border-bottom: 1.5px solid var(--black); }
+        .nav-logo a { font-size: 2rem; font-weight: 900; text-decoration: none; color: var(--black); }
+        
+        /* 经历页面的内容布局 */
+        .content-wrapper { max-width: 900px; margin: 150px auto; padding: 0 40px; }
+        .page-title { font-size: 6rem; font-weight: 900; text-transform: uppercase; margin-bottom: 80px; }
+        
+        .exp-section { margin-bottom: 60px; }
+        .exp-label { font-size: 0.9rem; font-weight: 900; opacity: 0.5; text-transform: uppercase; margin-bottom: 30px; display: block; }
+        .item { border-left: 2px solid var(--black); padding-left: 30px; margin-bottom: 50px; }
+        .title { font-size: 1.6rem; font-weight: 900; }
+        .meta { font-weight: 700; opacity: 0.7; margin: 5px 0 10px 0; }
     </style>
 </head>
 <body>
 
     <nav class="global-nav">
         <div class="nav-logo"><a href="index.html">EASIS</a></div>
-        <ul class="nav-links">
-            <li><a href="works.html">WORK</a></li>
-            <li><a href="notebook.html">LOGS</a></li>
-            <li><a href="about.html">ABOUT</a></li>
-            <li><a href="experience.html">EXPERIENCE</a></li> </ul>
-        <div style="border:1.5px solid #111; padding: 5px 10px; cursor:pointer;" onclick="alert('Switch Lang')">EN / 中文</div>
+        <a href="index.html" style="font-weight:700; color:#111; text-decoration:none; border:1.5px solid #111; padding:5px 15px;">BACK</a>
     </nav>
 
-    <main class="about-container">
-        <h1 class="about-title">About</h1>
+    <main class="content-wrapper">
+        <h1 class="page-title">Experience</h1>
 
-        <section>
-            <span class="label">Hello</span>
-            <p class="intro-text">
-                Easis. Here lie reflections on economics and innovation, alongside cities and journeys through my lens, notes in the margins of books, echoes after the theater curtain falls, and those quiet minutes spent standing before an exhibition. Backpack on, hitting the road as an observer of the world.
-            </p>
+        <section class="exp-section">
+            <span class="exp-label">Work Experience</span>
+            <div class="item">
+                <div class="title">Lead Researcher</div>
+                <div class="meta">Company Name | 2024 - Present</div>
+                <p>这里填入你的工作内容描述。</p>
+            </div>
+            <div class="item">
+                <div class="title">Project Manager</div>
+                <div class="meta">Organization | 2021 - 2023</div>
+                <p>这里填入你的工作内容描述。</p>
+            </div>
+        </section>
 
-            <span class="label">Connect</span>
-            <div class="contact-box" onclick="alert('Copied!')">Easis067@outlook.com 📋</div>
-
-            <section style="margin-top: 80px;">
-                <span class="label">Guestbook</span>
-                <div class="note-input">
-                    <textarea id="guest-msg" placeholder="Leave a note here..."></textarea>
-                    <button onclick="post()">Pin it</button>
-                </div>
-                <div id="wall"></div>
-            </section>
+        <section class="exp-section">
+            <span class="exp-label">Education</span>
+            <div class="item">
+                <div class="title">Master of Economics</div>
+                <div class="meta">University Name | 2019 - 2021</div>
+            </div>
         </section>
     </main>
 </body>
