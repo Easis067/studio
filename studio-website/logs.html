@@ -9,31 +9,47 @@
         :root { 
             --white: #F9F9F9; 
             --black: #111111; 
-            --forest-green: #2D5A27;
+            --fluo-yellow: #00E1D9; /* 你的主配色 */
+            --accent-purple: #7B61FF; /* 新增：体系内和谐色 */
         }
         body { background-color: var(--white); color: var(--black); margin: 0; font-family: "Space Grotesque", sans-serif; padding-top: 150px; }
 
         .global-nav { display: flex; justify-content: space-between; align-items: center; padding: 30px 100px; position: fixed; width: 100%; top: 0; z-index: 1001; border-bottom: 1.5px solid var(--black); background: var(--white); box-sizing: border-box; }
         .nav-logo a { font-size: 2rem; font-weight: 900; text-decoration: none; color: var(--black); }
         .nav-links { display: flex; list-style: none; gap: 30px; align-items: center; }
-        .nav-links > li > a { text-decoration: none; color: var(--black); font-weight: 700; text-transform: uppercase; padding: 6px 16px; border: 1.5px solid var(--black); }
+        .nav-links > li > a { text-decoration: none; color: var(--black); font-weight: 700; text-transform: uppercase; padding: 6px 16px; border: 1.5px solid var(--black); transition: 0.2s; }
         
+        /* 导航激活：使用新的 accent-purple */
+        .nav-links > li > a.active-link { background: var(--accent-purple); color: white; border-color: var(--accent-purple); }
+        .nav-links > li > a:hover { background: var(--accent-purple); color: white; box-shadow: 4px 4px 0 var(--black); border-color: var(--accent-purple); }
+
         .lang-switch { border: 1.5px solid var(--black); display: flex; padding: 2px; }
         .lang-switch span { padding: 4px 12px; cursor: pointer; font-weight: 700; font-size: 0.9rem; }
-        .lang-switch .active { background: var(--forest-green); color: white; }
+        .lang-switch .active { background: var(--accent-purple); color: white; }
         .lang-zh.hidden, .lang-en.hidden { display: none !important; }
 
         .main-container { padding: 0 100px 100px 100px; }
         
-        /* 四大分区大方块 */
-        .logs-menu-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-bottom: 80px; }
-        .menu-card { border: 1.5px solid var(--black); padding: 40px; text-decoration: none; color: var(--black); transition: 0.3s; display: block; }
-        .menu-card:hover { background: var(--forest-green); color: white; transform: translateY(-5px); box-shadow: 10px 10px 0 var(--black); }
-        .menu-card h2 { margin: 0; font-size: 2.5rem; text-transform: uppercase; }
-
-        .logs-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px; }
-        .log-card { border: 1.5px solid var(--black); padding: 20px; }
-        .category-tag { font-size: 0.7rem; font-weight: 900; color: var(--forest-green); text-transform: uppercase; }
+        /* 四大分区：极光体系的扩展 */
+        .logs-menu-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+        .menu-card { 
+            border: 1.5px solid var(--black); 
+            padding: 40px; 
+            text-decoration: none; 
+            color: var(--black); 
+            transition: 0.2s; 
+            display: block; 
+            box-shadow: 4px 4px 0 var(--black);
+        }
+        .menu-card:hover { 
+            background: var(--accent-purple); 
+            color: white;
+            transform: translate(-2px, -2px); 
+            box-shadow: 6px 6px 0 var(--black); 
+            border-color: var(--accent-purple);
+        }
+        .menu-card h2 { margin: 0 0 10px 0; font-size: 2.5rem; text-transform: uppercase; }
+        .menu-card p { margin: 0; font-weight: 600; opacity: 0.7; }
     </style>
 </head>
 <body>
@@ -42,7 +58,8 @@
         <div class="nav-logo"><a href="index.html">EASIS</a></div>
         <ul class="nav-links">
             <li><a href="project/projects.html">Work</a></li>
-            <li><a href="logs.html" style="background: var(--forest-green); color: white;">Logs</a></li>
+            <li><a href="logs.html" class="active-link">Logs</a></li>
+            <li><a href="about.html">About Me</a></li>
             <li>
                 <div class="lang-switch">
                     <span id="btn-en" onclick="setLanguage('en')" class="active">EN</span>
@@ -53,12 +70,8 @@
     </nav>
 
     <main class="main-container">
-        <h1>
-            <span class="lang-en">LOGS / ARCHIVE</span>
-            <span class="lang-zh hidden">记录 / 档案</span>
-        </h1>
+        <h1 style="font-size: 3rem; margin-bottom: 50px; letter-spacing: -0.05em;">LOGS</h1>
         
-        <!-- 大方块分类入口 -->
         <div class="logs-menu-grid">
             <a href="#" class="menu-card">
                 <h2>Words</h2>
@@ -66,7 +79,7 @@
             </a>
             <a href="#" class="menu-card">
                 <h2>Culture</h2>
-                <p><span class="lang-en">Arts, Exhibitions & Ideas</span><span class="lang-zh hidden">文化、艺术与展览笔记</span></p>
+                <p><span class="lang-en">Arts & Exhibitions</span><span class="lang-zh hidden">文化、艺术与展览笔记</span></p>
             </a>
             <a href="#" class="menu-card">
                 <h2>Snap</h2>
@@ -76,14 +89,6 @@
                 <h2>Daily Bites</h2>
                 <p><span class="lang-en">Food & Daily Life</span><span class="lang-zh hidden">饮食与生活碎片</span></p>
             </a>
-        </div>
-
-        <div class="logs-grid">
-            <article class="log-card">
-                <span class="category-tag">Words</span>
-                <h3>关于经济与创新的深度反思</h3>
-                <p>2026.06.01</p>
-            </article>
         </div>
     </main>
 
