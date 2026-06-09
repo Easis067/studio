@@ -21,8 +21,9 @@
         .experience-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; margin-bottom: 60px; }
         .section-header { font-weight: 900; font-size: 1.5rem; margin-bottom: 30px; text-transform: uppercase; border-left: 5px solid var(--fluo-yellow); padding-left: 15px; }
         
-        .timeline-item { position: relative; padding-left: 20px; margin-bottom: 40px; border-left: 2px solid var(--fluo-yellow); }
+        .timeline-item { position: relative; padding-left: 20px; margin-bottom: 30px; border-left: 2px solid var(--fluo-yellow); }
         .timeline-item::before { content: ''; position: absolute; left: -6px; top: 0; width: 10px; height: 10px; background: var(--fluo-yellow); border-radius: 50%; }
+        .timeline-item ul { padding-left: 20px; margin: 10px 0; font-size: 0.9rem; opacity: 0.85; }
         
         .project-link-box { margin-top: 50px; border-top: 2px solid var(--black); padding-top: 50px; }
         .btn-projects { display: inline-block; background: var(--fluo-yellow); color: var(--black); padding: 15px 30px; font-weight: 900; border: 1.5px solid var(--black); box-shadow: 4px 4px 0 var(--black); text-decoration: none; text-transform: uppercase; }
@@ -30,7 +31,6 @@
         .lang-switch { border: 1.5px solid var(--black); display: flex; padding: 2px; }
         .lang-switch span { padding: 4px 12px; cursor: pointer; font-weight: 700; }
         .lang-switch .active { background: var(--fluo-yellow); }
-        h3 { margin: 5px 0; }
     </style>
 </head>
 <body>
@@ -54,34 +54,48 @@
 
         <div class="experience-grid">
             <div>
-                <div class="section-header"><span class="lang-en">Professional Work</span><span class="lang-zh hidden">专业工作</span></div>
+                <div class="section-header"><span class="lang-en">Professional Work</span><span class="lang-zh hidden">工作经历</span></div>
                 <div class="timeline-item">
-                    <h3>Compliance Intern | Lingjun Investment</h3>
-                    <p><span class="lang-en">Legal & compliance support, private fund law research.</span><span class="lang-zh hidden">支持量化私募法律与合规，私募基金法律汇编及诉讼研究[cite: 1]。</span></p>
+                    <h3><span class="lang-en">Compliance Intern | Lingjun Investment</span><span class="lang-zh hidden">合规实习生 | 灵均投资</span></h3>
+                    <ul>
+                        <li><span class="lang-en">Supported legal and compliance work for quantitative private fund managers.</span><span class="lang-zh hidden">支持量化私募管理人的法律与合规工作，编制私募基金法律汇编[cite: 1]。</span></li>
+                        <li><span class="lang-en">Researched private fund litigation, including securities misrepresentation and investor claims.</span><span class="lang-zh hidden">开展私募基金相关法律研究，涵盖证券虚假陈述诉讼及机构投资者索赔[cite: 1]。</span></li>
+                        <li><span class="lang-en">Analyzed frameworks for systematic trading strategies.</span><span class="lang-zh hidden">分析机构交易策略比较法律框架，覆盖合规咨询与法律方向[cite: 1]。</span></li>
+                    </ul>
                 </div>
                 <div class="timeline-item">
-                    <h3>Asia Affairs Assistant | Finseta plc</h3>
-                    <p><span class="lang-en">KYC/AML support, market briefing, financial translation.</span><span class="lang-zh hidden">提供KYC及客户准入支持，撰写外汇市场简报，运营文件翻译[cite: 1]。</span></p>
+                    <h3><span class="lang-en">Asia Affairs Assistant | Finseta plc</span><span class="lang-zh hidden">亚洲事务助理 | Finseta plc</span></h3>
+                    <ul>
+                        <li><span class="lang-en">Handled KYC, customer onboarding, and wealth verification (POW).</span><span class="lang-zh hidden">提供KYC及客户准入支持，审核财务信息与财富证明[cite: 1]。</span></li>
+                        <li><span class="lang-en">Wrote daily market briefings on FX and macroeconomic indicators.</span><span class="lang-zh hidden">撰写每日市场简报，总结央行动态与宏观指标[cite: 1]。</span></li>
+                        <li><span class="lang-en">Translated financial/regulatory documents for Chinese clients.</span><span class="lang-zh hidden">协助运营文件翻译，支持与中国客户的专业沟通[cite: 1]。</span></li>
+                    </ul>
                 </div>
             </div>
             <div>
                 <div class="section-header"><span class="lang-en">Social Engagement</span><span class="lang-zh hidden">社会实践</span></div>
                 <div class="timeline-item">
-                    <h3>Event Organizer | E-Sports League</h3>
-                    <p><span class="lang-en">Organized "H&H Tournament" (43 teams, 400+ participants).</span><span class="lang-zh hidden">统筹王者荣耀对抗赛，管理500人社群，策划整体宣传[cite: 1]。</span></p>
+                    <h3><span class="lang-en">Event Organizer | E-Sports League</span><span class="lang-zh hidden">活动主办负责人 | 电子竞技联赛</span></h3>
+                    <ul>
+                        <li><span class="lang-en">Organized "H&H Tournament" with 43 teams and 400+ participants.</span><span class="lang-zh hidden">组织“H&H对抗赛”，统筹43支参赛队伍，管理500+人社群[cite: 1]。</span></li>
+                        <li><span class="lang-en">Coordinated 100+ staff and generated 3M+ views on promotional content.</span><span class="lang-zh hidden">协调100+位协助人员，策划的文案与视频全网浏览量达300万人次[cite: 1]。</span></li>
+                    </ul>
                 </div>
                 <div class="timeline-item">
-                    <h3>Student Ambassador | Kaplan</h3>
-                    <p><span class="lang-en">Campus tours, public speaking, social media management.</span><span class="lang-zh hidden">接待校园参观，新生入学介绍，管理社交媒体宣传项目[cite: 1]。</span></p>
+                    <h3><span class="lang-en">Student Ambassador | Kaplan</span><span class="lang-zh hidden">学生大使 | Kaplan国际学院</span></h3>
+                    <ul>
+                        <li><span class="lang-en">Led campus tours and public speaking events.</span><span class="lang-zh hidden">负责校园参观接待、新生入学介绍及公众演讲活动[cite: 1]。</span></li>
+                        <li><span class="lang-en">Managed social media and boosted engagement.</span><span class="lang-zh hidden">管理社交媒体宣传项目，协调活动以提升招生与学生参与度[cite: 1]。</span></li>
+                    </ul>
                 </div>
             </div>
         </div>
 
-        <div class="section-header"><span class="lang-en">Education & Skills</span><span class="lang-zh hidden">教育与技能</span></div>
+        <div class="section-header"><span class="lang-en">Education & Skills</span><span class="lang-zh hidden">教育背景与技能</span></div>
         <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px;">
             <div><h3>Education</h3><p>University of Bristol (MSci)<br>Economics & Innovation[cite: 1]</p></div>
-            <div><h3>Awards</h3><p>GRE: 334<br>Literature & Architecture Enthusiast[cite: 1]</p></div>
-            <div><h3>Skills</h3><p>Python, Stata, LaTeX, MS Office<br>KYC/AML, Data Analysis[cite: 1]</p></div>
+            <div><h3>Skills</h3><p>Python, Stata, LaTeX, Excel<br>KYC/AML, Data Analysis[cite: 1]</p></div>
+            <div><h3>Language</h3><p>Chinese (Native), English (Fluent)<br>GRE: 334[cite: 1]</p></div>
         </div>
 
         <div class="project-link-box">
