@@ -1,38 +1,108 @@
-<nav class="footer-nav">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EASIS | ARCHIVE</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesque:wght@500;700;900&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --white: #F9F9F9;          
+            --periwinkle: #111111;    
+            --fluo-yellow: #00E1D9;   
+            --black: #111111;         
+        }
+
+        body {
+            background-color: var(--white);
+            color: var(--black);
+            margin: 0;
+            font-family: "Space Grotesque", sans-serif;
+            transition: background-color 4s cubic-bezier(0.4, 0, 0.2, 1), color 4s ease; 
+            overflow-x: hidden; 
+        }
+
+        body.is-active { background-color: var(--periwinkle); color: #F9F9F9; }
+        
+        .global-nav { display: flex; justify-content: space-between; align-items: center; padding: 30px 100px; position: fixed; width: 100%; top: 0; z-index: 1001; border-bottom: 1.5px solid var(--black); background-color: inherit; }
+        .nav-logo a { font-size: 2rem; font-weight: 900; text-decoration: none; color: var(--black); letter-spacing: -0.03em; }
+        
+        .nav-links { display: flex; list-style: none; gap: 30px; margin: 0; padding: 0; }
+        .nav-links > li > a { text-decoration: none; color: var(--black); font-weight: 700; text-transform: uppercase; padding: 6px 16px; border: 1.5px solid var(--black); display: inline-block; }
+        .nav-links > li > a:hover { background: var(--fluo-yellow); color: #111111; box-shadow: 4px 4px 0 var(--black); }
+
+        .hero-wrapper { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 140px 100px 60px 100px; }
+        .main-logo { font-size: 15vw; font-weight: 900; margin: 0; line-height: 0.8; color: var(--black); }
+        
+        .center-statement { margin: 30px 0 60px 0; padding: 10px 24px; background-color: var(--black); display: inline-block; width: fit-content; color: var(--white); }
+
+        /* 底部导航组 */
+        .nav-groups { display: grid; grid-template-columns: 1fr 1fr 1fr; border-top: 1.5px solid var(--black); padding-top: 40px; list-style: none; gap: 50px; }
+        .about-box-link, .group-label { display: block; border: 1.5px solid var(--black); padding: 20px; text-decoration: none; color: inherit; box-shadow: 4px 4px 0 var(--black); transition: 0.2s; }
+        .group-label { background: transparent; font-weight: 900; margin-bottom: 25px; display: inline-block; }
+        .sub-menu a { display: block; text-decoration: none; color: inherit; margin-bottom: 15px; font-weight: 600; opacity: 0.8; }
+        
+        .about-header { display: flex; justify-content: space-between; align-items: center; }
+        .motto-placeholder { font-size: 0.9rem; margin-top: 20px; color: #666; }
+        
+        .hover-effect:hover { background: var(--fluo-yellow); color: #111111; transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--black); }
+
+        .lang-zh.hidden, .lang-en.hidden { display: none !important; }
+        .lang-switch { border: 1.5px solid var(--black); display: flex; padding: 2px; }
+        .lang-switch span { padding: 4px 12px; cursor: pointer; font-weight: 700; }
+        .lang-switch .active { background: var(--fluo-yellow); color: #111111; }
+    </style>
+</head>
+<body id="dynamic-body">
+
+    <nav class="global-nav">
+        <div class="nav-logo"><a href="index.html">EASIS</a></div>
+        <ul class="nav-links">
+            <li><a href="project/projects.html">Work</a></li>
+            <li><a href="logs.html">Logs</a></li>
+            <li><a href="about.html">About Me</a></li>
+        </ul>
+        <div class="lang-switch">
+            <span id="btn-en" onclick="setLanguage('en')" class="active">EN</span>
+            <span id="btn-zh" onclick="setLanguage('zh')">中文</span>
+        </div>
+    </nav>
+
+    <main class="hero-wrapper">
+        <h1 class="main-logo">EASIS</h1>
+        <div class="center-statement">
+            <span class="lang-en">SYSTEMS / MEDIUM / ARCHIVE</span>
+            <span class="lang-zh hidden">系统 / 媒介 / 档案</span>
+        </div>
+
+        <nav class="footer-nav">
             <ul class="nav-groups">
                 <li>
-                    <a href="/about.html" class="about-box-link">
+                    <a href="about.html" class="about-box-link hover-effect">
                         <div class="about-header">
-                            <span class="about-text">
-                                <span class="lang-en">About Me</span>
-                                <span class="lang-zh hidden">关于我</span>
-                            </span>
-                            <span class="about-arrow">→</span>
-                        </div>
-                        <div class="motto-placeholder">
-                            <span class="lang-en">"Motto or personal statement placeholder..."</span>
-                            <span class="lang-zh hidden">“此处可填写你的个人座右铭或简介……”</span>
+                            <span class="lang-en">About Me</span><span class="lang-zh hidden">关于我</span>
+                            <span>→</span>
                         </div>
                     </a>
                 </li>
-
                 <li>
-                    <span class="group-label">
-                        <span class="lang-en">Work</span><span class="lang-zh hidden">工作 / 研究</span>
-                    </span>
+                    <span class="group-label">Work</span>
                     <div class="sub-menu">
-                        <a href="/project/projects.html"><span class="lang-en">Projects</span><span class="lang-zh hidden">研究项目</span></a>
-                        <a href="experience.html"><span class="lang-en">Experience</span><span class="lang-zh hidden">工作经历</span></a>
+                        <a href="project/projects.html">Projects</a>
+                        <a href="experience.html">Experience</a>
                     </div>
                 </li>
-
                 <li>
-                    <a href="logs.html" class="about-box-link" style="background: var(--black); color: var(--white); border-color: var(--black);">
+                    <a href="logs.html" class="about-box-link hover-effect" style="background: var(--black); color: var(--white);">
                         <div class="about-header">
-                            <span class="about-text" style="font-size: 1.5rem;">LOGS</span>
-                            <span class="about-arrow">→</span>
+                            <span style="font-size: 1.5rem; font-weight: 900;">LOGS</span>
+                            <span>→</span>
                         </div>
-                        <div class="motto-placeholder" style="color: #A0A0A0; font-style: normal;">
+                        <div class="motto-placeholder" style="color: #aaa;">
                             <span class="lang-en">Visuals, texts & daily records.</span>
                             <span class="lang-zh hidden">影像、文字与日常记录。</span>
                         </div>
@@ -40,3 +110,15 @@
                 </li>
             </ul>
         </nav>
+    </main>
+
+    <script>
+        function setLanguage(lang) {
+            document.querySelectorAll('.lang-en').forEach(el => lang === 'zh' ? el.classList.add('hidden') : el.classList.remove('hidden'));
+            document.querySelectorAll('.lang-zh').forEach(el => lang === 'zh' ? el.classList.remove('hidden') : el.classList.add('hidden'));
+            document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+            document.getElementById('btn-zh').classList.toggle('active', lang === 'zh');
+        }
+    </script>
+</body>
+</html>
