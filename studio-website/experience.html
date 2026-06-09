@@ -10,7 +10,6 @@
         body { background-color: var(--white); color: var(--black); margin: 0; font-family: "Space Grotesque", sans-serif; padding-top: 150px; }
         .lang-zh.hidden, .lang-en.hidden { display: none !important; }
 
-        /* 导航栏 (保持首页一致) */
         .global-nav { display: flex; justify-content: space-between; align-items: center; padding: 30px 100px; position: fixed; width: 100%; top: 0; z-index: 1001; border-bottom: 1.5px solid var(--black); background: var(--white); box-sizing: border-box; }
         .nav-logo a { font-size: 2rem; font-weight: 900; text-decoration: none; color: var(--black); }
         .nav-links { display: flex; list-style: none; gap: 30px; }
@@ -19,21 +18,19 @@
         .main-container { padding: 0 100px 100px 100px; }
         .page-title { font-size: 4rem; font-weight: 900; margin-bottom: 50px; text-transform: uppercase; }
 
-        /* 布局 */
         .experience-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; margin-bottom: 60px; }
         .section-header { font-weight: 900; font-size: 1.5rem; margin-bottom: 30px; text-transform: uppercase; border-left: 5px solid var(--fluo-yellow); padding-left: 15px; }
         
         .timeline-item { position: relative; padding-left: 20px; margin-bottom: 40px; border-left: 2px solid var(--fluo-yellow); }
         .timeline-item::before { content: ''; position: absolute; left: -6px; top: 0; width: 10px; height: 10px; background: var(--fluo-yellow); border-radius: 50%; }
         
-        /* 底部项目跳转 */
         .project-link-box { margin-top: 50px; border-top: 2px solid var(--black); padding-top: 50px; }
         .btn-projects { display: inline-block; background: var(--fluo-yellow); color: var(--black); padding: 15px 30px; font-weight: 900; border: 1.5px solid var(--black); box-shadow: 4px 4px 0 var(--black); text-decoration: none; text-transform: uppercase; }
 
-        /* 语言切换 */
         .lang-switch { border: 1.5px solid var(--black); display: flex; padding: 2px; }
         .lang-switch span { padding: 4px 12px; cursor: pointer; font-weight: 700; }
         .lang-switch .active { background: var(--fluo-yellow); }
+        h3 { margin: 5px 0; }
     </style>
 </head>
 <body>
@@ -58,22 +55,33 @@
         <div class="experience-grid">
             <div>
                 <div class="section-header"><span class="lang-en">Professional Work</span><span class="lang-zh hidden">专业工作</span></div>
-                <div class="timeline-item"><h3>KYC Analyst</h3><p>Compliance & Risk</p></div>
-                <div class="timeline-item"><h3>Compliance Assistant</h3><p>Audit & Monitoring</p></div>
+                <div class="timeline-item">
+                    <h3>Compliance Intern | Lingjun Investment</h3>
+                    <p><span class="lang-en">Legal & compliance support, private fund law research.</span><span class="lang-zh hidden">支持量化私募法律与合规，私募基金法律汇编及诉讼研究[cite: 1]。</span></p>
+                </div>
+                <div class="timeline-item">
+                    <h3>Asia Affairs Assistant | Finseta plc</h3>
+                    <p><span class="lang-en">KYC/AML support, market briefing, financial translation.</span><span class="lang-zh hidden">提供KYC及客户准入支持，撰写外汇市场简报，运营文件翻译[cite: 1]。</span></p>
+                </div>
             </div>
             <div>
                 <div class="section-header"><span class="lang-en">Social Engagement</span><span class="lang-zh hidden">社会实践</span></div>
-                <div class="timeline-item"><h3>Event Organizer</h3><p>Planning & Execution</p></div>
-                <div class="timeline-item"><h3>Volunteer</h3><p>Community Service</p></div>
+                <div class="timeline-item">
+                    <h3>Event Organizer | E-Sports League</h3>
+                    <p><span class="lang-en">Organized "H&H Tournament" (43 teams, 400+ participants).</span><span class="lang-zh hidden">统筹王者荣耀对抗赛，管理500人社群，策划整体宣传[cite: 1]。</span></p>
+                </div>
+                <div class="timeline-item">
+                    <h3>Student Ambassador | Kaplan</h3>
+                    <p><span class="lang-en">Campus tours, public speaking, social media management.</span><span class="lang-zh hidden">接待校园参观，新生入学介绍，管理社交媒体宣传项目[cite: 1]。</span></p>
+                </div>
             </div>
         </div>
 
-        <!-- 将 Education/Awards/Skills 放在最后 -->
-        <div class="section-header"><span class="lang-en">Background & Skills</span><span class="lang-zh hidden">教育与背景</span></div>
+        <div class="section-header"><span class="lang-en">Education & Skills</span><span class="lang-zh hidden">教育与技能</span></div>
         <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px;">
-            <div><h3>Education</h3><p>University Name</p></div>
-            <div><h3>Awards</h3><p>Excellence Award</p></div>
-            <div><h3>Skills</h3><p>KYC/AML, Compliance</p></div>
+            <div><h3>Education</h3><p>University of Bristol (MSci)<br>Economics & Innovation[cite: 1]</p></div>
+            <div><h3>Awards</h3><p>GRE: 334<br>Literature & Architecture Enthusiast[cite: 1]</p></div>
+            <div><h3>Skills</h3><p>Python, Stata, LaTeX, MS Office<br>KYC/AML, Data Analysis[cite: 1]</p></div>
         </div>
 
         <div class="project-link-box">
